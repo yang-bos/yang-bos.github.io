@@ -10,6 +10,8 @@
 
     <!--Description-->
     
+        <meta name="description" content="CVE _2019_07_08">
+    
 
     <!--Author-->
     
@@ -18,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="你好">
+        <meta property="og:title" content="运行环境">
     
 
     <!--Open Graph Description-->
@@ -29,7 +31,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website">
+        <meta property="og:type" content="article">
     
 
     <!--Page Cover-->
@@ -40,7 +42,7 @@
 
     <!-- Title -->
     
-    <title>CVE-2019-0708 - 你好</title>
+    <title>运行环境 - 你好</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -127,9 +129,7 @@
 <div class="container">
 
     <!-- Main Content -->
-    
-
-<div class="row">
+    <div class="row">
     <div class="col-sm-12">
 
         <!--Title and Logo-->
@@ -137,43 +137,74 @@
     <div class="logo">
         <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
         
-            <h1 id="main-title" class="title">#CVE-2019-0708</h1>
-        
     </div>
 </header>
 
-        <section class="main archive-container">
+        <section class="main">
             
-                <div class="archive-post">
-    <a href="/2019/09/07/CVE-2019-0708/">
-        <span class="archive-date">
-            Sep 2019
-        </span>
-        漏洞复现
-    </a>
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2019/09/07/运行环境/">
+                运行环境
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2019-09-07</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+            
+<div class="gallery-container">
+    
+        
+            <div class="picture-container">
+                <a href="#" data-featherlight="/-![]( http://ww1.sinaimg.cn/large/007bHQE8gy1g6rgpepwi8j31h50su4qp.jpg)">
+                    <img src="/-![]( http://ww1.sinaimg.cn/large/007bHQE8gy1g6rgpepwi8j31h50su4qp.jpg)" class="img-thumbnail" />
+                </a>
+            </div>
+        
+    
 </div>
-            
-                <div class="archive-post">
-    <a href="/2019/09/07/浏览器外挂/">
-        <span class="archive-date">
-            Sep 2019
-        </span>
-        浏览器插件/外挂
-    </a>
+        
+
+        <!-- Post Content -->
+        <h3 id="CVE-2019-07-08"><a href="#CVE-2019-07-08" class="headerlink" title="CVE _2019_07_08"></a>CVE _2019_07_08</h3><a id="more"></a>
+<p>vps、kvm、阿里云</p>
+<h1 id="运行环境"><a href="#运行环境" class="headerlink" title="运行环境"></a>运行环境</h1><p>支撑一款应用程序正常运行的容器，我们称之为运行环境<br>程序的发展历程：C-&gt;C/S-&gt;S-&gt;B/S<br>应用程序分类：<br>Client/Server：客户端-&gt;服务器，大多是基于桌面的，而且多可以独立运行，<u><strong>优点</strong></u>是稳定性强，兼容性好，访问方便.<u><strong>缺点是</strong></u>体验相对要弱一些，特别是更新时，需要重新全量安装才可以使用到新的功能。我们把这一类的应用称之为端应用<br>Browser/Server：浏览器-&gt;服务器，大多是基于网页浏览器的，而且多为网址或IP访问。<u><strong>优点</strong></u>是体验快，环境依赖小，<u><strong>缺点</strong></u>是特别需要网络环境的支持，网络决定了访问的快慢，稳定性要弱一些。我们把这一类的应用称之为页应用</p>
+<p>新型应用生态：<br>CS+BS<br>BS+CS<br>以上这些应用结构类型，要让他正常运行，我们该如何搭建环境呢？<br>B/S:要让BS应用能够正常使用，我们需要有一个Server（容器）<br>容器：需要根据技术语言的不同而使用不同容器方案。<br>JAVA-WEB:apache/nginx+ tomcat+mysql/sqlserver/oracle……<br>C#WEB:apache/nginx+IIS+.netFw+mysql/sqlserver/oracle……<br>PHP-WEB:apache/nginx+PHP+mysql/sqlserver/oracle……..</p>
+<p>ps..以上容器环境中，apache/nginx属于基础容器, mysql/sqlserver/oracle属于数据容器，tomcat/iis/php属于语言支持环境</p>
+<p>php：个人博客 -&gt;windows下<br>条件是： 一台干净的windows系统，建议采用server版，练习的话，可以用win7<br>容器环境：upupw（<a href="http://www.upupw.net）,phpstudy(www.xp.cn)，bt面板(www.bt.cn)" target="_blank" rel="noopener">www.upupw.net）,phpstudy(www.xp.cn)，bt面板(www.bt.cn)</a><br>程序：typecho(typecho.org)<br>C/S：</p>
+<h1 id="discuz是最大的论坛系统"><a href="#discuz是最大的论坛系统" class="headerlink" title="discuz是最大的论坛系统"></a>discuz是最大的论坛系统</h1><h1 id="ecshop最大的商城系统"><a href="#ecshop最大的商城系统" class="headerlink" title="ecshop最大的商城系统"></a>ecshop最大的商城系统</h1><h1 id="dedecms最大的内容管理系统"><a href="#dedecms最大的内容管理系统" class="headerlink" title="dedecms最大的内容管理系统"></a>dedecms最大的内容管理系统</h1>
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/tags/系统安全/">#系统安全</a> <a href="/tags/CVE-2019-0708/">#CVE-2019-0708</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+
 </div>
-            
-                <div class="archive-post">
-    <a href="/2019/09/07/运行环境/">
-        <span class="archive-date">
-            Sep 2019
-        </span>
-        运行环境
-    </a>
-</div>
-            
         </section>
+
     </div>
 </div>
+
 
 </div>
 
