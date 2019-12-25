@@ -6,7 +6,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>
-    运行环境 |  你好
+     你好
   </title>
   
   <link rel="shortcut icon" href="/favicon.ico">
@@ -25,25 +25,16 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-运行环境" class="article article-type-post" itemscope
+  <article id="post-Linux基本常识" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
     
-    <header class="article-header">
-       
-<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  运行环境
-</h1>
-  
-
-    </header>
-    
 
     
     <div class="article-meta">
-      <a href="/2019/09/07/运行环境/" class="article-date">
-  <time datetime="2019-09-07T03:51:44.000Z" itemprop="datePublished">2019-09-07</time>
+      <a href="/2019/12/25/Linux基本常识/" class="article-date">
+  <time datetime="2019-12-25T09:06:10.087Z" itemprop="datePublished">2019-12-25</time>
 </a>
       
     </div>
@@ -64,25 +55,99 @@
 
 
       
-  <div class="article-gallery">
-    <div class="article-gallery-photos">
-      
-        
-          <img src="/-![]( http:/ww1.sinaimg.cn/large/007bHQE8gy1g6rgpepwi8j31h50su4qp.jpg)" itemprop="image">
-        
-      
-    </div>
-  </div>
-
 
       
-      <h3 id="CVE-2019-07-08"><a href="#CVE-2019-07-08" class="headerlink" title="CVE _2019_07_08"></a>CVE _2019_07_08</h3><a id="more"></a>
-<p>vps、kvm、阿里云</p>
-<h1 id="运行环境"><a href="#运行环境" class="headerlink" title="运行环境"></a>运行环境</h1><p>支撑一款应用程序正常运行的容器，我们称之为运行环境<br>程序的发展历程：C-&gt;C/S-&gt;S-&gt;B/S<br>应用程序分类：<br>Client/Server：客户端-&gt;服务器，大多是基于桌面的，而且多可以独立运行，<u><strong>优点</strong></u>是稳定性强，兼容性好，访问方便.<u><strong>缺点是</strong></u>体验相对要弱一些，特别是更新时，需要重新全量安装才可以使用到新的功能。我们把这一类的应用称之为端应用<br>Browser/Server：浏览器-&gt;服务器，大多是基于网页浏览器的，而且多为网址或IP访问。<u><strong>优点</strong></u>是体验快，环境依赖小，<u><strong>缺点</strong></u>是特别需要网络环境的支持，网络决定了访问的快慢，稳定性要弱一些。我们把这一类的应用称之为页应用</p>
-<p>新型应用生态：<br>CS+BS<br>BS+CS<br>以上这些应用结构类型，要让他正常运行，我们该如何搭建环境呢？<br>B/S:要让BS应用能够正常使用，我们需要有一个Server（容器）<br>容器：需要根据技术语言的不同而使用不同容器方案。<br>JAVA-WEB:apache/nginx+ tomcat+mysql/sqlserver/oracle……<br>C#WEB:apache/nginx+IIS+.netFw+mysql/sqlserver/oracle……<br>PHP-WEB:apache/nginx+PHP+mysql/sqlserver/oracle……..</p>
-<p>ps..以上容器环境中，apache/nginx属于基础容器, mysql/sqlserver/oracle属于数据容器，tomcat/iis/php属于语言支持环境</p>
-<p>php：个人博客 -&gt;windows下<br>条件是： 一台干净的windows系统，建议采用server版，练习的话，可以用win7<br>容器环境：upupw（<a href="http://www.upupw.net）,phpstudy(www.xp.cn)，bt面板(www.bt.cn)" target="_blank" rel="noopener">www.upupw.net）,phpstudy(www.xp.cn)，bt面板(www.bt.cn)</a><br>程序：typecho(typecho.org)<br>C/S：</p>
-<h1 id="discuz是最大的论坛系统"><a href="#discuz是最大的论坛系统" class="headerlink" title="discuz是最大的论坛系统"></a>discuz是最大的论坛系统</h1><h1 id="ecshop最大的商城系统"><a href="#ecshop最大的商城系统" class="headerlink" title="ecshop最大的商城系统"></a>ecshop最大的商城系统</h1><h1 id="dedecms最大的内容管理系统"><a href="#dedecms最大的内容管理系统" class="headerlink" title="dedecms最大的内容管理系统"></a>dedecms最大的内容管理系统</h1>
+      <p>windows server：</p>
+<p>特点：</p>
+<ol>
+<li>单用户，多任务</li>
+<li>收费</li>
+<li>不能进行二次开发</li>
+<li>安全问题</li>
+<li>兼容性问题</li>
+</ol>
+<p>UNIX：红帽，ubantu centos  …</p>
+<p>Linux server:</p>
+<ol>
+<li>多用户，多任务</li>
+<li>安全性高</li>
+<li>开源免费</li>
+</ol>
+<p>LINUX操作</p>
+<p>1.快照：占硬盘空间</p>
+<p>2.暂停：</p>
+<p>3.内存设置</p>
+<p>4.开启虚拟化（BIOS（基本输入输出流，存放于主板上的一块芯片，叫CMOS）中设置）</p>
+<h3 id="图形界面对LINUX进行调整"><a href="#图形界面对LINUX进行调整" class="headerlink" title="图形界面对LINUX进行调整"></a>图形界面对LINUX进行调整</h3><p>1.设置让 LINUX上网</p>
+<ol>
+<li><p>​    设置网卡的连接方式：桥接</p>
+<p>​    查看IP地址：ifconfig </p>
+</li>
+<li><p>设置网卡的连接模式：NAT（VM  NAT 8）</p>
+</li>
+</ol>
+<h3 id="虚拟机故障："><a href="#虚拟机故障：" class="headerlink" title="虚拟机故障："></a>虚拟机故障：</h3><ol>
+<li><p>查看服务有没有启动：</p>
+<p>计算机管理-服务-虚拟机的相关启动类型</p>
+</li>
+</ol>
+<h3 id="基本操作："><a href="#基本操作：" class="headerlink" title="基本操作："></a>基本操作：</h3><p>dev：设备的名称文件</p>
+<p>home：普通用户</p>
+<p>root:root用户的</p>
+<p>bin/sbin:命令的程序文件</p>
+<p>etc：配置文件</p>
+<p>var:主目录，安装位置</p>
+<p>命令与命令/选项/文件/</p>
+<p>useradd 名称  //添加用户</p>
+<p>pwd:当前所在完整路径  ~代表用户目录   #为当前用户为root  $当前用户为普通用户</p>
+<p>su 用户名：切换用户</p>
+<p>cd 完整路径：切换到指定文件（/为根目录）按TAB</p>
+<p>cd ..   //返回上一级目录</p>
+<p>cd ./:表示当前路径</p>
+<p>Ctrl+l：清屏</p>
+<p>history:查看历史命令</p>
+<p>！数字：执行历史命令的第几条命令</p>
+<p>shutdown -h now //立即关机</p>
+<p>init 0:立即关机</p>
+<p>init 6：立即重启</p>
+<p>常用的shell 命令</p>
+<p>ls:查看当前目录下面文件</p>
+<p>ls /文件名：查看指定文件下的文件</p>
+<p>​    蓝色代表文件夹（目录）</p>
+<p>​    灰色代表普通文件</p>
+<p>​    红色代表压缩文件</p>
+<p>​    绿色代表可执行文件</p>
+<p>​    浅绿色代表链接文件（快捷文件）：硬链接，软连接</p>
+<p>ls -l /文件名：当前文件下文件的详细信息（文件类型（-表示普通文件，d表示文件夹，l表示链接文件，.表示隐藏文件），权限，连接文件数量，文件所有者，属组，大小，创建时间，名字）</p>
+<p>ls -a表示所有文件包括隐藏文件</p>
+<p>ls -lh ：用单位表示文件的大小</p>
+<p>ls  –help：用法</p>
+<p>通配符：</p>
+<p>？匹配文件名中的一个字符</p>
+<p>“*”表示多个字符</p>
+<p>mkdir /文件路径及文件:创建文件</p>
+<p>mkdir -p 文件路径及文件</p>
+<p>权限三位一组 (第一组为文件所有者，第二位属组权限，第三组是其他用户权限 ，.表示ACL权限)    读（r：权限值为4），写（w 权限值为2），执行(x 权限值为1)</p>
+<p>mkdir  -m  权限 文件名</p>
+<p>rmdir  -p 文件：删除空目录</p>
+<p>rm -rf 文件：删除文件</p>
+<p>cp 原文件路径  复制到的地方:复制文件</p>
+<p>cp -R 原文件路径 复制的地方：复制目录</p>
+<p>mv 原文件路径 复制的地方：移动文件</p>
+<p>touch /文件名：新建文件</p>
+<p>chmode 权限值 文件名 //修改文件的权限</p>
+<p>​                字母方式：a:所有用户 u：所有者 g：属组 o：其他                                    用户 </p>
+<p>​                chmode a = rwx AA</p>
+<p>​                chmode u-w,g-wx,o-rwx AA//表示AA文件当前权限为                540</p>
+<p>head -数字 文件名：查看文件前几行</p>
+<p>tail</p>
+<p>wc 统计行数</p>
+<p>find 范围 查找条件(-name,-type,-user,-size)</p>
+<p>grep -选项 条件 名称:查找文件中的内容</p>
+<p>​        选项：-c </p>
+<p>man find ：</p>
+<p>标准输入：0（键盘）<br>标准输出：1（屏幕）<br>错误输出：2（屏幕）</p>
+
       
       <!-- 打赏 -->
       
@@ -120,11 +185,9 @@
         
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/07/运行环境/" data-id="ck4lbb6yz000h8guevo631x54"
+      <a data-url="http://yoursite.com/2019/12/25/Linux基本常识/" data-id="ck4lbb6wo00018gueju2ulgko"
         class="article-share-link">分享</a>
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CVE-2019-0708/">CVE-2019-0708</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/系统安全/">系统安全</a></li></ul>
-
     </footer>
 
   </div>
@@ -133,15 +196,20 @@
   
   <nav class="article-nav">
     
-      <a href="/2019/09/07/CVE-2019-0708/" class="article-nav-link">
+      <a href="/2019/12/25/linux软件安装/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            漏洞复现
+            (no title)
           
         </div>
       </a>
     
+    
+      <a href="/2019/12/25/FTP服务器/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title"></div>
+      </a>
     
   </nav>
 

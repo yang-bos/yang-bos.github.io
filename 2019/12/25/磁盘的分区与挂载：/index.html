@@ -6,7 +6,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>
-    运行环境 |  你好
+     你好
   </title>
   
   <link rel="shortcut icon" href="/favicon.ico">
@@ -25,25 +25,16 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-运行环境" class="article article-type-post" itemscope
+  <article id="post-磁盘的分区与挂载：" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
     
-    <header class="article-header">
-       
-<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  运行环境
-</h1>
-  
-
-    </header>
-    
 
     
     <div class="article-meta">
-      <a href="/2019/09/07/运行环境/" class="article-date">
-  <time datetime="2019-09-07T03:51:44.000Z" itemprop="datePublished">2019-09-07</time>
+      <a href="/2019/12/25/磁盘的分区与挂载：/" class="article-date">
+  <time datetime="2019-12-25T09:06:10.102Z" itemprop="datePublished">2019-12-25</time>
 </a>
       
     </div>
@@ -64,25 +55,20 @@
 
 
       
-  <div class="article-gallery">
-    <div class="article-gallery-photos">
-      
-        
-          <img src="/-![]( http:/ww1.sinaimg.cn/large/007bHQE8gy1g6rgpepwi8j31h50su4qp.jpg)" itemprop="image">
-        
-      
-    </div>
-  </div>
-
 
       
-      <h3 id="CVE-2019-07-08"><a href="#CVE-2019-07-08" class="headerlink" title="CVE _2019_07_08"></a>CVE _2019_07_08</h3><a id="more"></a>
-<p>vps、kvm、阿里云</p>
-<h1 id="运行环境"><a href="#运行环境" class="headerlink" title="运行环境"></a>运行环境</h1><p>支撑一款应用程序正常运行的容器，我们称之为运行环境<br>程序的发展历程：C-&gt;C/S-&gt;S-&gt;B/S<br>应用程序分类：<br>Client/Server：客户端-&gt;服务器，大多是基于桌面的，而且多可以独立运行，<u><strong>优点</strong></u>是稳定性强，兼容性好，访问方便.<u><strong>缺点是</strong></u>体验相对要弱一些，特别是更新时，需要重新全量安装才可以使用到新的功能。我们把这一类的应用称之为端应用<br>Browser/Server：浏览器-&gt;服务器，大多是基于网页浏览器的，而且多为网址或IP访问。<u><strong>优点</strong></u>是体验快，环境依赖小，<u><strong>缺点</strong></u>是特别需要网络环境的支持，网络决定了访问的快慢，稳定性要弱一些。我们把这一类的应用称之为页应用</p>
-<p>新型应用生态：<br>CS+BS<br>BS+CS<br>以上这些应用结构类型，要让他正常运行，我们该如何搭建环境呢？<br>B/S:要让BS应用能够正常使用，我们需要有一个Server（容器）<br>容器：需要根据技术语言的不同而使用不同容器方案。<br>JAVA-WEB:apache/nginx+ tomcat+mysql/sqlserver/oracle……<br>C#WEB:apache/nginx+IIS+.netFw+mysql/sqlserver/oracle……<br>PHP-WEB:apache/nginx+PHP+mysql/sqlserver/oracle……..</p>
-<p>ps..以上容器环境中，apache/nginx属于基础容器, mysql/sqlserver/oracle属于数据容器，tomcat/iis/php属于语言支持环境</p>
-<p>php：个人博客 -&gt;windows下<br>条件是： 一台干净的windows系统，建议采用server版，练习的话，可以用win7<br>容器环境：upupw（<a href="http://www.upupw.net）,phpstudy(www.xp.cn)，bt面板(www.bt.cn)" target="_blank" rel="noopener">www.upupw.net）,phpstudy(www.xp.cn)，bt面板(www.bt.cn)</a><br>程序：typecho(typecho.org)<br>C/S：</p>
-<h1 id="discuz是最大的论坛系统"><a href="#discuz是最大的论坛系统" class="headerlink" title="discuz是最大的论坛系统"></a>discuz是最大的论坛系统</h1><h1 id="ecshop最大的商城系统"><a href="#ecshop最大的商城系统" class="headerlink" title="ecshop最大的商城系统"></a>ecshop最大的商城系统</h1><h1 id="dedecms最大的内容管理系统"><a href="#dedecms最大的内容管理系统" class="headerlink" title="dedecms最大的内容管理系统"></a>dedecms最大的内容管理系统</h1>
+      <h1 id="磁盘的分区与挂载："><a href="#磁盘的分区与挂载：" class="headerlink" title="磁盘的分区与挂载："></a>磁盘的分区与挂载：</h1><p>1.磁盘在linux系统中的表示方法<br>  IDE硬盘：hda1 hda2 hdb1 hdc1 ……<br>  SATA硬盘/SCSI/USB接口的移动盘：sda1 sda2 sdb1</p>
+<p>2.硬盘分区：<br>  主分区        最多只能分4个，是可以直接使用，主要用于系统盘。编号为1-4<br>  扩展分区   不能直接使用，必须有主分区后才能将所有剩余空间分为扩展分区，可以建立逻辑分区。1-4，除主分区外。<br>  逻辑分区  可以直接使用，编号从5开始，不能作为系统引导盘。</p>
+<p>3.磁盘分区的格式：windows系统中的格式有</p>
+<ul>
+<li>fat fat16 fat32  文件的大小会受到限制，安全性能不高。</li>
+<li>NTFS   支持大容量分区，支持NTFS权限设置，安全性能较高</li>
+</ul>
+<p>linux系统中的常用格式有 ext2 ext3 ext4</p>
+<p>4.挂载</p>
+<p>5.磁盘分区：<br>   步骤一：向linux服务器添加一块硬盘，并重启系统。<br>   步骤二：使用命令查看系统当中的硬盘及其分区信息<br>          ls /dev/sd*  查看/dev目录下的硬盘文件<br>          fdisk -l   查看硬盘分区的信息<br>   步骤三：对磁盘进行分区<br>          fdisk 磁盘文件名<br>          fdisk /Dev/sdb  对sdb这块磁盘进行分区<br>   步骤四：格式化磁盘分区<br>        mkfs -t 分区格式 分区名称<br>        mkfs -t ext4 /dev/sdb1</p>
+<p> 步骤五：挂载分区<br>           mount -t 分区格式 设备名称  空目录名称<br>           mount -t ext4 /dev/sdb1 /mnt/sdb1<br>           mount -t ext4 -o rw /dev/sdb1 /mnt/sdb1<br>           检查是否挂载成功：mount<br>           取消挂载：umount 挂载目录的名称 （不能在挂载目录下进行）<br>           查看已挂载分区的信息：df -hT /mnt/sdb1<br>           使用mount命令挂载的文件系统，只是临时的，如果系统重启则需要重新挂载。<br>   步骤六：可以使用/etc/fstab文件对文件系统进行永久挂载。（mount -a）<br>   步骤七：挂载光盘（光盘的设备文件名为：/dev/sr0,文件系统的类型为：iso9660)<br>           mount -t iso9660 /dev/sr0 /mnt/cdrom<br>   步骤八：挂载U盘</p>
+
       
       <!-- 打赏 -->
       
@@ -120,11 +106,9 @@
         
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/09/07/运行环境/" data-id="ck4lbb6yz000h8guevo631x54"
+      <a data-url="http://yoursite.com/2019/12/25/磁盘的分区与挂载：/" data-id="ck4lbb708000i8guevqj899us"
         class="article-share-link">分享</a>
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CVE-2019-0708/">CVE-2019-0708</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/系统安全/">系统安全</a></li></ul>
-
     </footer>
 
   </div>
@@ -133,15 +117,11 @@
   
   <nav class="article-nav">
     
-      <a href="/2019/09/07/CVE-2019-0708/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            漏洞复现
-          
-        </div>
-      </a>
     
+      <a href="/2019/12/25/linux用户与用户组/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title"></div>
+      </a>
     
   </nav>
 
