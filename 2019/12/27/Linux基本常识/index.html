@@ -6,7 +6,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>
-     你好
+    linux基本常识 |  你好
   </title>
   
   <link rel="shortcut icon" href="/favicon.ico">
@@ -25,16 +25,25 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-磁盘的分区与挂载：" class="article article-type-post" itemscope
+  <article id="post-Linux基本常识" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
     
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  linux基本常识
+</h1>
+  
+
+    </header>
+    
 
     
     <div class="article-meta">
-      <a href="/2019/12/25/磁盘的分区与挂载：/" class="article-date">
-  <time datetime="2019-12-25T09:06:10.102Z" itemprop="datePublished">2019-12-25</time>
+      <a href="/2019/12/27/Linux基本常识/" class="article-date">
+  <time datetime="2019-12-27T00:35:02.000Z" itemprop="datePublished">2019-12-27</time>
 </a>
       
     </div>
@@ -57,17 +66,98 @@
       
 
       
-      <h1 id="磁盘的分区与挂载："><a href="#磁盘的分区与挂载：" class="headerlink" title="磁盘的分区与挂载："></a>磁盘的分区与挂载：</h1><p>1.磁盘在linux系统中的表示方法<br>  IDE硬盘：hda1 hda2 hdb1 hdc1 ……<br>  SATA硬盘/SCSI/USB接口的移动盘：sda1 sda2 sdb1</p>
-<p>2.硬盘分区：<br>  主分区        最多只能分4个，是可以直接使用，主要用于系统盘。编号为1-4<br>  扩展分区   不能直接使用，必须有主分区后才能将所有剩余空间分为扩展分区，可以建立逻辑分区。1-4，除主分区外。<br>  逻辑分区  可以直接使用，编号从5开始，不能作为系统引导盘。</p>
-<p>3.磁盘分区的格式：windows系统中的格式有</p>
-<ul>
-<li>fat fat16 fat32  文件的大小会受到限制，安全性能不高。</li>
-<li>NTFS   支持大容量分区，支持NTFS权限设置，安全性能较高</li>
-</ul>
-<p>linux系统中的常用格式有 ext2 ext3 ext4</p>
-<p>4.挂载</p>
-<p>5.磁盘分区：<br>   步骤一：向linux服务器添加一块硬盘，并重启系统。<br>   步骤二：使用命令查看系统当中的硬盘及其分区信息<br>          ls /dev/sd*  查看/dev目录下的硬盘文件<br>          fdisk -l   查看硬盘分区的信息<br>   步骤三：对磁盘进行分区<br>          fdisk 磁盘文件名<br>          fdisk /Dev/sdb  对sdb这块磁盘进行分区<br>   步骤四：格式化磁盘分区<br>        mkfs -t 分区格式 分区名称<br>        mkfs -t ext4 /dev/sdb1</p>
-<p> 步骤五：挂载分区<br>           mount -t 分区格式 设备名称  空目录名称<br>           mount -t ext4 /dev/sdb1 /mnt/sdb1<br>           mount -t ext4 -o rw /dev/sdb1 /mnt/sdb1<br>           检查是否挂载成功：mount<br>           取消挂载：umount 挂载目录的名称 （不能在挂载目录下进行）<br>           查看已挂载分区的信息：df -hT /mnt/sdb1<br>           使用mount命令挂载的文件系统，只是临时的，如果系统重启则需要重新挂载。<br>   步骤六：可以使用/etc/fstab文件对文件系统进行永久挂载。（mount -a）<br>   步骤七：挂载光盘（光盘的设备文件名为：/dev/sr0,文件系统的类型为：iso9660)<br>           mount -t iso9660 /dev/sr0 /mnt/cdrom<br>   步骤八：挂载U盘</p>
+      <h3 id="CVE-2019-07-08"><a href="#CVE-2019-07-08" class="headerlink" title="CVE _2019_07_08"></a>CVE _2019_07_08</h3><a id="more"></a>
+
+<p>windows server：</p>
+<p>特点：</p>
+<ol>
+<li>单用户，多任务</li>
+<li>收费</li>
+<li>不能进行二次开发</li>
+<li>安全问题</li>
+<li>兼容性问题</li>
+</ol>
+<p>UNIX：红帽，ubantu centos  …</p>
+<p>Linux server:</p>
+<ol>
+<li>多用户，多任务</li>
+<li>安全性高</li>
+<li>开源免费</li>
+</ol>
+<p>LINUX操作</p>
+<p>1.快照：占硬盘空间</p>
+<p>2.暂停：</p>
+<p>3.内存设置</p>
+<p>4.开启虚拟化（BIOS（基本输入输出流，存放于主板上的一块芯片，叫CMOS）中设置）</p>
+<h3 id="图形界面对LINUX进行调整"><a href="#图形界面对LINUX进行调整" class="headerlink" title="图形界面对LINUX进行调整"></a>图形界面对LINUX进行调整</h3><p>1.设置让 LINUX上网</p>
+<ol>
+<li><p>​    设置网卡的连接方式：桥接</p>
+<p>​    查看IP地址：ifconfig </p>
+</li>
+<li><p>设置网卡的连接模式：NAT（VM  NAT 8）</p>
+</li>
+</ol>
+<h3 id="虚拟机故障："><a href="#虚拟机故障：" class="headerlink" title="虚拟机故障："></a>虚拟机故障：</h3><ol>
+<li><p>查看服务有没有启动：</p>
+<p>计算机管理-服务-虚拟机的相关启动类型</p>
+</li>
+</ol>
+<h3 id="基本操作："><a href="#基本操作：" class="headerlink" title="基本操作："></a>基本操作：</h3><p>dev：设备的名称文件</p>
+<p>home：普通用户</p>
+<p>root:root用户的</p>
+<p>bin/sbin:命令的程序文件</p>
+<p>etc：配置文件</p>
+<p>var:主目录，安装位置</p>
+<p>命令与命令/选项/文件/</p>
+<p>useradd 名称  //添加用户</p>
+<p>pwd:当前所在完整路径  ~代表用户目录   #为当前用户为root  $当前用户为普通用户</p>
+<p>su 用户名：切换用户</p>
+<p>cd 完整路径：切换到指定文件（/为根目录）按TAB</p>
+<p>cd ..   //返回上一级目录</p>
+<p>cd ./:表示当前路径</p>
+<p>Ctrl+l：清屏</p>
+<p>history:查看历史命令</p>
+<p>！数字：执行历史命令的第几条命令</p>
+<p>shutdown -h now //立即关机</p>
+<p>init 0:立即关机</p>
+<p>init 6：立即重启</p>
+<p>常用的shell 命令</p>
+<p>ls:查看当前目录下面文件</p>
+<p>ls /文件名：查看指定文件下的文件</p>
+<p>​    蓝色代表文件夹（目录）</p>
+<p>​    灰色代表普通文件</p>
+<p>​    红色代表压缩文件</p>
+<p>​    绿色代表可执行文件</p>
+<p>​    浅绿色代表链接文件（快捷文件）：硬链接，软连接</p>
+<p>ls -l /文件名：当前文件下文件的详细信息（文件类型（-表示普通文件，d表示文件夹，l表示链接文件，.表示隐藏文件），权限，连接文件数量，文件所有者，属组，大小，创建时间，名字）</p>
+<p>ls -a表示所有文件包括隐藏文件</p>
+<p>ls -lh ：用单位表示文件的大小</p>
+<p>ls  –help：用法</p>
+<p>通配符：</p>
+<p>？匹配文件名中的一个字符</p>
+<p>“*”表示多个字符</p>
+<p>mkdir /文件路径及文件:创建文件</p>
+<p>mkdir -p 文件路径及文件</p>
+<p>权限三位一组 (第一组为文件所有者，第二位属组权限，第三组是其他用户权限 ，.表示ACL权限)    读（r：权限值为4），写（w 权限值为2），执行(x 权限值为1)</p>
+<p>mkdir  -m  权限 文件名</p>
+<p>rmdir  -p 文件：删除空目录</p>
+<p>rm -rf 文件：删除文件</p>
+<p>cp 原文件路径  复制到的地方:复制文件</p>
+<p>cp -R 原文件路径 复制的地方：复制目录</p>
+<p>mv 原文件路径 复制的地方：移动文件</p>
+<p>touch /文件名：新建文件</p>
+<p>chmode 权限值 文件名 //修改文件的权限</p>
+<p>​                字母方式：a:所有用户 u：所有者 g：属组 o：其他用户 </p>
+<p>​                chmode a = rwx AA</p>
+<p>​                chmode u-w,g-wx,o-rwx AA//表示AA文件当前权限为540</p>
+<p>head -数字 文件名：查看文件前几行</p>
+<p>tail -数字 文件名：查看文件后几行</p>
+<p>wc 统计行数</p>
+<p>find 范围 查找条件(-name,-type,-user,-size)</p>
+<p>grep -选项 条件 名称:查找文件中的内容</p>
+<p>​        选项：-c </p>
+<p>man find ：</p>
+<p>标准输入：0（键盘）<br>标准输出：1（屏幕）<br>错误输出：2（屏幕）</p>
 
       
       <!-- 打赏 -->
@@ -106,9 +196,11 @@
         
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/12/25/磁盘的分区与挂载：/" data-id="ck4nfpx98000sh8ueeo574oxv"
+      <a data-url="http://yoursite.com/2019/12/27/Linux基本常识/" data-id="ck4nfpx5l0001h8uesoqev862"
         class="article-share-link">分享</a>
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CVE-2019-0708/">CVE-2019-0708</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/系统安全/">系统安全</a></li></ul>
+
     </footer>
 
   </div>
@@ -117,19 +209,19 @@
   
   <nav class="article-nav">
     
-      <a href="/2019/12/27/FTP服务器/" class="article-nav-link">
+      <a href="/2019/12/27/linux软件安装/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            FTP服务器
+            软件安装与包管理工具
           
         </div>
       </a>
     
     
-      <a href="/2019/12/25/linux用户与用户组/" class="article-nav-link">
+      <a href="/2019/12/27/FTP服务器/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title"></div>
+        <div class="article-nav-title">FTP服务器</div>
       </a>
     
   </nav>

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    软件安装与包管理工具 |  你好
+  </title>
+  
+  <link rel="shortcut icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">  <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">  <script src="/js/pace.min.js"></script>
+
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-linux软件安装" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  软件安装与包管理工具
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/12/27/linux软件安装/" class="article-date">
+  <time datetime="2019-12-27T00:39:48.000Z" itemprop="datePublished">2019-12-27</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h3 id="CVE-2019-07-08"><a href="#CVE-2019-07-08" class="headerlink" title="CVE _2019_07_08"></a>CVE _2019_07_08</h3><a id="more"></a>
+
+<p>getenforce 查看安全机制<br>setenforce 0或1 关闭/打开安全机制</p>
+<p>systemctl statu [服务名]  （查看服务状态）<br>systemctl start/stop/restant [服务名]  （打开、关闭、重启服务）</p>
+<p>默认的yum源文件存放目录：<br>/etc/yum.repos.d</p>
+<p>本地源：file://<br>网络源http://<br>服务器源：ftp://</p>
+<p>列出仓库所有可用软件包：yum list<br>清除yum缓存：yum clean all</p>
+<p><strong>软件安装与包管理工具</strong> </p>
+<p><strong>一、Linux 系统下安装软件的方法</strong> </p>
+<p>1、RPM 包安装 </p>
+<p>2、YUM 源安装 </p>
+<p>3、源代码安装 </p>
+<p><strong>二、RPM 包管理工具的使用</strong> </p>
+<p><strong>1、RPM 包管理工具介绍</strong> </p>
+<p><strong>·</strong>RedHat 软件包管理工具(RedHat Package Manager，RPM) </p>
+<p><strong>·</strong>RPM 软件包工具常用于软件包的安装、查询、更新升级、校验、卸载以及生成.rpm 格式的软件包等操作。 </p>
+<p><strong>·</strong>RPM 软件包工具只能管理后缀是.rpm 的软件包。软件包的命名格式： </p>
+<p><strong>·</strong>软件名称-版本号(包括主版本号和次版本号).软件运行的硬件平台.rpm </p>
+<p>例：telnet-server-0.17-59.el7.x86_64.rpm。 </p>
+<p><strong>2、RPM 工具的使用</strong> </p>
+<p>RPM 主要有５种基本功能：查询、安装、升级、刷新、卸载。 </p>
+<p>命令格式：rpm [选项] [文件] </p>
+<p>选项  说明 </p>
+<p>-a    显示所有软件包 </p>
+<p>-q    查询功能 </p>
+<p>-i    安装指定的软件包，通常和-v,-h 选项结合使用 </p>
+<p>-e    删除指定的软件包 </p>
+<p>-f    查询拥有指定文件的软件包 </p>
+<p>-i    显示软件包的相关信息，通常和-q 选项结合使用 </p>
+<p>-l    显示软件包的文件列表 </p>
+<p>-p    查询待安装的软件包 </p>
+<p>-R    显示软件包的关联性信息 </p>
+<p>-s    显示文件状态，通常结合-l 选项使用 </p>
+<p>-U    升级指定的软件包-v </p>
+<p>-v    显示指令执行过程 </p>
+<p>-h    在安装过程中将显示一系列的#来表示安装进度 </p>
+<p>-vv   详细显示指令执行过程，便于排错 </p>
+<p>F     刷新软件 </p>
+<p>（1）查询 </p>
+<p>软件包的查询功能主要由-q选项完成，为了实现特殊的查询功能要配合其它的选项使用。 </p>
+<p>【举例 1】查询系统中已经安装的所有 RPM 软件包。 </p>
+<p>#rpm -qa </p>
+<p>【举例 2】在已经安装的软件包中查询包含 lib 关键字的软件包的名称。 </p>
+<p>#rpm -qa | grep lib </p>
+<p>【举例 3】查询 openssh-server 软件包是否已经安装。 </p>
+<p>#rpm -q openssh-server </p>
+<p>【举例 4】查询 openssh-server 和 telnet-server 两个软件是否已经安装。 </p>
+<p>#rpm -q openssh-server telnet-server </p>
+<p>【举例 5】查询已安装的 openssh-server 软件包的信息。 </p>
+<p># rpm -qi openssh-server </p>
+<p>【举例 6】查询 openssh-server 软件包中有哪些文件，以及这些文件安装在系统的位置。 </p>
+<p>#rpm -ql openssh-server </p>
+<p>【举例 7】查询/var/empty/sshd 目录是安装哪一个软件包而创建的 </p>
+<p>#rpm -qf /var/empty/sshd </p>
+<p>（2）安装：rpm -ivh 软件包名称 </p>
+<p>【举例 1】安装 telnet-server-0.17-59.el7.x86_64.rpm 软件包 </p>
+<p>#rpm -ivh telnet-server-0.17-59.el7.x86_64.rpm </p>
+<p>（3）升级是先将低版本的软件包卸载，再安装高版本的软件包。 </p>
+<p>【举例 1】升级 telnet 软件为 telnet-server-0.17-59.el7.x86_64.rpm 软件包。 </p>
+<p>#rpm -Uvh telnet-server-0.17-59.el7.x86_64.rpm </p>
+<p>（4）刷新，如果选项指定软件包的版本更高，会升级安装。如果未安装该软件包，刷新选 </p>
+<p>项不会安装软件包。 </p>
+<p>【举例 1】刷新 telnet-server-0.17-59.el7.x86_64.rpm 软件包 </p>
+<p>#rpm -Fvh telnet-server-0.17-59.el7.x86_64.rpm </p>
+<p>（5）卸载</p>
+<p>【举例 1】将 telnet-server 软件从系统中卸载。 </p>
+<p>#rpm -e telnet-server </p>
+<p>（6）常见问题分析： </p>
+<p><strong>·**</strong>在执行#rpm -qa 命令时，如果输出信息过多，不易查找指定信息。** </p>
+<p>解决办法：使用 rpm -qa | grep </p>
+<p><strong>·**</strong>在查询软件包信息或文件时，想保存执行结果。** </p>
+<p>解决办法：使用输出重定向 </p>
+<p><strong>·**</strong>“软件名称”和“软件包名称”。** </p>
+<p>解决办法：安装软件时使用软件包名称，查询与卸载时使用软件名称<strong>·**</strong>软件包依赖问题** </p>
+<p>解决办法：可以使用 –nodeps 选项忽略，但安装时建议不用 </p>
+<p><strong>·**</strong>RPM 数据库损坏** </p>
+<p>解决办法：rpm 数据库存放在/var/lib/rpm 目录下，使用 rpm -rebuilddb 修复 </p>
+<p><strong>·**</strong>软件安装的时间问题** </p>
+<p>解决办法：安装软件时如果系统提示“warning:clock skew detected” </p>
+<p>使用 date -s “2019-5-9” 14:00 修改系统时间 </p>
+<p>使用 hwclick -w 将更新时间写入 CMOS </p>
+<p><strong>3、使用 RPM 管理 telnet-server 软件包</strong> </p>
+<p>（1）在服务器端安装 telnet-server 和 xinetd，启动相应的服务。 </p>
+<p>#rpm -q telnet-server xinetd </p>
+<p>#mount /dev/sr0 /mnt/cdrom </p>
+<p>#cd /mnt/cdrom </p>
+<p># rpm -ivh telnet-server xinetd </p>
+<p># systemctl start telnet.socket xinetd.service </p>
+<p># systemctl status telnet.socket xinetd.service </p>
+<p>（2）在服务器端开启防火墙（图形界面与命令）。 </p>
+<p># systemctl status firewalld.service </p>
+<p># firewall-cmd –zone=public –add-port=23/tcp –permanent </p>
+<p># systemctl restart firewalld.service </p>
+<p>（3）在客户端访问（默认不允许 root 用户 telnet 登录）。 </p>
+<p>开始–运行–cmd </p>
+<p>Telnet 192.168.64.128 </p>
+<p><strong>二、YUM 工具的使用</strong> </p>
+<p><strong>1、YUM 工具简介</strong> </p>
+<p>（1）YUM（Yellow dog Upadate Modifie）是改进版的 RPM 管理器，很好地解决了 RPM 软件包的依赖问题。 </p>
+<p>（2）YUM 可以从很多源中搜索软件以及他们的依赖包，并自动安装相应的依赖软件。 </p>
+<p>（3）YUM 安装软件时至少需要一个 YUM 源，YUM 源就是存放有很多 RPM 软件的目录。 </p>
+<p>用户可以使用 HTTP、FTP 或本地目录的方式访问 YUM 源。 </p>
+<p><strong>2、设置本地 YUM 源</strong> </p>
+<p>（1）挂载光盘到/mnt/cdrom </p>
+<p>（2）创建自定义 yum 文件:#vim/etc/yum.d/media.repo </p>
+<p>[media] </p>
+<p>name=CentOS7 </p>
+<p>baseurl=file:///mnt/cdrom </p>
+<p>enabled=1 </p>
+<p>gpgcheck=0 </p>
+<p>gpqkey=gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 </p>
+<p><strong>3、YUM 工具的使用</strong>YUM 工具主要有查询、安装、升级、刷新、卸载软件包等功能。 </p>
+<p>命令格式：yum [选项] [指令] [软件包] </p>
+<p>install package1 [package2][…] </p>
+<p>使用 YUM 源安装软件包。 </p>
+<p>update [package][packge2][…] </p>
+<p>使用 YUM 源升级软件包。 </p>
+<p>check-update 检查 YUM 源中所有可用的升级。 </p>
+<p>remove|erase package1 [package2][…] 卸载软件包。 </p>
+<p>list[…]系统中已经安装的以及 YUM 源中所有可用的软件包。 </p>
+<p>info[…] </p>
+<p>查看软件包信息。 </p>
+<p>clean all </p>
+<p>清空所有的缓存信息。 </p>
+<p>makecache all 生成所有的缓存信息 </p>
+<p>groupinstall group1 [group2] […] 使用 YUM 源安装组包。 </p>
+<p>groupremove group1 [group2] […] 卸载组包。 </p>
+<p><strong>4、使用 rpm 与 yum 安装 DNS 的区别</strong> </p>
+<p><strong>5、常见问题</strong> </p>
+<p>（1）创建 YUM 源 </p>
+<p>首先安装 createrepo,其次将所有软件包保存在一个目录，如:/mysoft/, </p>
+<p>最后执行：#createrepo /mysoft 创建该目录的 yum 源，再修改 yum 配置文件即可。 </p>
+<p>（2）YUM 繁忙问题 </p>
+<p>在错误提示中找到 PID 进程号，使用 kill -9 进程号即可 </p>
+<p><strong>三、TAR 包管理工具简介</strong> </p>
+<p><strong>1、TAR 包管理工具简介</strong> </p>
+<p>TAR（Tape Archive，TAR）是 Linux 下的包管理工具，具有 5 种功能：打包、查询、释放、更新、追加。 </p>
+<p>命令格式：tar [主选项+辅助选项] [文件或目录] </p>
+<p>选项   说明 </p>
+<p>-c     创建新的 tar 包 </p>
+<p>-t     列出 tar 包文件的列表 </p>
+<p>-x     从 tar 包中释放文件 </p>
+<p>-r     把备份文件追加到已备份文件的末尾 </p>
+<p>辅助选项   说明 </p>
+<p><strong>-f</strong>     <strong>备份文件或设备，必选项</strong> </p>
+<p>-v         显示命令执行的详细信息 </p>
+<p>-z         用 gzip 来压缩/解压缩文件 </p>
+<p>-j         用 bzip2 来压缩/解压缩文件 </p>
+<p>-C         指定文件解压后的存放路径 </p>
+<p>【举例】在/mnt/目录下有 s1、s2、s3 和 1.txt 四个文件，现完成以下打包和解包要求： </p>
+<p>（1）将这 4 个文件打包成 bak.tar 放在/mnt/目录下 </p>
+<p>（2）将这 4 个文件打包成 bak2.tar 放在/mnt/bak 目录下 </p>
+<p>（3）将这 4 个文件分别以 gzip 和 bzip2 方式压缩为 bak.tar.gz 和 bak.tar.bz2 </p>
+<p>存放在/mnt/bak 目录下 </p>
+<p>（4）查看各个包文件内的文件列表，并将这 4 个文件删除。（5）向 tar 包中追加/mnt/newfile 文件 </p>
+<p>（6）对包文件进行解压 </p>
+<p><strong>四、源代码安装软件</strong> </p>
+<p>1、源码安装软件的步骤是： </p>
+<p>（1）对下载的码包进行解压 </p>
+<p>（2）进入解压目录执行 configure 命令做相关设置 </p>
+<p>（3）执行 make 进行编译 </p>
+<p>（4）执行 make install 进行安装 </p>
+<p>2、源码安装 ntfs-3g 软件 </p>
+<p>（1）下载 ntfs-3g 软件：<a href="http://www.onlinedown.net/soft/170545.htm" target="_blank" rel="noopener">http://www.onlinedown.net/soft/170545.htm</a> </p>
+<p>（2）解压 ntfs-3g 软件到/mnt 目录下 </p>
+<p>（3）安装安装相关依赖包 </p>
+<p># yum -y install cmake bison git ncurses-devel gcc gcc-c++ </p>
+<p>（4）进入 ntfs-3g 目录执行：./configure 对安装环境进行配置 </p>
+<p>（5）执行 make 命令进行编译 </p>
+<p>（6）执行 make install 命令进行安装 </p>
+<p>（7）挂载 ntfs 分区 </p>
+<p>（8）如果要卸载 ntfs-3g 软件,就进入安装目录执行：make uninstall </p>
+
+      
+      <!-- 打赏 -->
+      
+        <div class="page-reward">
+          <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+            <div class="tooltip tooltip-east">
+              <span class="tooltip-item">
+                赏
+              </span>
+              <span class="tooltip-content">
+                <span class="tooltip-text">
+                  <span class="tooltip-inner">
+                    <p class="reward-p"><i class="icon icon-quo-left"></i>请我喝杯咖啡吧~<i
+                        class="icon icon-quo-right"></i></p>
+                    <div class="reward-box">
+                      
+                      <div class="reward-box-item">
+                        <img class="reward-img" src="/images/alipay.jpg">
+                        <span class="reward-type">支付宝</span>
+                      </div>
+                      
+                      
+                      <div class="reward-box-item">
+                        <img class="reward-img" src="/images/wechat.jpg">
+                        <span class="reward-type">微信</span>
+                      </div>
+                      
+                    </div>
+                  </span>
+                </span>
+              </span>
+            </div>
+          </a>
+        </div>
+        
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/12/27/linux软件安装/" data-id="ck4nfpx7x000kh8ueygjl4oxq"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CVE-2019-0708/">CVE-2019-0708</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/系统安全/">系统安全</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+    
+      <a href="/2019/12/27/Linux基本常识/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">linux基本常识</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: 'chaSYi8FMdJBwzIBpxeNjqWC-gzGzoHsz',
+        app_key: 'PqqkLYgPkHvH1BmyQqySWnSK',
+        path: window.location.pathname,
+        avatar: 'mp',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2015-2019
+        John Doe
+      </li>
+      <li>
+        
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a> by shenyu
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <ul class="list-inline">
+  <li>PV:<span id="busuanzi_value_page_pv"></span></li>
+  <li>UV:<span id="busuanzi_value_site_uv"></span></li>
+</ul>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+    
+    <aside class="sidebar">
+      
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="你好"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">目录</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/旅行/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="http://shenyu-vip.lofter.com">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/tocbot.min.js"></script>
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+<script src="/js/ayer.js"></script>
+
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  </div>
+</body>
+
+</html>
