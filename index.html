@@ -147,6 +147,33 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2019/12/29/磁盘的分区与挂载：/">
+                磁盘的分区与挂载
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2019-12-29</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h3 id="CVE-2019-12-29"><a href="#CVE-2019-12-29" class="headerlink" title="CVE _2019-12-29"></a>CVE _2019-12-29</h3>
+        </div>
+        <a href="/2019/12/29/磁盘的分区与挂载：/" class="read-more">Read More</a>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2019/12/27/linux软件安装/">
                 软件安装与包管理工具
             </a>
@@ -219,43 +246,6 @@
             <h3 id="CVE-2019-12-27"><a href="#CVE-2019-12-27" class="headerlink" title="CVE _2019-12-27"></a>CVE _2019-12-27</h3>
         </div>
         <a href="/2019/12/27/FTP服务器/" class="read-more">Read More</a>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2019/12/25/磁盘的分区与挂载：/">
-                Untitled
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2019-12-25</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h1 id="磁盘的分区与挂载："><a href="#磁盘的分区与挂载：" class="headerlink" title="磁盘的分区与挂载："></a>磁盘的分区与挂载：</h1><p>1.磁盘在linux系统中的表示方法<br>  IDE硬盘：hda1 hda2 hdb1 hdc1 ……<br>  SATA硬盘/SCSI/USB接口的移动盘：sda1 sda2 sdb1</p>
-<p>2.硬盘分区：<br>  主分区        最多只能分4个，是可以直接使用，主要用于系统盘。编号为1-4<br>  扩展分区   不能直接使用，必须有主分区后才能将所有剩余空间分为扩展分区，可以建立逻辑分区。1-4，除主分区外。<br>  逻辑分区  可以直接使用，编号从5开始，不能作为系统引导盘。</p>
-<p>3.磁盘分区的格式：windows系统中的格式有</p>
-<ul>
-<li>fat fat16 fat32  文件的大小会受到限制，安全性能不高。</li>
-<li>NTFS   支持大容量分区，支持NTFS权限设置，安全性能较高</li>
-</ul>
-<p>linux系统中的常用格式有 ext2 ext3 ext4</p>
-<p>4.挂载</p>
-<p>5.磁盘分区：<br>   步骤一：向linux服务器添加一块硬盘，并重启系统。<br>   步骤二：使用命令查看系统当中的硬盘及其分区信息<br>          ls /dev/sd*  查看/dev目录下的硬盘文件<br>          fdisk -l   查看硬盘分区的信息<br>   步骤三：对磁盘进行分区<br>          fdisk 磁盘文件名<br>          fdisk /Dev/sdb  对sdb这块磁盘进行分区<br>   步骤四：格式化磁盘分区<br>        mkfs -t 分区格式 分区名称<br>        mkfs -t ext4 /dev/sdb1</p>
-<p> 步骤五：挂载分区<br>           mount -t 分区格式 设备名称  空目录名称<br>           mount -t ext4 /dev/sdb1 /mnt/sdb1<br>           mount -t ext4 -o rw /dev/sdb1 /mnt/sdb1<br>           检查是否挂载成功：mount<br>           取消挂载：umount 挂载目录的名称 （不能在挂载目录下进行）<br>           查看已挂载分区的信息：df -hT /mnt/sdb1<br>           使用mount命令挂载的文件系统，只是临时的，如果系统重启则需要重新挂载。<br>   步骤六：可以使用/etc/fstab文件对文件系统进行永久挂载。（mount -a）<br>   步骤七：挂载光盘（光盘的设备文件名为：/dev/sr0,文件系统的类型为：iso9660)<br>           mount -t iso9660 /dev/sr0 /mnt/cdrom<br>   步骤八：挂载U盘</p>
-
-        </div>
     
 
 </div>
@@ -424,6 +414,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2019/12/29/磁盘的分区与挂载：/">磁盘的分区与挂载</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2019/12/27/linux软件安装/">软件安装与包管理工具</a>
             </li>
             
@@ -433,10 +427,6 @@
             
             <li>
                 <a class="footer-post" href="/2019/12/27/FTP服务器/">FTP服务器</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2019/12/25/磁盘的分区与挂载：/">Untitled</a>
             </li>
             
         </ul>

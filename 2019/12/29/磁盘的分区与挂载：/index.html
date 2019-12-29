@@ -10,7 +10,7 @@
 
     <!--Description-->
     
-        <meta name="description" content="linux用户与用户组window系统中用户名、密码存储在c盘的SAM数据库中ps aux 查看进程kill -9 [进程号]  杀死进程">
+        <meta name="description" content="CVE _2019-12-29">
     
 
     <!--Author-->
@@ -20,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="你好">
+        <meta property="og:title" content="磁盘的分区与挂载">
     
 
     <!--Open Graph Description-->
@@ -31,7 +31,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website">
+        <meta property="og:type" content="article">
     
 
     <!--Page Cover-->
@@ -42,7 +42,7 @@
 
     <!-- Title -->
     
-    <title>你好</title>
+    <title>磁盘的分区与挂载 - 你好</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -146,13 +146,13 @@
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/2019/12/25/linux用户与用户组/">
-                Untitled
+            <a href="/2019/12/29/磁盘的分区与挂载：/">
+                磁盘的分区与挂载
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2019-12-25</span>
+                <span class="date">2019-12-29</span>
             
             
             
@@ -163,14 +163,44 @@
 
         <!-- Gallery -->
         
+            
+<div class="gallery-container">
+    
+        
+            <div class="picture-container">
+                <a href="#" data-featherlight="/-![](https://img04.sogoucdn.com/app/a/100520146/fcfc1b9394561df42dd75432e8a2e332)">
+                    <img src="/-![](https://img04.sogoucdn.com/app/a/100520146/fcfc1b9394561df42dd75432e8a2e332)" class="img-thumbnail" />
+                </a>
+            </div>
+        
+    
+</div>
+        
 
         <!-- Post Content -->
-        <h1 id="linux用户与用户组"><a href="#linux用户与用户组" class="headerlink" title="linux用户与用户组"></a>linux用户与用户组</h1><p>window系统中用户名、密码存储在c盘的SAM数据库中<br>ps aux 查看进程<br>kill -9 [进程号]  杀死进程</p>
+        <h3 id="CVE-2019-12-29"><a href="#CVE-2019-12-29" class="headerlink" title="CVE _2019-12-29"></a>CVE _2019-12-29</h3><a id="more"></a>
+
+<h1 id="磁盘的分区与挂载："><a href="#磁盘的分区与挂载：" class="headerlink" title="磁盘的分区与挂载："></a>磁盘的分区与挂载：</h1><p>1.磁盘在linux系统中的表示方法<br>  IDE硬盘：hda1 hda2 hdb1 hdc1 ……<br>  SATA硬盘/SCSI/USB接口的移动盘：sda1 sda2 sdb1</p>
+<p>2.硬盘分区：<br>  主分区        最多只能分4个，是可以直接使用，主要用于系统盘。编号为1-4<br>  扩展分区   不能直接使用，必须有主分区后才能将所有剩余空间分为扩展分区，可以建立逻辑分区。1-4，除主分区外。<br>  逻辑分区  可以直接使用，编号从5开始，不能作为系统引导盘。</p>
+<p>3.磁盘分区的格式：windows系统中的格式有</p>
+<ul>
+<li>fat fat16 fat32  文件的大小会受到限制，安全性能不高。</li>
+<li>NTFS   支持大容量分区，支持NTFS权限设置，安全性能较高</li>
+</ul>
+<p>linux系统中的常用格式有 ext2 ext3 ext4</p>
+<p>4.挂载</p>
+<p>5.磁盘分区：<br>   步骤一：向linux服务器添加一块硬盘，并重启系统。<br>   步骤二：使用命令查看系统当中的硬盘及其分区信息<br>          ls /dev/sd*  查看/dev目录下的硬盘文件<br>          fdisk -l   查看硬盘分区的信息<br>   步骤三：对磁盘进行分区<br>          fdisk 磁盘文件名<br>          fdisk /Dev/sdb  对sdb这块磁盘进行分区<br>   步骤四：格式化磁盘分区<br>        mkfs -t 分区格式 分区名称<br>        mkfs -t ext4 /dev/sdb1</p>
+<p> 步骤五：挂载分区<br>           mount -t 分区格式 设备名称  空目录名称<br>           mount -t ext4 /dev/sdb1 /mnt/sdb1<br>           mount -t ext4 -o rw /dev/sdb1 /mnt/sdb1<br>           检查是否挂载成功：mount<br>           取消挂载：umount 挂载目录的名称 （不能在挂载目录下进行）<br>           查看已挂载分区的信息：df -hT /mnt/sdb1<br>           使用mount命令挂载的文件系统，只是临时的，如果系统重启则需要重新挂载。<br>   步骤六：可以使用/etc/fstab文件对文件系统进行永久挂载。（mount -a）<br>   步骤七：挂载光盘（光盘的设备文件名为：/dev/sr0,文件系统的类型为：iso9660)<br>           mount -t iso9660 /dev/sr0 /mnt/cdrom<br>   步骤八：挂载U盘</p>
 
     </div>
 
     
 
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/tags/系统安全/">#系统安全</a> <a href="/tags/CVE-2019-0708/">#CVE-2019-0708</a>
+        </div>
     
 
     <!-- Comments -->
