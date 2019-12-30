@@ -148,7 +148,7 @@
     <div class="post-header index">
         <h1 class="title">
             <a href="/2019/12/30/quota 磁盘配额管理/">
-                Untitled
+                quota 磁盘配额管理
             </a>
         </h1>
         <div class="post-info">
@@ -162,84 +162,9 @@
 
     
         <div class="content">
-            <h1 id="quota-磁盘配额管理"><a href="#quota-磁盘配额管理" class="headerlink" title="quota 磁盘配额管理"></a><strong>quota 磁盘配额管理</strong></h1><h2 id="1、磁盘配额的概念"><a href="#1、磁盘配额的概念" class="headerlink" title="1、磁盘配额的概念"></a><strong>1、磁盘配额的概念</strong></h2><p>quota 磁盘配额功能只在指定的文件系统（分区）内有效，未设置配额的文件系统不受限制。 </p>
-<p>quota 针对指定的用户账号、组账号进行限制，其他用户或组不受影响。 </p>
-<p><strong>磁盘配额可以进行两方面的限制：**</strong>磁盘容量、文件数量**。 </p>
-<p>磁盘容量：限制用户能够使用的磁盘数据块（block）大小，也就是限制磁盘空间大小，默认单位为 KB。 </p>
-<p>文件数量：限制用户能够拥有的文件个数。 </p>
-<p><strong>磁盘配额的限制方法分为软限制和硬限制两种</strong>。 </p>
-<p><strong>软限制</strong>:指设定一个软性的配额数值（如 500MB 磁盘空间、200 个文件），在固定的宽限期（默认为 7 天）内允许暂时超过这个限制，但系统会给出警告信息。 </p>
-<p><strong>硬限制</strong>:指设定一个硬性的配额数值（如 1GB 磁盘空间、500 个文件），而且绝对禁止用户超过该限值。<strong>硬限制的配额值应大于相应的软限制值，否则软限制值将失效</strong>。 </p>
-<p>举例：软件限制为：2G </p>
-<p>硬限制为：1G </p>
-<h2 id="2、设置磁盘配额"><a href="#2、设置磁盘配额" class="headerlink" title="2、设置磁盘配额"></a><strong>2、设置磁盘配额</strong></h2><p>下面以硬盘分区“/dev/sdb1”为例，先将其挂载到“/data”目录下，然后在文件系统中实现磁盘配额： </p>
-<h3 id="（1）启用-quota-磁盘配额"><a href="#（1）启用-quota-磁盘配额" class="headerlink" title="（1）启用 quota 磁盘配额"></a><strong>（1）启用 quota 磁盘配额</strong></h3><p>首先要通过修改配置文件“/etc/fstab”的方式启用 quota 磁盘配额。 </p>
-<p>[root@localhost var]# vim /etc/fstab </p>
-<p>/dev/sdb1       /data      ext4      defaults,usrquota,grpquota    0    0 </p>
-<p>将该文件系统重新挂载 </p>
-<p>[root@localhost ~]# mount -o remount /data </p>
-<p>执行 mount 命令查看已经挂载的文件系统，检查是否已经启用了 usrquota 和 </p>
-<p>grpquota 功能 </p>
-<p>[root@localhost ~]# mount | grep sdb1 </p>
-<p>/dev/sdb1 on /data type ext4 (rw,usrquota,grpquota) </p>
-<h3 id="（2）生成配额文件"><a href="#（2）生成配额文件" class="headerlink" title="（2）生成配额文件"></a><strong>（2）生成配额文件</strong></h3><p>quotacheck 命令可以对文件系统进行磁盘配额检测，发现哪些文件系统启用了 </p>
-<p>磁盘配额功能，并在这些文件系统中生成配额文件 aquota.user 和 aquota.group。 </p>
-<p>[root@localhost ~]# quotacheck -cvug /data </p>
-<p>相关选项的作用： </p>
-<p>-c，创建配额文件。 </p>
-<p>-v，显示详细信息。 </p>
-<p>-u，检查用户配额信息，创建 aquota.user 文件。 </p>
-<p>-g，检查组配额信息，创建 aquota.group 文件。 </p>
-<p>[root@localhost ~]# setenforce 0     ’将 SELinux 设为许可模式 </p>
-<p>[root@localhost ~]# quotacheck -cvug /data    ’再次执行 quotacheck 命令[root@localhost ~]# ls /data      ’查看生成的配额文件 </p>
-<p>aquota.group aquota.user lost+found </p>
-<h3 id="（3）编辑用户和组帐号的配额设置"><a href="#（3）编辑用户和组帐号的配额设置" class="headerlink" title="（3）编辑用户和组帐号的配额设置"></a><strong>（3）编辑用户和组帐号的配额设置</strong></h3><p><strong>编辑用户的配额设置</strong> </p>
-<p>使用 edquota 命令结合“-u”、“-g”选项可用于编辑用户或组的配额设置。 </p>
-<p>创建 financial 组，创建用户 jerry，将 financial 指定为 jerry 的基本组。 </p>
-<p>[root@localhost ~]# edquota -u jerry      ’设置用户 jerry 的磁盘配额 </p>
-<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5C1577703835629.png" alt="1577703835629"></p>
-<p>Filesystem:表示本行配置对应的文件系统（分区），即配额的作用范围。 </p>
-<p>blocks:表示当前已使用的磁盘容量，默认单位为 KB。该值由 edquota 程序自动计算生成。 </p>
-<p>soft:第 3 列中的 soft 对应为磁盘容量的软限制数值，默认单位为 KB； </p>
-<p>第 6 列中的 soft 对应为文件数量的软限制数值位为个。 </p>
-<p>hard:第 4 列中的 hard 对应为磁盘容量的硬限制数值，默认单位为 KB；，默认单 </p>
-<p>第 7 列中的 hard 对应为文件数量的硬限制数值，默认单位为个； </p>
-<p>inodes:表示当前已拥有的文件数量。该值由 edquota 程序自动计算生成。 </p>
-<p><strong>编辑组的配额设置</strong> </p>
-<p><strong>[root@localhost ~]# edquota -g financial</strong>  ’<strong>设置 financial 组的磁盘配额</strong> </p>
-<p>配额设置仅对基本组生效。如用户 jerry 所属的基本组是“financial”，所属的附加组是“technology”，那么只有针对“financial”组设置的配额才对 jerry 有效，而针对“technology”组设置的配额则对 jerry没有限制。 </p>
-<h3 id="（4）激活磁盘配额"><a href="#（4）激活磁盘配额" class="headerlink" title="（4）激活磁盘配额"></a><strong>（4）激活磁盘配额</strong></h3><p><strong>[root@localhost ~]# quotaon -ugv /data</strong> ’激活“/data”文件系统的用户、组配额 </p>
-<p><strong>/dev/sdb1 [/data]: group quotas turned on</strong> </p>
-<p><strong>/dev/sdb1 [/data]: user quotas turned on</strong> </p>
-<p>相关选项的作用： </p>
-<p>-u，激活用户磁盘配额。 </p>
-<p>-g，激活组磁盘配额。 </p>
-<p>-v，显示详细信息。 </p>
-<h3 id="（5）验证并查看磁盘配额"><a href="#（5）验证并查看磁盘配额" class="headerlink" title="（5）验证并查看磁盘配额"></a><strong>（5）验证并查看磁盘配额</strong></h3><p>验证磁盘配额功能： </p>
-<p>下面使用受配额限制的用户帐号（jerry）登录 Linux 系统，并向应用了配额的文 </p>
-<p>件系统进行复制文件等写操作，测试所设置磁盘配额项是否有效。为了方便测试，将用户 jery 的基本组设为 financial,对用户和组的磁盘配额功能一并进行测试。 </p>
-<p>用 dd 命令生成指定大小的测试文件 </p>
-<p>从设备文件/dev/zero 中复制数据到/home/jerry/test 文件，读取 210 个大小为 1MB的数据块。</p>
-<p>[root@localhost ~]# dd if=/dev/zero of=/mnt/data bs=1KB count=120 </p>
-<p>记录了 210+0 的读入 </p>
-<p>记录了 210+0 的写出 </p>
-<p>220200960 字节(220 MB)已复制，13.3504 秒，16.5 MB/秒 </p>
-<p>[root@localhost ~]# ll -h /home/jerry </p>
-<p>总用量 211M </p>
-<p>-rw-r–r–. 1 root root 210M 11 月 6 10:49 test </p>
-<p><strong>开放 data/的写入权限</strong> </p>
-<p>[root@localhost ~]#chmod 777 /data </p>
-<p><strong>切换到 jerry 用户的身份进行测试，磁盘配额功能验证成功</strong> </p>
-<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5C1577704011481.png" alt="1577704011481"></p>
-<p><strong>查看用户或分区的配额使用情况</strong> </p>
-<p>使用 quota 命令结合“-u”、“-g”选项分别查看指定用户和组的配额使用情况。</p>
-<p> <img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5C1577704039843.png" alt="1577704039843"></p>
-<p><strong>执行 repquota /data 查看/data 文件系统的配额使用情况报告</strong> </p>
-<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5C1577704049543.png" alt="1577704049543"></p>
-<h3 id="（6）关闭磁盘配额"><a href="#（6）关闭磁盘配额" class="headerlink" title="（6）关闭磁盘配额"></a><strong>（6）关闭磁盘配额</strong></h3><p>利用 quotaoff -vug 命令关闭磁盘配额</p>
-<p>[ root@localhost桌面]# quotaoff -vug /data<br>/dev/sdb1 [/data]: group quotas turned off<br>/dev/sdb1 [ /data]: user quotas turned off</p>
-
+            <h3 id="CVE-2019-12-30"><a href="#CVE-2019-12-30" class="headerlink" title="CVE _2019-12-30"></a>CVE _2019-12-30</h3>
         </div>
+        <a href="/2019/12/30/quota 磁盘配额管理/" class="read-more">Read More</a>
     
 
 </div>
@@ -566,33 +491,6 @@
 
     <div class="post-header index">
         <h1 class="title">
-            <a href="/2019/09/07/浏览器外挂/">
-                浏览器插件/外挂
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2019-09-07</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h3 id="CVE-2019-09-07"><a href="#CVE-2019-09-07" class="headerlink" title="CVE _2019-09-07"></a>CVE _2019-09-07</h3>
-        </div>
-        <a href="/2019/09/07/浏览器外挂/" class="read-more">Read More</a>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
             <a href="/2019/09/07/CVE-2019-0708/">
                 漏洞复现
             </a>
@@ -615,6 +513,33 @@
 
 </div>
             
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2019/09/07/运行环境/">
+                运行环境
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2019-09-07</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h3 id="CVE-2019-07-08"><a href="#CVE-2019-07-08" class="headerlink" title="CVE _2019_07_08"></a>CVE _2019_07_08</h3>
+        </div>
+        <a href="/2019/09/07/运行环境/" class="read-more">Read More</a>
+    
+
+</div>
+            
         </section>
     </div>
 </div>
@@ -627,7 +552,7 @@
                 <a class="" href="/">
                     <i class="fa fa-chevron-left" aria-hidden="true"></i>
                 </a>
-                <a class="" href="/page/3/">
+                <a class="disabled" href="/">
                     <i class="fa fa-chevron-right" aria-hidden="true"></i>
                 </a>
             </div>
@@ -665,7 +590,7 @@
             </li>
             
             <li>
-                <a class="footer-post" href="/2019/12/30/DHCP配置/">Untitled</a>
+                <a class="footer-post" href="/2019/12/30/DHCP配置/">DHCP配置</a>
             </li>
             
             <li>
