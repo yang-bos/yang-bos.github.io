@@ -147,13 +147,13 @@
 
     <div class="post-header index">
         <h1 class="title">
-            <a href="/2019/12/29/linux用户与用户组/">
-                linux用户与用户组
+            <a href="/2019/12/30/Web服务器/">
+                Untitled
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2019-12-29</span>
+                <span class="date">2019-12-30</span>
             
             
             
@@ -162,9 +162,25 @@
 
     
         <div class="content">
-            <h3 id="CVE-2019-12-29"><a href="#CVE-2019-12-29" class="headerlink" title="CVE _2019-12-29"></a>CVE _2019-12-29</h3>
+            <h1 id="Web服务器"><a href="#Web服务器" class="headerlink" title="Web服务器"></a>Web服务器</h1><h2 id="一、发布公司网站"><a href="#一、发布公司网站" class="headerlink" title="一、发布公司网站"></a>一、发布公司网站</h2><h3 id="1、安装Apache服务"><a href="#1、安装Apache服务" class="headerlink" title="1、安装Apache服务"></a>1、安装Apache服务</h3><p> # yum  install  -y  httpd </p>
+<p>#systemctl  start  httpd.service</p>
+<p>/etc/httpd/conf：该目录存放Apache服务器的配置文件</p>
+<p>/var/www/html：该目录是Apache服务器的默认站点根目录</p>
+<p>/etc/httpd/logs:Apache服务器的日志文件目录</p>
+<h3 id="2、测试Apache是否安装成功"><a href="#2、测试Apache是否安装成功" class="headerlink" title="2、测试Apache是否安装成功"></a>2、测试Apache是否安装成功</h3><p> 在浏览器的地址栏输入：localhost进行测试</p>
+<h3 id="3、将公司网站exam复制到-var-www-html-目录下，并修改配置文件："><a href="#3、将公司网站exam复制到-var-www-html-目录下，并修改配置文件：" class="headerlink" title="3、将公司网站exam复制到/var/www/html/目录下，并修改配置文件："></a>3、将公司网站exam复制到/var/www/html/目录下，并修改配置文件：</h3><p>  Vim /etc/httpd/conf/httpd.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">修改：DocumentRoot &quot;/var/www/html/&quot;为DocumentRoot&quot;/var/www/html/exam&quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="【修改完配置文件后必须要重启服务：systemctl-restart-httpd】"><a href="#【修改完配置文件后必须要重启服务：systemctl-restart-httpd】" class="headerlink" title="【修改完配置文件后必须要重启服务：systemctl restart httpd】"></a>【修改完配置文件后必须要重启服务：systemctl restart httpd】</h5><h2 id="二、发布个性化网站"><a href="#二、发布个性化网站" class="headerlink" title="二、发布个性化网站"></a>二、发布个性化网站</h2><p>  项目考核信息网站部署完成后，考虑到站点是内部网站，为了保证安全，将首页改为exam.html，并使用8080端口访问。</p>
+<p><strong>改首页名字：</strong>#mv /var/www/html/exam/index.html                            /var/www/html/exam/exam.html</p>
+<p><strong>修改配置文件：</strong>Vim/etc/httpd/conf/httpd.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Listen 8080</span><br><span class="line"></span><br><span class="line">DirectoryIndex exam.html index.html</span><br></pre></td></tr></table></figure>
+
+<p><strong>重启服务：</strong>systemctl restart httpd</p>
+<p><strong>访问测试：</strong>192.168.75.128:8080</p>
+<p>apache日志文件所在的目录：/var/log/httpd</p>
+
         </div>
-        <a href="/2019/12/29/linux用户与用户组/" class="read-more">Read More</a>
     
 
 </div>
@@ -174,13 +190,13 @@
 
     <div class="post-header index">
         <h1 class="title">
-            <a href="/2019/12/29/磁盘的分区与挂载：/">
-                磁盘的分区与挂载
+            <a href="/2019/12/30/DNS服务器/">
+                Untitled
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2019-12-29</span>
+                <span class="date">2019-12-30</span>
             
             
             
@@ -189,9 +205,36 @@
 
     
         <div class="content">
-            <h3 id="CVE-2019-12-29"><a href="#CVE-2019-12-29" class="headerlink" title="CVE _2019-12-29"></a>CVE _2019-12-29</h3>
+            <p>DNS</p>
+<p>正向解析：将域名解析成IP地址，A记录  CNAME记录  MX记录</p>
+<p>反向解析：将IP地址解析成域名，PTR指针</p>
+<p>DNS的查询方式：递归查询  迭代查询</p>
+<p>区域类型：hint  根区域</p>
+<p>​                    master  主要区域</p>
+<pre><code>slave    辅助区域</code></pre><p>配置DNS服务器:以配置www. zlt. com为例<br>1.打开：/etc/named.rfc1912.zones，配置区域</p>
+<p>zone “zlt.com.” IN {<br>        type master;<br>        file “zlt.com.zone”;<br>        allow-update { none; };<br>};</p>
+<p>2.到/var/named目录下配置区域配置文件</p>
+<h1 id="cp-named-localhost-zlt-com-zone"><a href="#cp-named-localhost-zlt-com-zone" class="headerlink" title="cp named.localhost zlt.com.zone"></a>cp named.localhost zlt.com.zone</h1><h1 id="chown-named-zlt-com-zone"><a href="#chown-named-zlt-com-zone" class="headerlink" title="chown :named zlt.com.zone"></a>chown :named zlt.com.zone</h1><p>3.修改区域配置文件的所属组为named<br>4.启动服务/重启服务<br>5.设置DNS地址<br>6.测试DNS：nslookup</p>
+<p>假设有另外一个公司的网站也放在这台服务器上，域名为<a href="http://www.aa.com" target="_blank" rel="noopener">www.aa.com</a><br>1.打开：/etc/named.rfc1912.zones，配置区域</p>
+<p>zone “aa.com.” IN {<br>        type master;<br>        file “aa.com.zone”;<br>        allow-update { none; };<br>};</p>
+<p>2.到/var/named目录下配置区域配置文件</p>
+<h1 id="cp-named-localhost-aa-com-zone"><a href="#cp-named-localhost-aa-com-zone" class="headerlink" title="cp named.localhost aa.com.zone"></a>cp named.localhost aa.com.zone</h1><h1 id="chown-named-aa-com-zone"><a href="#chown-named-aa-com-zone" class="headerlink" title="chown :named aa.com.zone"></a>chown :named aa.com.zone</h1><p>$TTL 1D<br>@       IN SOA  aa.com. root.aa.com. (<br>                                        0       ; serial<br>                                        1D      ; refresh<br>                                        1H      ; retry<br>                                        1W      ; expire<br>                                        3H )    ; minimum<br>        NS      dns.aa.com.<br>dns        A       192.168.75.158<br>www     A       192.168.75.158<br>ftp         A       192.168.75.158<br>              A       127.0.0.1<br>              AAAA    ::1</p>
+<p>3.启动服务/重启服务</p>
+<p>配置辅助DNS服务器<br>   1）安装bind<br>   2）启动bind<br>      service named start<br>      chkconfig named on<br>   3）修改主配置文件，添加辅助区域<br>       vim /etc/named.conf</p>
+<pre><code>zone &quot;zlt.com&quot; IN {
+       type slave;
+       file &quot;slaves/slave.com.zone&quot;;
+       masters {192.168.0.1;};
+    };
+
+zone &quot;0.168.192.in-addr.arpa&quot; IN {
+       type slave;
+       file &quot;slaves/0.168.192.zone&quot;;
+       masters {192.168.0.1;};
+    };
+
+4)重启服务：service named restart</code></pre>
         </div>
-        <a href="/2019/12/29/磁盘的分区与挂载：/" class="read-more">Read More</a>
     
 
 </div>
@@ -201,13 +244,13 @@
 
     <div class="post-header index">
         <h1 class="title">
-            <a href="/2019/12/27/linux软件安装/">
-                软件安装与包管理工具
+            <a href="/2019/12/30/DHCP配置/">
+                Untitled
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2019-12-27</span>
+                <span class="date">2019-12-30</span>
             
             
             
@@ -216,9 +259,13 @@
 
     
         <div class="content">
-            <h3 id="CVE-2019-12-27"><a href="#CVE-2019-12-27" class="headerlink" title="CVE _2019-12-27"></a>CVE _2019-12-27</h3>
+            <h1 id="DHCP配置"><a href="#DHCP配置" class="headerlink" title="DHCP配置:"></a>DHCP配置:</h1><h3 id="1、修改服务器的IP地址"><a href="#1、修改服务器的IP地址" class="headerlink" title="1、修改服务器的IP地址:"></a>1、修改服务器的IP地址:</h3><p>网卡配置文件存放位置: /etc/ sysconfig/ network- scripts/<br>修改网卡配置文件: ifcfg-ens33<br>禁用网卡: ifdown ens33<br>启用网卡: ifup ens33</p>
+<h3 id="2、安装DHCP服务"><a href="#2、安装DHCP服务" class="headerlink" title="2、安装DHCP服务"></a>2、安装DHCP服务</h3><h3 id="3、配置DHCP服务器"><a href="#3、配置DHCP服务器" class="headerlink" title="3、配置DHCP服务器"></a>3、配置DHCP服务器</h3><p>DHCP服务的配置文件: /etc/ dhcp/ dhcpd. conf（备份）<br>如果要配置DHCP需要查看样例件参考，进行配置:<br>/usr/ share/ doc/ dhcp*/ dhcpd. conf. example<br>也可以通过man dhcpd. conf查看帮助手册进行配置<br>检查配置语法格式错误：dhcpd -t</p>
+<h3 id="4、客户端配置"><a href="#4、客户端配置" class="headerlink" title="4、客户端配置"></a>4、客户端配置</h3><p>  方式一：通过命令提示符</p>
+<p> ipconfig /release .<br> ipconfig /renew<br> ipconfig /all</p>
+<p>方式二：通过对网卡进行禁用和启用来自动获取IP地址</p>
+
         </div>
-        <a href="/2019/12/27/linux软件安装/" class="read-more">Read More</a>
     
 
 </div>
@@ -228,13 +275,13 @@
 
     <div class="post-header index">
         <h1 class="title">
-            <a href="/2019/12/27/Linux基本常识/">
-                linux基本常识
+            <a href="/2019/12/30/用户与组的管理/">
+                Untitled
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2019-12-27</span>
+                <span class="date">2019-12-30</span>
             
             
             
@@ -243,9 +290,145 @@
 
     
         <div class="content">
-            <h3 id="CVE-2019-12-27"><a href="#CVE-2019-12-27" class="headerlink" title="CVE _ 2019-12-27"></a>CVE _ 2019-12-27</h3>
+            <h1 id="用户与组的管理"><a href="#用户与组的管理" class="headerlink" title="用户与组的管理"></a><strong>用户与组的管理</strong></h1><h2 id="1-用户与用户组概念"><a href="#1-用户与用户组概念" class="headerlink" title="1.用户与用户组概念"></a><strong>1.用户与用户组概念</strong></h2><p>Linux 是一个多用户、多任务的服务器操作系统。Linux 用户是根据角色定义的，具体分 </p>
+<p>为三种角色： </p>
+<p><strong>超级用户</strong>：拥有对系统的最高管理权限，默认是 root 用户。 </p>
+<p><strong>普通用户</strong>：只能对自己目录下的文件进行访问和修改，具有登录系统的权限。 </p>
+<p><strong>虚拟用户</strong>：也叫“伪”用户，这类用户最大的特点是不能登录系统，它们的存在主要是 </p>
+<p>方便系统管理，满足相应的系统进程对文件属主的要求。 </p>
+<p><strong>主要组（主组）：</strong>每个用户有且只有一个主要组，创建用户时默认创建。 </p>
+<p><strong>附属组（补充组）：</strong>用户可以是零个或多个附属组成员。一般用于帮助确保用户具有对系统中文件及其他资源的访问权限。 </p>
+<h2 id="2、用户配置文件"><a href="#2、用户配置文件" class="headerlink" title="2、用户配置文件"></a><strong>2、用户配置文件</strong></h2><p>（1）用户配置文件/etc/passwd，在 passwd 配置文件中，从左到右各个字段的含义如下： </p>
+<p><strong>用户名：</strong>用户登录系统时使用的用户名。 </p>
+<p><strong>口令：</strong>存放加密的口令，被/etc/shadow 文件保护。 </p>
+<p><strong>用户标识号(UID)：</strong>系统内部用它来标识用户，每个用户的 UID 都是唯一的。 </p>
+<p><strong>用户组标识号(GID)</strong>：系统内部用它来标识用户所属的组，这里的 GID 是主组 GID。 </p>
+<p><strong>注释性描述：</strong>为了方便管理和记忆该用户而添加的信息。 </p>
+<p><strong>用户主目录：</strong>也称家目录，用户登录系统后所进入的目录。 </p>
+<p><strong>命令解释器：</strong>指示该用户使用的 Shell，CentOS Linux 7 默认的是 bash。如果指定 Shell为/sbin/nologin，则代表用户无法登录系统。 </p>
+<p>（2）用户密码配置文件/etc/shadow </p>
+<p><strong>用户名：</strong>用户账户名。 </p>
+<p><strong>密码：</strong>用户的加密密码。 </p>
+<p><strong>最后一次修改的时间：</strong>从 1970 年 1 月 1 日起，到用户最后一次更改密码的天数。 </p>
+<p><strong>最小时间间隔：</strong>从 1970 年 1 月 1 日起，到用户可以更改密码的天数，(0 表示随时可以变更)。 </p>
+<p><strong>最大时间间隔：</strong>从 1970 年 1 月 1 日起，到必须更改密码的天数，否则密码将过期，(99999 表示永远不过期)。 </p>
+<p><strong>警告时间：</strong>在密码过期之前多少天提醒用户更新，默认值是 7 天。 </p>
+<p><strong>不活动时间：</strong>在用户密码过期之后到禁用账户的天数。 </p>
+<p><strong>失效时间：</strong>从 1970 年 1 月 1 日起，到账户被禁用的天数。 </p>
+<p><strong>标志：</strong>保留位。 </p>
+<h2 id="3、用户组配置文件"><a href="#3、用户组配置文件" class="headerlink" title="3、用户组配置文件"></a><strong>3、用户组配置文件</strong></h2><p>（1）用户组配置文件/etc/group，文件中各字段的含义从左到右分别是： </p>
+<p><strong>组名：</strong>组的名称。 </p>
+<p><strong>组口令：</strong>用户组的口令，用 x 表示口令是被/etc/gshadow 文件保护的。 </p>
+<p><strong>组标识号(GID)：</strong>系统内部用它来标识用户组，每个用户组的 GID 都是唯一的。 </p>
+<p><strong>组成员：</strong>该组的成员。 </p>
+<p>（2）用户组密码配置文件/etc/gshadow，文件中各字段的含义从左到右分别是： </p>
+<p><strong>组名：</strong>组的名称。 </p>
+<p><strong>组口令：</strong>用户组的口令，保存已加密的口令。 </p>
+<p><strong>组的管理员帐号：</strong>组的管理员帐号，管理员有权对该组添加、删除帐号。 </p>
+<p><strong>组成员：</strong>该组的成员，多个用户用“，”分开。 </p>
+<p><strong>4、用户管理</strong> </p>
+<p>（1）用 useradd 命令创建用户 </p>
+<p>命令格式：useradd [选项] 用户名 </p>
+<p>选项  功能说明 </p>
+<p>-d       指定用户主目录 </p>
+<p>-g        指定用户组 </p>
+<p>-m       若主目录不存在，则创建 </p>
+<p>-M       不创建主目录 </p>
+<p>-s        指定登录时使用的 Shell 类型，默认为/bin/bash，如果为/bin/nologin 就  是虚拟用户 </p>
+<p>-c       设置对该账号的注释说明文字 </p>
+<p>-r        创建系统账号(用户 ID 小于 1000，从 999 起按照递减的顺序创建)，默认不创建对应的主目录 </p>
+<p>-u       手工指定新用户的 ID 值，该值必须唯一，且大于 999。 </p>
+<p>（2）用 passwd 命令管理用户登录密码 </p>
+<p>命令格式：passwd [选项] [用户名称] </p>
+<p>选项     功能说明 </p>
+<p>-l         锁定用户密码 </p>
+<p>-u        解锁用户密码 </p>
+<p>-S        查询用户密码状态 </p>
+<p>-d        删除用户密码 </p>
+<p>【举例 1】创建用户 zhangsan,指定登录类型为/bin/bash;用户 lisi，登录类型为 </p>
+<p>/sbin/nologin,并分别设置密码为：123456。并测试两个用户能否登录系统。 </p>
+<p>#useradd -s /bin/bash zhangsan </p>
+<p>#useradd -s /bin/nologin lisi </p>
+<p>【举例 2】创建用户 tom，并设置 tom 的真实姓名为:tom-sing,家庭电话：13911202319，公司地址：tf5jie,公司电话：028-85699999 </p>
+<p>#useradd -c “tom-sing 13911202319 tf5jie 028-85699999” tom3 </p>
+<p>（3）用 usermod 命令修改用户属性 </p>
+<p>命令格式：usermod 选项 用户名 </p>
+<p>选项      功能说明 </p>
+<p>-l           修改用户名 </p>
+<p>-c         修改用户描述信息 </p>
+<p>-d         修改主目录 </p>
+<p>-L          锁定帐号，临时禁止用户登录 </p>
+<p>-U         对帐号解锁 </p>
+<p>-g           修改用户所属组 </p>
+<p>-G         修改用户附加组 </p>
+<p>-s          修改用户登录的 shell 类型 </p>
+<p>-u         修改用户 ID 号 </p>
+<p>-e         修改用户有效期 </p>
+<p>-f           修改用户密码在多少天后过期 </p>
+<p>【举例 1】修改用户 tom 的名字为 jack </p>
+<p>#usermod -l jack tom </p>
+<p>【举例 2】修改用户 jack 的注释名为 jack-sing </p>
+<p># usermod -c jack-sing jack </p>
+<p>【举例 3】# usermod -s /bin/nologin jack </p>
+<p>（4）用 userdel 命令删除用户 </p>
+<p>命令格式：userdel [-r] 用户名 </p>
+<p>（5）用于修改用户口令有效期限的 chage 命令 </p>
+<p>命令格式：chage [选项] 用户名 </p>
+<p>选项      功能说明 </p>
+<p>-m         密码可更改的最小天数。为零时代表任何时候都可以更改密码 </p>
+<p>-W         用户密码到期前，提前收到警告信息的天数 </p>
+<p>-M         密码保持有效的最大天数 </p>
+<p>-E           账号到期的日期。过了这天，此账号将不可用 </p>
+<p>-d           上一次更改的日期 </p>
+<p>-I            停滞时期。如果一个密码已过期这些天，那么此账号将不可用 </p>
+<p>-l            列出当前的设置。由非特权用户来确定他们的密码或账号何时过期 </p>
+<p>【举例】设置 jack 用户的密码最大有效期为 30 天，提前 9 天警告，失效时间 40 天。 </p>
+<p>#chage -M 18054 -W 9 -E 18064 </p>
+<p>（6）修改用户注释信息的 chfn 命令 </p>
+<p>命令格式：chfn [选项] [用户名] </p>
+<p>选项      功能说明 </p>
+<p>-f           设置真实姓名。 </p>
+<p>-h          设置家中的电话号码。 </p>
+<p>-o           设置办公室的地址。</p>
+<p>-p           设置办公室的电话号码。 </p>
+<p>（7）修改用户 Shell 类型的 chsh 命令 </p>
+<p>命令格式：chsh [s] [用户名] </p>
+<p><strong>5、用户组管理</strong> </p>
+<p>（1）用 groupadd 命令创建用户组 </p>
+<p>命令格式：groupadd [r] 用户组名称 </p>
+<p>（2）用 groupmod 命令修改用户组属性 </p>
+<p>命令格式：groupmod 选项 组名 </p>
+<p>选项       功能说明 </p>
+<p>-n           修改组名 </p>
+<p>-g            修改组标识号 GID </p>
+<p>（3）用 groupdel 命令删除用户组 </p>
+<p>命令格式：groupdel 组名 </p>
+<p>（4）用 gpasswd 命令维护组中成员 </p>
+<p>命令格式：gpasswd 选项 用户名 组名 </p>
+<p>选项      功能说明 </p>
+<p>-a          添加用户到组。 </p>
+<p>-d         将用户从组中删除。 </p>
+<p>-A         设置用户为组管理员。 </p>
+<p>【举例】新建 yanyan、yuanyuan、lili 三个用户和 teacher 组将 lili 设置为 teacher </p>
+<p>组的管理员，那么 lili 就具有向该组添加用户和移除用户的权限。也可以为该 </p>
+<p>组设置密码，其他用户就可以通过 newgrp 命令切换成该组的成员身份，否则只 </p>
+<p>有本组成员才能使用该组身份。 </p>
+<p>#useradd yanyan </p>
+<p>#useradd yuanyuan </p>
+<p>#useradd lili </p>
+<p>#gpasswd -a lili teacher </p>
+<p>#gpasswd -A lili teacher </p>
+<p>#gpasswd teacher </p>
+<p><strong>6、扩展知识</strong> </p>
+<p>（1）查看用户信息的 id 命令 </p>
+<p>（2）输出指定用户所在组 groups 命令 </p>
+<p>（3）查看当前登录用户 who am i 命令 </p>
+<p>（4）查看当前用户 w 命令 </p>
+<p>（5）查看登录用户 who 命令 </p>
+<p>（6）查看登录用户历史 last 命令 </p>
+<p>window系统中用户名、密码存储在c盘的SAM数据库中<br>ps aux 查看进程<br>kill -9 [进程号]  杀死进程</p>
+
         </div>
-        <a href="/2019/12/27/Linux基本常识/" class="read-more">Read More</a>
     
 
 </div>
@@ -255,13 +438,13 @@
 
     <div class="post-header index">
         <h1 class="title">
-            <a href="/2019/12/27/FTP服务器/">
-                FTP服务器
+            <a href="/2019/12/30/网络连接/">
+                Untitled
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2019-12-27</span>
+                <span class="date">2019-12-30</span>
             
             
             
@@ -270,9 +453,77 @@
 
     
         <div class="content">
-            <h3 id="CVE-2019-12-27"><a href="#CVE-2019-12-27" class="headerlink" title="CVE _2019-12-27"></a>CVE _2019-12-27</h3>
+            <h1 id="网络连接"><a href="#网络连接" class="headerlink" title="网络连接"></a><strong>网络连接</strong></h1><h2 id="一、主机名的配置（配置文件-etc-hostname）"><a href="#一、主机名的配置（配置文件-etc-hostname）" class="headerlink" title="一、主机名的配置（配置文件/etc/hostname）"></a><strong>一、主机名的配置</strong>（配置文件/etc/hostname）</h2><h3 id="1、使用-hostname-命令临时设置主机名"><a href="#1、使用-hostname-命令临时设置主机名" class="headerlink" title="1、使用 hostname 命令临时设置主机名"></a><strong>1、使用 hostname 命令临时设置主机名</strong></h3><p>命令格式：hostname [新主机名] </p>
+<h3 id="2．永久设置主机名"><a href="#2．永久设置主机名" class="headerlink" title="2．永久设置主机名"></a><strong>2．永久设置主机名</strong></h3><p>命令格式：hostnamectl set-hostname 新主机名 </p>
+<h2 id="二、网卡信息的配置"><a href="#二、网卡信息的配置" class="headerlink" title="二、网卡信息的配置"></a><strong>二、网卡信息的配置</strong></h2><h3 id="1、网卡配置文件"><a href="#1、网卡配置文件" class="headerlink" title="1、网卡配置文件"></a><strong>1、网卡配置文件</strong></h3><p>位于:/etc/sysconfig/network-scripts 目录下,一块网卡对应一个配置文件。 </p>
+<p><strong>ifcfg-ens33</strong> 为网卡配置文件，常用配置项的含义如下： </p>
+<p>DEVICE=ens33 //定义该网卡的识别名称。 </p>
+<p>BOOTPROTO=dhcp //启动该网卡的方式，dhcp 表示通过 BOOTP 或 DHCP 协议动态取得 IP 地址。 </p>
+<p>ONBOOT=yes //启动 network 服务时，是否启动该网卡。 </p>
+<p>TYPE=Ethernet //网卡的类型。 </p>
+<p>IPADDR=192.168.64.128 //静态方式指定网卡的 IP 地址 </p>
+<p>NETMASK=255.255.255.0 //定义网卡的子网掩码 </p>
+<p>MTU=1500  //网卡传输的最大数据包 </p>
+<p>GATEWAY=192.168.64.254 //网络的默认网关 </p>
+<p>DNS1= </p>
+<h3 id="2、配置网卡信息"><a href="#2、配置网卡信息" class="headerlink" title="2、配置网卡信息"></a><strong>2、配置网卡信息</strong></h3><p>（1）直接修改网卡配置文件 </p>
+<p>#vim /etc/sysconfig/network-scripts ifcfg-ens33 </p>
+<p>修改完成后重启服务才生效 </p>
+<p>#systemctl restart network.service </p>
+<p>（2）ifconfig 命令 </p>
+<p>①查看网卡信息 </p>
+<p>命令格式：ifconfig [选项] </p>
+<p>无选项：显示当前活动的网卡。</p>
+<p>–a ：显示系统中所有网卡配置信息。 </p>
+<p>网卡设备名：显示指定网卡配置信息。 </p>
+<p>②设置 IP 地址（临时的） </p>
+<p>命令格式：ifconfig 网卡设备名 IP 地址 netmask 子网掩码 </p>
+<p>③ 修改网卡的 MAC 地址（先禁用网卡，修改后重启网卡） </p>
+<p>命令格式：ifconfig 网卡设备名 hw ether MAC 地址 </p>
+<p>（3）网卡常用命令 </p>
+<p>① ifdown（禁用网卡） </p>
+<p>命令格式：ifdown 网卡设备名 </p>
+<p>② ifup（重启网卡） </p>
+<p>命令格式：ifup 网卡设备名 </p>
+<p>③绑定 IP 和 MAC 地址 </p>
+<p>【举例】创建/etc/ethers 文件，将 193.168.168.154 与 00：0C：29：03：F3：75 网卡绑定。 </p>
+<p>#echo “193.168.168.154 00：0C：29：03：F3：75” &gt;&gt;/etc/ethers </p>
+<p>#arp -f </p>
+<h2 id="三、客户端域名解析服务器的配置"><a href="#三、客户端域名解析服务器的配置" class="headerlink" title="三、客户端域名解析服务器的配置"></a><strong>三、客户端域名解析服务器的配置</strong></h2><p>在 Linux 系统中客户端域名解析服务器的配置文件是/etc/resolv.conf， </p>
+<p>文件内容格式：nameserver 指定 DNS 服务器的 IP 地址。 </p>
+<p>最多可同时指定 3 个 DNS 服务器的 IP 地址，根据 nameserver 的配置顺序决定搜索。可以使用 domain 来指定当前主机所在域的域名。 </p>
+<p>为 避 免 /etc/resolv.conf 文 件 的 内 容 被 系 统 修 改 或 覆 盖 ， 需 要 修 改 </p>
+<p>/etc/NetworkManager/NetworkManager.conf 文件，在 main 部分添加“dns=none”选项。 </p>
+<p>修改后的 NetworkManager.conf 文件的内容如下所示： </p>
+<p>[main] </p>
+<p>plugins=ifcfg-rh </p>
+<p>dns=none </p>
+<p>在完成修改后，需要执行命令： </p>
+<p>#systemctl restart NetworkManager.service </p>
+<p>重新装载 NetworkManager 的配置。此时客户端域名解析服务器设置完成。 </p>
+<h2 id="四、6-2-1-常用网络调试命令与故障排查"><a href="#四、6-2-1-常用网络调试命令与故障排查" class="headerlink" title="四、6.2.1 常用网络调试命令与故障排查"></a><strong>四、6.2.1 常用网络调试命令与故障排查</strong></h2><p>1．ping 命令：测试网络中是否畅通以及网络质量。 </p>
+<p>命令格式：ping [选项] 对方 IP 地址 </p>
+<p>选项说明：</p>
+<p>-c : 指定向目的主机发送多少个报文。 </p>
+<p>-s :指定发送报文的大小，以字节为单位。 </p>
+<p>-W: 设置等待接收回应报文的时间间隔，以秒为单位。 </p>
+<p>2．netstat 命令：显示网络连接、路由表、正在监听的端口等信息。 </p>
+<p>命令格式：netstat [选项] </p>
+<p>选项说明：</p>
+<p>-l : 显示正在监听的服务或端口。 </p>
+<p>-a : 显示当前主机开放的所有端口 </p>
+<p>-n : 不进行域名解析。 </p>
+<p>-p : 显示端口是由哪个进程和程序在监听。 </p>
+<p>-c : 动态显示网络连接和端口监听信息。 </p>
+<p>-i : 显示网卡相关信息。 </p>
+<p>-r : 显示当前主机的路由表信息。 </p>
+<p>3．traceroute 命令：路由跟踪。 </p>
+<p>命令格式：traceroute </p>
+<p>目的 IP 地址 </p>
+<p>4．nslookup 命令:检测指定的 DNS 服务器工作是否正常 </p>
+<p>命令格式：nslookup </p>
+
         </div>
-        <a href="/2019/12/27/FTP服务器/" class="read-more">Read More</a>
     
 
 </div>
@@ -282,13 +533,13 @@
 
     <div class="post-header index">
         <h1 class="title">
-            <a href="/2019/12/11/高级距离矢量路由协议 EIGRP/">
-                高级距离矢量路由协议 EIGRP
+            <a href="/2019/12/30/使用 vim 编辑文档/">
+                Untitled
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2019-12-11</span>
+                <span class="date">2019-12-30</span>
             
             
             
@@ -297,9 +548,53 @@
 
     
         <div class="content">
-            <h3 id="CVE-2019-12-11"><a href="#CVE-2019-12-11" class="headerlink" title="CVE _2019-12-11"></a>CVE _2019-12-11</h3>
+            <h1 id="使用-vim-编辑文档"><a href="#使用-vim-编辑文档" class="headerlink" title="使用 vim 编辑文档"></a><strong>使用 vim 编辑文档</strong></h1><h2 id="1-vim-编辑器的使用"><a href="#1-vim-编辑器的使用" class="headerlink" title="1.vim 编辑器的使用"></a><strong>1.vim 编辑器的使用</strong></h2><h3 id="（1）vim-编辑器的工作模式："><a href="#（1）vim-编辑器的工作模式：" class="headerlink" title="（1）vim 编辑器的工作模式："></a><strong>（1）vim 编辑器的工作模式：</strong></h3><p><img src="E:%5Cketanggongju%5Chexo%5Csource%5C1577598959853.png" alt="1577598959853"></p>
+<h3 id="（2）vi-编辑器的使用"><a href="#（2）vi-编辑器的使用" class="headerlink" title="（2）vi 编辑器的使用"></a><strong>（2）vi 编辑器的使用</strong></h3><p>  <img src="E:%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5C1577599131389.png" alt="1577599131389"></p>
+<p><img src="E:%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5C1577599154933.png" alt="1577599154933"></p>
+<p><img src="E:%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5C1577599184218.png" alt="1577599184218"></p>
+<p><img src="E:%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5C1577599199462.png" alt="1577599199462"></p>
+<h2 id="2、查看文件内容命令"><a href="#2、查看文件内容命令" class="headerlink" title="2、查看文件内容命令"></a>2、查看文件内容命令</h2><h3 id="（1）more-less-浏览文件全部内容"><a href="#（1）more-less-浏览文件全部内容" class="headerlink" title="（1）more/less 浏览文件全部内容"></a>（1）more/less 浏览文件全部内容</h3><p>当文件内容过多时，可以用 more 或 less 命令来查看。 </p>
+<p>命令格式： </p>
+<p>more 文件名 </p>
+<p>less 文件名 </p>
+<h3 id="（2）cat-查看文件内容"><a href="#（2）cat-查看文件内容" class="headerlink" title="（2）cat 查看文件内容"></a><strong>（2）cat 查看文件内容</strong></h3><p>该命令用于将文件的内容打印输出到显示器或终端窗口上。 </p>
+<p>命令格式：cat [选项] 文件名 </p>
+<p>选项  功能说明 </p>
+<p>-n      从 1 开始对所有输出的行数进行编号 </p>
+<p>-b      从 1 开始对所有输出的非空白行的行数进行编号 </p>
+<p>-s      当遇到连续两行以上的空白行时，用一个空白行代替 </p>
+<p><strong>（3）head/tail 显示文件头部/尾部信息</strong> </p>
+<p>head 命令用来查看文件前若干行，tail 命令用来查看文件后若干行，默认，查看 10 行。 </p>
+<p>命令格式： </p>
+<p>head [选项] 文件名 </p>
+<p>tail [选项] 文件名3 </p>
+<p><strong>（4）grep 查询字符串</strong> </p>
+<p>grep 命令可以在指定文本文件中匹配字符串，输出匹配字符串所在行的全部内容。 </p>
+<p>命令格式：grep 关键字 查找范围 </p>
+<p><strong>3、管道符</strong> </p>
+<p><strong>命令格式：</strong>cmd1 | cmd2 | cmd3 |……|cmd(n) </p>
+<p><strong>作用：</strong>将一个命令的执行结果作为另一个命令输入来执行 </p>
+<p>【例 1】查看/etc 目录下的内容。 </p>
+<p>#ls /etc | less </p>
+<p>【例 2】显示/etc 目录中文件名以 pass 开头的文件 </p>
+<p>#ls /etc | grep pass* </p>
+<p><strong>4、重定向</strong> </p>
+<p>所谓重定向，指不使用系统的标准输入、输出、错误端口进行信息的获取或输出，而是通过重新的指定，让命令从非默认的输入输出设备获取或输出信息。所以重定向分为：输入重定向、输出重定向和错误重定向。 </p>
+<p>命令   说明 </p>
+<p>&gt;        输出重定向。如果原来目标文件存在，则新的内容会覆盖文件中原有的内容 </p>
+<p>&gt;&gt;      输出重定向。如果原来目标文件存在，则新的内容会追加在原来内容的后面， </p>
+<p>不覆盖文件中的原有内容 </p>
+<p>&lt;        输入的重定向。即命令的输入不通过键盘来完成，而通过其他的方式 </p>
+<p>2&gt;      错误重定向 </p>
+<p>&amp;&gt;     输出重定向和错误重定向同时实现 </p>
+<p>【例 1】将 ls /命令的执行结果记录到 list 的文件中。 </p>
+<p>#ls / &gt; list </p>
+<p>【例 2】若命令 useradd lolo 执行错误，则将错误信息保存到当前目录下的 errlog 文件中。 </p>
+<p>#useradd lolo 2&gt;errlog </p>
+<p>【例 3】将程序 hello 的执行结果和错误信息全部都重定向输出到/tmp 目录下的 outfile 文件中。 </p>
+<p>#./hello &amp;&gt; /tmp/outfile</p>
+
         </div>
-        <a href="/2019/12/11/高级距离矢量路由协议 EIGRP/" class="read-more">Read More</a>
     
 
 </div>
@@ -309,13 +604,13 @@
 
     <div class="post-header index">
         <h1 class="title">
-            <a href="/2019/09/07/CVE-2019-0708/">
-                漏洞复现
+            <a href="/2019/12/30/链接文件&别名&sudo/">
+                Untitled
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2019-09-07</span>
+                <span class="date">2019-12-30</span>
             
             
             
@@ -324,9 +619,31 @@
 
     
         <div class="content">
-            <h3 id="CVE-2019-07-08"><a href="#CVE-2019-07-08" class="headerlink" title="CVE _2019_07_08"></a>CVE _2019_07_08</h3>
+            <h2 id="1、连接文件"><a href="#1、连接文件" class="headerlink" title="1、连接文件"></a>1、连接文件</h2><h3 id="（1）软连接"><a href="#（1）软连接" class="headerlink" title="（1）软连接"></a>（1）软连接</h3><p>  是连接文件本身，可以跨分区建立软连接，不会因为不同分区而出现不能使用的问题。</p>
+<p>在创建软连接的文件中，修改一处文件另一处同时发生修改，当删除软连接对象时，不影响源文件使用，当删除源文件后，连接对象失去作用。</p>
+<p>创建软连接的方式：#ln -s soure /file object </p>
+<p>​          #ln -s  /root/test.txt testlink</p>
+<h2 id="（2）硬连接"><a href="#（2）硬连接" class="headerlink" title="（2）硬连接"></a>（2）硬连接</h2><p>在文件中使用inode号连接，两个连接文件同事使用一个inode号进行文件表示，一处文件修改，修改针对文件底层数据块修改，两个文件同时修改内容，删除一处文件，不会影响另一处文件的使用。因为硬连接使用inode号连接，所以只能在同分区能使用，不能跨分区使用。</p>
+<p>创建硬连接的方式：#ln soure /file object</p>
+<p>​           #ln /root/test.txt testlink2</p>
+<h2 id="2、命令别名"><a href="#2、命令别名" class="headerlink" title="2、命令别名"></a>2、命令别名</h2><p><strong><em>\</em>（1）定义别名：**</strong>alias [name[=value]]</p>
+<p>   #alias li=’cat /etc/passwd’</p>
+<p><strong><em>\</em>（2）删除别名：**</strong>unalias li</p>
+<p><strong><em>\</em>（3）查看系统可用别名：**</strong>alias</p>
+<h2 id="3、sudo概述"><a href="#3、sudo概述" class="headerlink" title="3、sudo概述"></a>3、sudo概述</h2><p>sudo允许根据指定的安全策略，运行一个用户以其他用户身份或管理员身份去执行某个命令。</p>
+<p><strong><em>\</em>（1）sudo配置**</strong></p>
+<p>查看sudo软件包：# rpm -qi sudo</p>
+<p>sudoers的模板配置文件：# cat /etc/sudoers</p>
+<p><strong><em>\</em>（2）配置一个普通用户，不需要切换密码就能以管理员身份执行管理命令**</strong></p>
+<p>yanhui ALL=(ALL) NOPASSWD: ALL</p>
+<p><strong>（3）***</strong>*定义别名并简单验证****</p>
+<p>Cmnd_Alias NETADMINCMD = /usr/sbin/ip,/usr/sbin/ifconfig,/usr/sbin/route</p>
+<p>Cmnd_Alias USERADMINCMD =  /usr/sbin/useradd,/ur/sbin/userdel,/usr/sbin/passwd,! /usr/sbin/passwd root</p>
+<p>fedora ALL=(ALL)     NETADMINCMD</p>
+<p>centos ALL=(ALL)     NETADMINCMD,USERADMINCMD</p>
+<p>查看命令所在位置：whereis 【命令名字】</p>
+
         </div>
-        <a href="/2019/09/07/CVE-2019-0708/" class="read-more">Read More</a>
     
 
 </div>
@@ -336,13 +653,13 @@
 
     <div class="post-header index">
         <h1 class="title">
-            <a href="/2019/09/07/浏览器外挂/">
-                浏览器插件/外挂
+            <a href="/2019/12/30/服务与进程管理/">
+                Untitled
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2019-09-07</span>
+                <span class="date">2019-12-30</span>
             
             
             
@@ -351,9 +668,118 @@
 
     
         <div class="content">
-            <h3 id="CVE-2019-09-07"><a href="#CVE-2019-09-07" class="headerlink" title="CVE _2019-09-07"></a>CVE _2019-09-07</h3>
+            <h1 id="服务与进程管理"><a href="#服务与进程管理" class="headerlink" title="服务与进程管理"></a><strong>服务与进程管理</strong></h1><h2 id="1-Linux-系统的启动过程"><a href="#1-Linux-系统的启动过程" class="headerlink" title="1.Linux 系统的启动过程"></a><strong>1.Linux 系统的启动过程</strong></h2><p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5C1577619906748.png" alt="1577619906748"></p>
+<h2 id="2、Linux-系统的运行级别"><a href="#2、Linux-系统的运行级别" class="headerlink" title="2、Linux 系统的运行级别"></a><strong>2、Linux 系统的运行级别</strong></h2><h3 id="（1）Linux-为了适应不同用户对服务的启动配置要求，设置了七种不同的运行级别："><a href="#（1）Linux-为了适应不同用户对服务的启动配置要求，设置了七种不同的运行级别：" class="headerlink" title="（1）Linux 为了适应不同用户对服务的启动配置要求，设置了七种不同的运行级别："></a>（1）Linux 为了适应不同用户对服务的启动配置要求，设置了七种不同的运行级别：</h3><p><strong>运行级别 0：</strong>关机模式。poweroff.target </p>
+<p><strong>运行级别 1：</strong>单用户模式，仅用于 root 用户对系统进行维护时。rescue.target </p>
+<p><strong>运行级别 2：</strong>多用户模式（没有 NFS）。multi-user.target </p>
+<p><strong>运行级别 3：</strong>完全多用户模式，即多用户文本界面模式，是标准的运行级别。multi-user.target </p>
+<p><strong>运行级别 4：</strong>特定运行级别，基本不用的用户模式。multi-user.target </p>
+<p><strong>运行级别 5：</strong>X11，Linux 系统的图形界面运行级别。graphical.target </p>
+<p><strong>运行级别 6：</strong>重新启动。reboot.target </p>
+<p><strong>target 文件保存在：/lib/system/system 目录中。</strong> </p>
+<p><strong>运行级别的设置由/etc/systemd/system/default.target 文件来控制。</strong> </p>
+<p><strong>运行级别服务程序存放位置：/etc/rc.d/</strong> </p>
+<p><strong>服务进程存放在运行级别对应的目录中：Snnxxxx 或 Knnxxxxx</strong> </p>
+<p><strong>服务程序的脚本文件存放位置：/etc/rc.d/init.d/</strong> </p>
+<h3 id="（2）系统运行级别之间的切换"><a href="#（2）系统运行级别之间的切换" class="headerlink" title="（2）系统运行级别之间的切换"></a>（2）系统运行级别之间的切换</h3><p>查看系统的当前运行级别：runlevel </p>
+<p>查看系统启动时的运行级别：ll /etc/systemd/system/default.target </p>
+<h3 id="（3）系统运行级别之间的切换"><a href="#（3）系统运行级别之间的切换" class="headerlink" title="（3）系统运行级别之间的切换"></a>（3）系统运行级别之间的切换</h3><p>使用 init 命令进行切换 </p>
+<p>将系统启动的运行级别从 5 修改为 3 </p>
+<p>方法一：重新设置链接文件 </p>
+<p>#rm -rf /etc/systemd/system/default.target </p>
+<p>#ln -s /lib/systemd/system/runlevel3.target /etc/systemd/system/default.tart </p>
+<p>方法二：使用 systemctl 命令 </p>
+<p>#systemctl set-default runlevel3.target </p>
+<p>#systemctl set-default runlevel3.target </p>
+<p>（4）关闭 Ctrl+Alt+Del 键的功能 </p>
+<p>在字符界面按 Ctrl+Alt+Del 键系统会自动重启，为避免误操作带来的损失，需要禁用此功能。 </p>
+<p>注释/usr/lib/systemd/system/ctrl-alt-del.target 文件中的全部内容，保存退出。 </p>
+<p>执行 init q 重新 reload 配置文件。 </p>
+<h3 id="3、使用-systemctl-管理服务"><a href="#3、使用-systemctl-管理服务" class="headerlink" title="3、使用 systemctl 管理服务"></a><strong>3、使用 systemctl 管理服务</strong></h3><p>服务指执行指定系统功能的程序、或进程，以便支持其他程序，尤其是底层(接近硬件)程 </p>
+<p>序。例如：打印服务，ftp 服务，http 服务等。对于服务的管理可使用 systemctl 命令。 </p>
+<h3 id="（1）服务的启动与停止"><a href="#（1）服务的启动与停止" class="headerlink" title="（1）服务的启动与停止"></a>（1）服务的启动与停止</h3><p>命令格式：systemctl 选项 服务名 </p>
+<p>选项说明： </p>
+<p>start：启动;stop:停止；restart：重启；status：服务状态 </p>
+<p>服务名：一般以“.service”结尾，输入服务名时了可省略。 </p>
+<h3 id="（2）设置服务的自启动状态"><a href="#（2）设置服务的自启动状态" class="headerlink" title="（2）设置服务的自启动状态"></a>（2）设置服务的自启动状态</h3><p>①使用 ntsysv 命令设置服务的自启动 </p>
+<p>命令格式：ntsysv [–back][–level] </p>
+<p>选项说明：back,在互动界面不显示 cancel;level,在指定的运行级别中设置服务的自启动。 </p>
+<p>②使用 systemctl 命令设置服务的自启动 </p>
+<p>查看服务的自启动状态：systemctl is-enabled [服务名称] </p>
+<p>开启服务的自启动：systemctl enable 服务名称 </p>
+<p>关闭服务的自启动：systemctl disable 服务名称 </p>
+<h3 id="（3）查看所有的服务"><a href="#（3）查看所有的服务" class="headerlink" title="（3）查看所有的服务"></a>（3）查看所有的服务</h3><p>命令格式：systemctl [选项] [–type=TYPE] [–all] </p>
+<p>选项说明： </p>
+<p>(1) list-units：依据 unit 列出所有启动的 unit。加上–all 会列出没启动的 unit; </p>
+<p>(2) list-unit-files:依据/usr/lib/systemd/system/ 内的启动文件，列出启动文件列表 </p>
+<p>–type=TYPE： 为 unit type, 主要有 service, socket, target </p>
+<p>#systemctl </p>
+<p>//列出所有的系统服务 </p>
+<p>#systemctl list-units </p>
+<p>//列出所有启动 unit </p>
+<p>#systemctl list-unit-files </p>
+<p>//列出所有启动文件 </p>
+<p>#systemctl list-units -type=service -all </p>
+<p>//列出所有 service 类型的 unit </p>
+<p>#systemctl list-units -type=service -all grep cpu </p>
+<p>//列出 cpu 电源管理机制的服务3 </p>
+<p>#systemctl list-units -type=target -all </p>
+<p>//列出所有目标单元 target </p>
+<h3 id="（4）systemctl-命令特殊功能"><a href="#（4）systemctl-命令特殊功能" class="headerlink" title="（4）systemctl 命令特殊功能"></a>（4）systemctl 命令特殊功能</h3><p>命令                                       说明 </p>
+<p>systemctl poweroff 0         系统关机 </p>
+<p>systemctl reboot                 重新启动 </p>
+<p>systemctl suspend              进入睡眠模式 </p>
+<p>systemctl hibernate            进入休眠模式 </p>
+<p>systemctl rescue                  强制进入救援模式 </p>
+<p>systemctl emergency          强制进入紧急救援模式 </p>
+<p><strong>4、进程的延迟与周期调度</strong> </p>
+<p>（1）进程的概念 </p>
+<p>进程：开始执行但是还没有结束的程序的实例 </p>
+<p>程序：包含可执行代码的文件 </p>
+<p>进程由程序产生，是一个运行着的、要占系统资源的程序，进程不等于程序。 </p>
+<p>进程分为：交互进程、批处理进程、守护进程。 </p>
+<p>（2）进程的查看：ps 命令 </p>
+<p>命令语法：ps [选项] </p>
+<p>选项说明： </p>
+<p>-A：显示系统中所有进程的信息，与-e 具有相同的功能。 </p>
+<p>-a：显示所有用户进程的信息。 </p>
+<p>-f：完整的显示进程的所有信息。 </p>
+<p>-l：以长格式显示进程信息。 </p>
+<p>-r：只显示正在运行的进程。 </p>
+<p>-u：显示面向用户的格式(包括用户名、CPU 及内存使用情况等信息)。 </p>
+<p>-x：显示所有非控制终端上的进程信息。 </p>
+<p>-p：显示由进程 ID 指定的进程的信息。 </p>
+<p>-t：显示指定终端上的进程的信息。 </p>
+<p>（3）查看各进程继承关系的命令：pstree </p>
+<p>pstree 命令以树状结构显示系统进程的继承关系。树状图将会以 pid (如果有指定) 或是以 init </p>
+<p>为根，如果指定 user，则树状结构只显示该用户所拥有的进程。 </p>
+<p>命令格式：pstree [选项] [pid|user] </p>
+<p>选项说明： </p>
+<p>-a：显示该进程的完整继承关系，如果是被内存置换出去的进程则会加上括号。 </p>
+<p>-c 如果有重复的进程名, 则分开列出 (默认值是会在前面加上 * )。 </p>
+<p>pid|user：查看指定根进程(pid)或用户(user)所拥有的进程。 </p>
+<p>（4）进程的终止 </p>
+<p>kill [信号代码] pid </p>
+<p>Killall [信号代码] 进程名（5）进程的调度 </p>
+<p>①延迟性调试命令：at </p>
+<p>功能：指定时间运行指定的程序 </p>
+<p>格式：at [-f 文件] [-m ] 时间 </p>
+<p>-f : 指定存放计划执行命令的文件 </p>
+<p>-m: 作业结束后发送邮件给执行 at 命令的用户 </p>
+<p>时间：任务执行的时间，可采用相对和绝对两种方法 </p>
+<p>绝对表示法： MMDDYY 或 MM/DD/YYYY， today 或 tomorrow 来表示今天或明天 </p>
+<p>相对表示法：now＋num＋时间单位，其中的时间间隔可以是 minutes, hours, days, weeks </p>
+<p>②周期性调度命令 crontab </p>
+<p>功能：计划调度服务 </p>
+<p>crontab –u user {-e | -l | -r} </p>
+<p>-u：为指定的用户设置计划任务 </p>
+<p>-e：编辑计划任务列表 </p>
+<p>-l：查看指定用户的计划任务列表，默认为当前用户 </p>
+<p>-r：删除用户的计划任务列表 </p>
+<p>crontab –u user file (其中 file 代表任务列表文件） </p>
+<p>任务列表文件的格式：minute hour day month day-of-the-week run_command </p>
+
         </div>
-        <a href="/2019/09/07/浏览器外挂/" class="read-more">Read More</a>
     
 
 </div>
@@ -363,13 +789,13 @@
 
     <div class="post-header index">
         <h1 class="title">
-            <a href="/2019/09/07/运行环境/">
-                运行环境
+            <a href="/2019/12/30/搭建nginx网站服务器/">
+                Untitled
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2019-09-07</span>
+                <span class="date">2019-12-30</span>
             
             
             
@@ -378,9 +804,121 @@
 
     
         <div class="content">
-            <h3 id="CVE-2019-07-08"><a href="#CVE-2019-07-08" class="headerlink" title="CVE _2019_07_08"></a>CVE _2019_07_08</h3>
+            <h1 id="搭建nginx网站服务器"><a href="#搭建nginx网站服务器" class="headerlink" title="搭建nginx网站服务器"></a>搭建nginx网站服务器</h1><h2 id="1、检查网络环境，查看服务器是否可以上网"><a href="#1、检查网络环境，查看服务器是否可以上网" class="headerlink" title="1、检查网络环境，查看服务器是否可以上网"></a>1、检查网络环境，查看服务器是否可以上网</h2><h2 id="2、Centos-7-配置阿里云-yum源和安装-EPEL源"><a href="#2、Centos-7-配置阿里云-yum源和安装-EPEL源" class="headerlink" title="2、Centos 7 配置阿里云 yum源和安装 EPEL源"></a>2、Centos 7 配置阿里云 yum源和安装 EPEL源</h2><h3 id="（1）对默认原文件进行备份"><a href="#（1）对默认原文件进行备份" class="headerlink" title="（1）对默认原文件进行备份"></a>（1）对默认原文件进行备份</h3><p>#cd /etc/yum.repos.d</p>
+<p>#mkdr bak</p>
+<p>#mv *.repo bak/</p>
+<h3 id="（2）配置阿里云yum源"><a href="#（2）配置阿里云yum源" class="headerlink" title="（2）配置阿里云yum源"></a>（2）配置阿里云yum源</h3><p>​     #wget <a href="http://mirrors.aliyun.com/repo/Centos-7.repo" target="_blank" rel="noopener">http://mirrors.aliyun.com/repo/Centos-7.repo</a></p>
+<p>#yum clean all</p>
+<p>#yum makecache</p>
+<h3 id="（3）安装-EPEL源"><a href="#（3）安装-EPEL源" class="headerlink" title="（3）安装 EPEL源"></a>（3）安装 EPEL源</h3><p>#yum install -y epel-release</p>
+<h2 id="3、安装nginx并配置服务"><a href="#3、安装nginx并配置服务" class="headerlink" title="3、安装nginx并配置服务"></a>3、安装nginx并配置服务</h2><h3 id="（1）安装nginx服务："><a href="#（1）安装nginx服务：" class="headerlink" title="（1）安装nginx服务："></a>（1）安装nginx服务：</h3><p> #yum install nginx</p>
+<p>主配置文件：# vim /etc/nginx/nginx.conf</p>
+<p>events模块：<a href="https://blog.csdn.net/zhangsheng_1992/article/details/51689980" target="_blank" rel="noopener">https://blog.csdn.net/zhangsheng_1992/article/details/51689980</a></p>
+<p>http模块：<a href="https://blog.csdn.net/chinabestchina/article/details/80993086" target="_blank" rel="noopener">https://blog.csdn.net/chinabestchina/article/details/80993086</a></p>
+<p>监听端口：80</p>
+<p>默认目录：/usr/share/nginx/html</p>
+<p>日志文件：error_log /var/log/nginx/error.log;</p>
+<p>​     error_log /var/log/nginx/access.log </p>
+<p>补充：日志格式分析</p>
+<p>安全加固：<a href="https://www.cnblogs.com/xiaozi/p/10119062.html" target="_blank" rel="noopener">https://www.cnblogs.com/xiaozi/p/10119062.html</a></p>
+<h3 id="（2）修改nginx配置文件"><a href="#（2）修改nginx配置文件" class="headerlink" title="（2）修改nginx配置文件"></a>（2）修改nginx配置文件</h3><p>   #vim /etc/nginx/nginx.conf</p>
+<p>​    在文件最后一个}号前添加：include vhost/*.conf;</p>
+<h3 id="（3）在-etc-nginx目录下新建vhost目录，并在下面新建www-test-conf与www-hr-conf两个域名配置文件，并作如下编辑。"><a href="#（3）在-etc-nginx目录下新建vhost目录，并在下面新建www-test-conf与www-hr-conf两个域名配置文件，并作如下编辑。" class="headerlink" title="（3）在/etc/nginx目录下新建vhost目录，并在下面新建www.test.conf与www.hr.conf两个域名配置文件，并作如下编辑。"></a>（3）在/etc/nginx目录下新建vhost目录，并在下面新建<a href="http://www.test.conf与www.hr.conf两个域名配置文件，并作如下编辑。" target="_blank" rel="noopener">www.test.conf与www.hr.conf两个域名配置文件，并作如下编辑。</a></h3><p><strong><em>\</em>#vim <a href="http://www.test.conf\" target="_blank" rel="noopener">www.test.conf\</a>**</strong></p>
+<p>server{</p>
+<p>​    listen 192.168.75.131:80;</p>
+<p>​    server_name <a href="http://www.test.com" target="_blank" rel="noopener">www.test.com</a>;</p>
+<p>​    location / {</p>
+<p>​        root /data/test;</p>
+<p>​        index index.html;</p>
+<p>}</p>
+<p>}</p>
+<p><strong><em>\</em>#vim <a href="http://www.hr.conf\" target="_blank" rel="noopener">www.hr.conf\</a>**</strong></p>
+<p>server{</p>
+<p>​    listen 192.168.75.131:80;</p>
+<p>​    server_name <a href="http://www.hr.com" target="_blank" rel="noopener">www.hr.com</a>;</p>
+<p>​    location / {</p>
+<p>​        root /data/hr;</p>
+<p>​        index index.html;</p>
+<p>}</p>
+<p>}</p>
+<h3 id="（4）将公司网站文件test和hr都放到-data-目录下"><a href="#（4）将公司网站文件test和hr都放到-data-目录下" class="headerlink" title="（4）将公司网站文件test和hr都放到/data/目录下"></a>（4）将公司网站文件test和hr都放到/data/目录下</h3><h3 id="（5）配置完成后重启服务：systemctl-restart-nginx"><a href="#（5）配置完成后重启服务：systemctl-restart-nginx" class="headerlink" title="（5）配置完成后重启服务：systemctl restart nginx"></a>（5）配置完成后重启服务：systemctl restart nginx</h3><h3 id="（6）关闭防火墙：systemctl-status-firewalld-service"><a href="#（6）关闭防火墙：systemctl-status-firewalld-service" class="headerlink" title="（6）关闭防火墙：systemctl status firewalld.service"></a>（6）关闭防火墙：systemctl status firewalld.service</h3><p><strong><em>\</em>关闭selinux安全机制：setenforce 0**</strong></p>
+<h2 id="4、配置基于域名的虚拟主机"><a href="#4、配置基于域名的虚拟主机" class="headerlink" title="4、配置基于域名的虚拟主机"></a>4、配置基于域名的虚拟主机</h2><p><strong>域名注册，在/etc/hosts中追加一行：</strong></p>
+<p>192.168.75.128 <a href="http://www.test.com" target="_blank" rel="noopener">www.test.com</a> <a href="http://www.hr.com" target="_blank" rel="noopener">www.hr.com</a></p>
+<h3 id="5、网站访问测试"><a href="#5、网站访问测试" class="headerlink" title="5、网站访问测试"></a>5、网站访问测试</h3><p>  在浏览器分别输入<a href="http://www.test.com和www.hr.com测试公司是否能够访问" target="_blank" rel="noopener">www.test.com和www.hr.com测试公司是否能够访问</a></p>
+
         </div>
-        <a href="/2019/09/07/运行环境/" class="read-more">Read More</a>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2019/12/30/samba 服务器/">
+                Untitled
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2019-12-30</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="samba-服务器"><a href="#samba-服务器" class="headerlink" title="samba 服务器"></a><strong>samba 服务器</strong></h1><h2 id="1、修改防火墙设置"><a href="#1、修改防火墙设置" class="headerlink" title="1、修改防火墙设置"></a><strong>1、修改防火墙设置</strong></h2><p>#firewall-cmd –permanent –add-service=samba </p>
+<p>//设置防火墙 </p>
+<p>#firewall-cmd –reload </p>
+<p>//重新加载防火墙 </p>
+<h2 id="2、安装-samba-并启动-samba-服务"><a href="#2、安装-samba-并启动-samba-服务" class="headerlink" title="2、安装 samba 并启动 samba 服务"></a><strong>2、安装 samba 并启动 samba 服务</strong></h2><p># yum install -y samba samba-client </p>
+<p>#systemctl start smb.service nmb.service </p>
+<h2 id="3、建立共享目录"><a href="#3、建立共享目录" class="headerlink" title="3、建立共享目录"></a><strong>3、建立共享目录</strong></h2><p>mkdir /home/company </p>
+<h2 id="4、创建访问账号"><a href="#4、创建访问账号" class="headerlink" title="4、创建访问账号"></a><strong>4、创建访问账号</strong></h2><p>useradd -s /sbin/nologin xzusr </p>
+<p>useradd -s /sbin/nologin gcusr </p>
+<p>useradd -s /sbin/nologin xsusr </p>
+<p>#smbpasswd -a xzusr </p>
+<p>#smbpasswd -a gcusr </p>
+<p>#smbpasswd -a xsusr </p>
+<p><strong>【smbpasswd 选项说明：-a 添加 smb 帐号；-x 删除 smb 帐号；-d 禁用 smb 帐号；-e 启用 smb 帐号】</strong> </p>
+<h2 id="5、修改配置文件：-etc-samba-smb-conf"><a href="#5、修改配置文件：-etc-samba-smb-conf" class="headerlink" title="5、修改配置文件：/etc/samba/smb.conf"></a><strong>5、修改配置文件：/etc/samba/smb.conf</strong></h2><p>默认情况下，Samba 已经配置为允许用户通过远程共享访问账号的主目录。 </p>
+<p>[company] //共享名称为 company </p>
+<p>comment = company share //共享注释 </p>
+<p>path = /home/company //指定共享路径 </p>
+<p>browseable = yes //所有人可见 </p>
+<p>guest ok = no //拒绝匿名访问 </p>
+<p>writeable = yes //支持写入数据 </p>
+<p>[company] </p>
+<p>comment = company share </p>
+<p>path = /home/company </p>
+<p>guest ok = no //拒绝匿名访问 </p>
+<p>valid users=xzusr,gcusr,xsusr //允许访问的用户列表 </p>
+<p>write list=xzusr //允许写入的用户列表 </p>
+<p><strong>【注意：修改配置文件以后，必须重启服务（systemctl restart smb nmb）使更改生效】</strong></p>
+<h2 id="6、测试配置文件"><a href="#6、测试配置文件" class="headerlink" title="6、测试配置文件"></a>6、测试配置文件</h2><p>testparm 当配置文件的语法出错时会给出提示，修改再次运行 testparm 测试。 </p>
+<h2 id="7、测试-Samba-服务器"><a href="#7、测试-Samba-服务器" class="headerlink" title="7、测试 Samba 服务器"></a><strong>7、测试 Samba 服务器</strong></h2><p>在 linux 客户端访问测试：smbclient -U smbuser //192.168.75.128/company </p>
+<p>查看服务器的共享文件有哪些：smbclient -L 192.168.75.128 </p>
+<p>查看 smbuser 用户可以访问的共享文件：smbclient -L 192.168.75.128 -U smbuser </p>
+<h2 id="8、在-Linux-下访问-Windows-共享目录的配置方法"><a href="#8、在-Linux-下访问-Windows-共享目录的配置方法" class="headerlink" title="8、在 Linux 下访问 Windows 共享目录的配置方法"></a><strong>8、在 Linux 下访问 Windows 共享目录的配置方法</strong></h2><p>（1）在 Windows xp 上设置一个共享目录：d:\myfiles </p>
+<p>（2）在 Linux 下安装 samba-client 客户端 </p>
+<p># yum install samba-client </p>
+<p>（3）安装 cifs-utils 软件包 </p>
+<p># yum install cifs-utils </p>
+<p>（4）在 Linux 下创建一个挂载点 </p>
+<p># mkdir /mnt/Windows </p>
+<p>（5）挂载 Windows 上的共享目录 d:\myfiles 到 Linux 下的/mnt/Windows 目录下 </p>
+<p># mount -t cifs -o username=Administrator //192.168.0.3/mytest /mnt/Windows </p>
+<p>Enter password: <strong>****</strong> </p>
+<p>（6）如果挂载成功，则可以进入/mnt/Windows 下进行相应操作。 </p>
+<p>（7）在/etc/fstab 文件中，加入该共享目录的挂载信息 </p>
+<p>//192.168.1.123/redhat_disk /mnt/Windows cifs username=tommy,password=111111 0 0 </p>
+<p>（8）到此为止，Windows 上的共享目录//192.168.1.123/redhat_disk 就被成功挂载到了 Linux上面了，并且 Linux 重启后，会自动挂载该目录到/mnt/Windows 目录下 </p>
+
+        </div>
     
 
 </div>
@@ -390,6 +928,19 @@
 </div>
 
 
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="wrap-pagination">
+                <a class="disabled" href="/">
+                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                </a>
+                <a class="" href="/page/2/">
+                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -414,19 +965,19 @@
         <ul>
             
             <li>
-                <a class="footer-post" href="/2019/12/29/linux用户与用户组/">linux用户与用户组</a>
+                <a class="footer-post" href="/2019/12/30/Web服务器/">Untitled</a>
             </li>
             
             <li>
-                <a class="footer-post" href="/2019/12/29/磁盘的分区与挂载：/">磁盘的分区与挂载</a>
+                <a class="footer-post" href="/2019/12/30/DNS服务器/">Untitled</a>
             </li>
             
             <li>
-                <a class="footer-post" href="/2019/12/27/linux软件安装/">软件安装与包管理工具</a>
+                <a class="footer-post" href="/2019/12/30/DHCP配置/">Untitled</a>
             </li>
             
             <li>
-                <a class="footer-post" href="/2019/12/27/Linux基本常识/">linux基本常识</a>
+                <a class="footer-post" href="/2019/12/30/用户与组的管理/">Untitled</a>
             </li>
             
         </ul>

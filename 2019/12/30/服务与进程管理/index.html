@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="服务与进程管理1.Linux 系统的启动过程
+2、Linux 系统的运行级别（1）Linux 为了适应不同用户对服务的启动配置要求，设置了七种不同的运行级别：运行级别 0：关机模式。poweroff.target 
+运行级别 1：单用户模式，仅用于 root 用户对系统进行维护时。rescue.ta">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="John Doe">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="你好">
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="你好">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="website">
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>你好</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/about.html">
+                    About
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/tags">
+                    Tags
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/categories">
+                    Categories
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/contact.html">
+                    Contact
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2019/12/30/服务与进程管理/">
+                Untitled
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2019-12-30</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <h1 id="服务与进程管理"><a href="#服务与进程管理" class="headerlink" title="服务与进程管理"></a><strong>服务与进程管理</strong></h1><h2 id="1-Linux-系统的启动过程"><a href="#1-Linux-系统的启动过程" class="headerlink" title="1.Linux 系统的启动过程"></a><strong>1.Linux 系统的启动过程</strong></h2><p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5C1577619906748.png" alt="1577619906748"></p>
+<h2 id="2、Linux-系统的运行级别"><a href="#2、Linux-系统的运行级别" class="headerlink" title="2、Linux 系统的运行级别"></a><strong>2、Linux 系统的运行级别</strong></h2><h3 id="（1）Linux-为了适应不同用户对服务的启动配置要求，设置了七种不同的运行级别："><a href="#（1）Linux-为了适应不同用户对服务的启动配置要求，设置了七种不同的运行级别：" class="headerlink" title="（1）Linux 为了适应不同用户对服务的启动配置要求，设置了七种不同的运行级别："></a>（1）Linux 为了适应不同用户对服务的启动配置要求，设置了七种不同的运行级别：</h3><p><strong>运行级别 0：</strong>关机模式。poweroff.target </p>
+<p><strong>运行级别 1：</strong>单用户模式，仅用于 root 用户对系统进行维护时。rescue.target </p>
+<p><strong>运行级别 2：</strong>多用户模式（没有 NFS）。multi-user.target </p>
+<p><strong>运行级别 3：</strong>完全多用户模式，即多用户文本界面模式，是标准的运行级别。multi-user.target </p>
+<p><strong>运行级别 4：</strong>特定运行级别，基本不用的用户模式。multi-user.target </p>
+<p><strong>运行级别 5：</strong>X11，Linux 系统的图形界面运行级别。graphical.target </p>
+<p><strong>运行级别 6：</strong>重新启动。reboot.target </p>
+<p><strong>target 文件保存在：/lib/system/system 目录中。</strong> </p>
+<p><strong>运行级别的设置由/etc/systemd/system/default.target 文件来控制。</strong> </p>
+<p><strong>运行级别服务程序存放位置：/etc/rc.d/</strong> </p>
+<p><strong>服务进程存放在运行级别对应的目录中：Snnxxxx 或 Knnxxxxx</strong> </p>
+<p><strong>服务程序的脚本文件存放位置：/etc/rc.d/init.d/</strong> </p>
+<h3 id="（2）系统运行级别之间的切换"><a href="#（2）系统运行级别之间的切换" class="headerlink" title="（2）系统运行级别之间的切换"></a>（2）系统运行级别之间的切换</h3><p>查看系统的当前运行级别：runlevel </p>
+<p>查看系统启动时的运行级别：ll /etc/systemd/system/default.target </p>
+<h3 id="（3）系统运行级别之间的切换"><a href="#（3）系统运行级别之间的切换" class="headerlink" title="（3）系统运行级别之间的切换"></a>（3）系统运行级别之间的切换</h3><p>使用 init 命令进行切换 </p>
+<p>将系统启动的运行级别从 5 修改为 3 </p>
+<p>方法一：重新设置链接文件 </p>
+<p>#rm -rf /etc/systemd/system/default.target </p>
+<p>#ln -s /lib/systemd/system/runlevel3.target /etc/systemd/system/default.tart </p>
+<p>方法二：使用 systemctl 命令 </p>
+<p>#systemctl set-default runlevel3.target </p>
+<p>#systemctl set-default runlevel3.target </p>
+<p>（4）关闭 Ctrl+Alt+Del 键的功能 </p>
+<p>在字符界面按 Ctrl+Alt+Del 键系统会自动重启，为避免误操作带来的损失，需要禁用此功能。 </p>
+<p>注释/usr/lib/systemd/system/ctrl-alt-del.target 文件中的全部内容，保存退出。 </p>
+<p>执行 init q 重新 reload 配置文件。 </p>
+<h3 id="3、使用-systemctl-管理服务"><a href="#3、使用-systemctl-管理服务" class="headerlink" title="3、使用 systemctl 管理服务"></a><strong>3、使用 systemctl 管理服务</strong></h3><p>服务指执行指定系统功能的程序、或进程，以便支持其他程序，尤其是底层(接近硬件)程 </p>
+<p>序。例如：打印服务，ftp 服务，http 服务等。对于服务的管理可使用 systemctl 命令。 </p>
+<h3 id="（1）服务的启动与停止"><a href="#（1）服务的启动与停止" class="headerlink" title="（1）服务的启动与停止"></a>（1）服务的启动与停止</h3><p>命令格式：systemctl 选项 服务名 </p>
+<p>选项说明： </p>
+<p>start：启动;stop:停止；restart：重启；status：服务状态 </p>
+<p>服务名：一般以“.service”结尾，输入服务名时了可省略。 </p>
+<h3 id="（2）设置服务的自启动状态"><a href="#（2）设置服务的自启动状态" class="headerlink" title="（2）设置服务的自启动状态"></a>（2）设置服务的自启动状态</h3><p>①使用 ntsysv 命令设置服务的自启动 </p>
+<p>命令格式：ntsysv [–back][–level] </p>
+<p>选项说明：back,在互动界面不显示 cancel;level,在指定的运行级别中设置服务的自启动。 </p>
+<p>②使用 systemctl 命令设置服务的自启动 </p>
+<p>查看服务的自启动状态：systemctl is-enabled [服务名称] </p>
+<p>开启服务的自启动：systemctl enable 服务名称 </p>
+<p>关闭服务的自启动：systemctl disable 服务名称 </p>
+<h3 id="（3）查看所有的服务"><a href="#（3）查看所有的服务" class="headerlink" title="（3）查看所有的服务"></a>（3）查看所有的服务</h3><p>命令格式：systemctl [选项] [–type=TYPE] [–all] </p>
+<p>选项说明： </p>
+<p>(1) list-units：依据 unit 列出所有启动的 unit。加上–all 会列出没启动的 unit; </p>
+<p>(2) list-unit-files:依据/usr/lib/systemd/system/ 内的启动文件，列出启动文件列表 </p>
+<p>–type=TYPE： 为 unit type, 主要有 service, socket, target </p>
+<p>#systemctl </p>
+<p>//列出所有的系统服务 </p>
+<p>#systemctl list-units </p>
+<p>//列出所有启动 unit </p>
+<p>#systemctl list-unit-files </p>
+<p>//列出所有启动文件 </p>
+<p>#systemctl list-units -type=service -all </p>
+<p>//列出所有 service 类型的 unit </p>
+<p>#systemctl list-units -type=service -all grep cpu </p>
+<p>//列出 cpu 电源管理机制的服务3 </p>
+<p>#systemctl list-units -type=target -all </p>
+<p>//列出所有目标单元 target </p>
+<h3 id="（4）systemctl-命令特殊功能"><a href="#（4）systemctl-命令特殊功能" class="headerlink" title="（4）systemctl 命令特殊功能"></a>（4）systemctl 命令特殊功能</h3><p>命令                                       说明 </p>
+<p>systemctl poweroff 0         系统关机 </p>
+<p>systemctl reboot                 重新启动 </p>
+<p>systemctl suspend              进入睡眠模式 </p>
+<p>systemctl hibernate            进入休眠模式 </p>
+<p>systemctl rescue                  强制进入救援模式 </p>
+<p>systemctl emergency          强制进入紧急救援模式 </p>
+<p><strong>4、进程的延迟与周期调度</strong> </p>
+<p>（1）进程的概念 </p>
+<p>进程：开始执行但是还没有结束的程序的实例 </p>
+<p>程序：包含可执行代码的文件 </p>
+<p>进程由程序产生，是一个运行着的、要占系统资源的程序，进程不等于程序。 </p>
+<p>进程分为：交互进程、批处理进程、守护进程。 </p>
+<p>（2）进程的查看：ps 命令 </p>
+<p>命令语法：ps [选项] </p>
+<p>选项说明： </p>
+<p>-A：显示系统中所有进程的信息，与-e 具有相同的功能。 </p>
+<p>-a：显示所有用户进程的信息。 </p>
+<p>-f：完整的显示进程的所有信息。 </p>
+<p>-l：以长格式显示进程信息。 </p>
+<p>-r：只显示正在运行的进程。 </p>
+<p>-u：显示面向用户的格式(包括用户名、CPU 及内存使用情况等信息)。 </p>
+<p>-x：显示所有非控制终端上的进程信息。 </p>
+<p>-p：显示由进程 ID 指定的进程的信息。 </p>
+<p>-t：显示指定终端上的进程的信息。 </p>
+<p>（3）查看各进程继承关系的命令：pstree </p>
+<p>pstree 命令以树状结构显示系统进程的继承关系。树状图将会以 pid (如果有指定) 或是以 init </p>
+<p>为根，如果指定 user，则树状结构只显示该用户所拥有的进程。 </p>
+<p>命令格式：pstree [选项] [pid|user] </p>
+<p>选项说明： </p>
+<p>-a：显示该进程的完整继承关系，如果是被内存置换出去的进程则会加上括号。 </p>
+<p>-c 如果有重复的进程名, 则分开列出 (默认值是会在前面加上 * )。 </p>
+<p>pid|user：查看指定根进程(pid)或用户(user)所拥有的进程。 </p>
+<p>（4）进程的终止 </p>
+<p>kill [信号代码] pid </p>
+<p>Killall [信号代码] 进程名（5）进程的调度 </p>
+<p>①延迟性调试命令：at </p>
+<p>功能：指定时间运行指定的程序 </p>
+<p>格式：at [-f 文件] [-m ] 时间 </p>
+<p>-f : 指定存放计划执行命令的文件 </p>
+<p>-m: 作业结束后发送邮件给执行 at 命令的用户 </p>
+<p>时间：任务执行的时间，可采用相对和绝对两种方法 </p>
+<p>绝对表示法： MMDDYY 或 MM/DD/YYYY， today 或 tomorrow 来表示今天或明天 </p>
+<p>相对表示法：now＋num＋时间单位，其中的时间间隔可以是 minutes, hours, days, weeks </p>
+<p>②周期性调度命令 crontab </p>
+<p>功能：计划调度服务 </p>
+<p>crontab –u user {-e | -l | -r} </p>
+<p>-u：为指定的用户设置计划任务 </p>
+<p>-e：编辑计划任务列表 </p>
+<p>-l：查看指定用户的计划任务列表，默认为当前用户 </p>
+<p>-r：删除用户的计划任务列表 </p>
+<p>crontab –u user file (其中 file 代表任务列表文件） </p>
+<p>任务列表文件的格式：minute hour day month day-of-the-week run_command </p>
+
+    </div>
+
+    
+
+    
+
+    <!-- Comments -->
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2019/12/30/Web服务器/">Untitled</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2019/12/30/DNS服务器/">Untitled</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2019/12/30/DHCP配置/">Untitled</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2019/12/30/用户与组的管理/">Untitled</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/klugjo/hexo-theme-alpha-dust">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://twitter.com/?lang=en">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.facebook.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.instagram.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-instagram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://dribbble.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://plus.google.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-google-plus"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.behance.net/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://500px.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-500px"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:test@example.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

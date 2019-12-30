@@ -10,7 +10,13 @@
 
     <!--Description-->
     
-        <meta name="description" content="CVE _ 2019-12-27">
+        <meta name="description" content="DNS
+正向解析：将域名解析成IP地址，A记录  CNAME记录  MX记录
+反向解析：将IP地址解析成域名，PTR指针
+DNS的查询方式：递归查询  迭代查询
+区域类型：hint  根区域
+​                    master  主要区域
+slave    辅助区域配置DNS服务">
     
 
     <!--Author-->
@@ -20,7 +26,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="linux基本常识">
+        <meta property="og:title" content="你好">
     
 
     <!--Open Graph Description-->
@@ -31,7 +37,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="article">
+        <meta property="og:type" content="website">
     
 
     <!--Page Cover-->
@@ -42,7 +48,7 @@
 
     <!-- Title -->
     
-    <title>linux基本常识 - 你好</title>
+    <title>你好</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -146,13 +152,13 @@
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/2019/12/27/Linux基本常识/">
-                linux基本常识
+            <a href="/2019/12/30/DNS服务器/">
+                Untitled
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2019-12-27</span>
+                <span class="date">2019-12-30</span>
             
             
             
@@ -165,108 +171,39 @@
         
 
         <!-- Post Content -->
-        <h3 id="CVE-2019-12-27"><a href="#CVE-2019-12-27" class="headerlink" title="CVE _ 2019-12-27"></a>CVE _ 2019-12-27</h3><a id="more"></a>
+        <p>DNS</p>
+<p>正向解析：将域名解析成IP地址，A记录  CNAME记录  MX记录</p>
+<p>反向解析：将IP地址解析成域名，PTR指针</p>
+<p>DNS的查询方式：递归查询  迭代查询</p>
+<p>区域类型：hint  根区域</p>
+<p>​                    master  主要区域</p>
+<pre><code>slave    辅助区域</code></pre><p>配置DNS服务器:以配置www. zlt. com为例<br>1.打开：/etc/named.rfc1912.zones，配置区域</p>
+<p>zone “zlt.com.” IN {<br>        type master;<br>        file “zlt.com.zone”;<br>        allow-update { none; };<br>};</p>
+<p>2.到/var/named目录下配置区域配置文件</p>
+<h1 id="cp-named-localhost-zlt-com-zone"><a href="#cp-named-localhost-zlt-com-zone" class="headerlink" title="cp named.localhost zlt.com.zone"></a>cp named.localhost zlt.com.zone</h1><h1 id="chown-named-zlt-com-zone"><a href="#chown-named-zlt-com-zone" class="headerlink" title="chown :named zlt.com.zone"></a>chown :named zlt.com.zone</h1><p>3.修改区域配置文件的所属组为named<br>4.启动服务/重启服务<br>5.设置DNS地址<br>6.测试DNS：nslookup</p>
+<p>假设有另外一个公司的网站也放在这台服务器上，域名为<a href="http://www.aa.com" target="_blank" rel="noopener">www.aa.com</a><br>1.打开：/etc/named.rfc1912.zones，配置区域</p>
+<p>zone “aa.com.” IN {<br>        type master;<br>        file “aa.com.zone”;<br>        allow-update { none; };<br>};</p>
+<p>2.到/var/named目录下配置区域配置文件</p>
+<h1 id="cp-named-localhost-aa-com-zone"><a href="#cp-named-localhost-aa-com-zone" class="headerlink" title="cp named.localhost aa.com.zone"></a>cp named.localhost aa.com.zone</h1><h1 id="chown-named-aa-com-zone"><a href="#chown-named-aa-com-zone" class="headerlink" title="chown :named aa.com.zone"></a>chown :named aa.com.zone</h1><p>$TTL 1D<br>@       IN SOA  aa.com. root.aa.com. (<br>                                        0       ; serial<br>                                        1D      ; refresh<br>                                        1H      ; retry<br>                                        1W      ; expire<br>                                        3H )    ; minimum<br>        NS      dns.aa.com.<br>dns        A       192.168.75.158<br>www     A       192.168.75.158<br>ftp         A       192.168.75.158<br>              A       127.0.0.1<br>              AAAA    ::1</p>
+<p>3.启动服务/重启服务</p>
+<p>配置辅助DNS服务器<br>   1）安装bind<br>   2）启动bind<br>      service named start<br>      chkconfig named on<br>   3）修改主配置文件，添加辅助区域<br>       vim /etc/named.conf</p>
+<pre><code>zone &quot;zlt.com&quot; IN {
+       type slave;
+       file &quot;slaves/slave.com.zone&quot;;
+       masters {192.168.0.1;};
+    };
 
-<p>windows server：</p>
-<p>特点：</p>
-<ol>
-<li>单用户，多任务</li>
-<li>收费</li>
-<li>不能进行二次开发</li>
-<li>安全问题</li>
-<li>兼容性问题</li>
-</ol>
-<p>UNIX：红帽，ubantu centos  …</p>
-<p>Linux server:</p>
-<ol>
-<li>多用户，多任务</li>
-<li>安全性高</li>
-<li>开源免费</li>
-</ol>
-<p>LINUX操作</p>
-<p>1.快照：占硬盘空间</p>
-<p>2.暂停：</p>
-<p>3.内存设置</p>
-<p>4.开启虚拟化（BIOS（基本输入输出流，存放于主板上的一块芯片，叫CMOS）中设置）</p>
-<h3 id="图形界面对LINUX进行调整"><a href="#图形界面对LINUX进行调整" class="headerlink" title="图形界面对LINUX进行调整"></a>图形界面对LINUX进行调整</h3><p>1.设置让 LINUX上网</p>
-<ol>
-<li><p>​    设置网卡的连接方式：桥接</p>
-<p>​    查看IP地址：ifconfig </p>
-</li>
-<li><p>设置网卡的连接模式：NAT（VM  NAT 8）</p>
-</li>
-</ol>
-<h3 id="虚拟机故障："><a href="#虚拟机故障：" class="headerlink" title="虚拟机故障："></a>虚拟机故障：</h3><ol>
-<li><p>查看服务有没有启动：</p>
-<p>计算机管理-服务-虚拟机的相关启动类型</p>
-</li>
-</ol>
-<h3 id="基本操作："><a href="#基本操作：" class="headerlink" title="基本操作："></a>基本操作：</h3><p>dev：设备的名称文件</p>
-<p>home：普通用户</p>
-<p>root:root用户的</p>
-<p>bin/sbin:命令的程序文件</p>
-<p>etc：配置文件</p>
-<p>var:主目录，安装位置</p>
-<p>命令与命令/选项/文件/</p>
-<p>useradd 名称  //添加用户</p>
-<p>pwd:当前所在完整路径  ~代表用户目录   #为当前用户为root  $当前用户为普通用户</p>
-<p>su 用户名：切换用户</p>
-<p>cd 完整路径：切换到指定文件（/为根目录）按TAB</p>
-<p>cd ..   //返回上一级目录</p>
-<p>cd ./:表示当前路径</p>
-<p>Ctrl+l：清屏</p>
-<p>history:查看历史命令</p>
-<p>！数字：执行历史命令的第几条命令</p>
-<p>shutdown -h now //立即关机</p>
-<p>init 0:立即关机</p>
-<p>init 6：立即重启</p>
-<p>常用的shell 命令</p>
-<p>ls:查看当前目录下面文件</p>
-<p>ls /文件名：查看指定文件下的文件</p>
-<p>​    蓝色代表文件夹（目录）</p>
-<p>​    灰色代表普通文件</p>
-<p>​    红色代表压缩文件</p>
-<p>​    绿色代表可执行文件</p>
-<p>​    浅绿色代表链接文件（快捷文件）：硬链接，软连接</p>
-<p>ls -l /文件名：当前文件下文件的详细信息（文件类型（-表示普通文件，d表示文件夹，l表示链接文件，.表示隐藏文件），权限，连接文件数量，文件所有者，属组，大小，创建时间，名字）</p>
-<p>ls -a表示所有文件包括隐藏文件</p>
-<p>ls -lh ：用单位表示文件的大小</p>
-<p>ls  –help：用法</p>
-<p>通配符：</p>
-<p>？匹配文件名中的一个字符</p>
-<p>“*”表示多个字符</p>
-<p>mkdir /文件路径及文件:创建文件</p>
-<p>mkdir -p 文件路径及文件</p>
-<p>权限三位一组 (第一组为文件所有者，第二位属组权限，第三组是其他用户权限 ，.表示ACL权限)    读（r：权限值为4），写（w 权限值为2），执行(x 权限值为1)</p>
-<p>mkdir  -m  权限 文件名</p>
-<p>rmdir  -p 文件：删除空目录</p>
-<p>rm -rf 文件：删除文件</p>
-<p>cp 原文件路径  复制到的地方:复制文件</p>
-<p>cp -R 原文件路径 复制的地方：复制目录</p>
-<p>mv 原文件路径 复制的地方：移动文件</p>
-<p>touch /文件名：新建文件</p>
-<p>chmode 权限值 文件名 //修改文件的权限</p>
-<p>​                字母方式：a:所有用户 u：所有者 g：属组 o：其他用户 </p>
-<p>​                chmode a = rwx AA</p>
-<p>​                chmode u-w,g-wx,o-rwx AA//表示AA文件当前权限为540</p>
-<p>head -数字 文件名：查看文件前几行</p>
-<p>tail -数字 文件名：查看文件后几行</p>
-<p>wc 统计行数</p>
-<p>find 范围 查找条件(-name,-type,-user,-size)</p>
-<p>grep -选项 条件 名称:查找文件中的内容</p>
-<p>​        选项：-c </p>
-<p>man find ：</p>
-<p>标准输入：0（键盘）<br>标准输出：1（屏幕）<br>错误输出：2（屏幕）</p>
+zone &quot;0.168.192.in-addr.arpa&quot; IN {
+       type slave;
+       file &quot;slaves/0.168.192.zone&quot;;
+       masters {192.168.0.1;};
+    };
 
+4)重启服务：service named restart</code></pre>
     </div>
 
     
 
-    
-        <div class="post-tags">
-            <i class="fa fa-tags" aria-hidden="true"></i>
-            <a href="/tags/系统安全/">#系统安全</a> <a href="/tags/CVE-2019-0708/">#CVE-2019-0708</a>
-        </div>
     
 
     <!-- Comments -->
