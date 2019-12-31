@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="远程访问及控制一、SSH远程管理1.配置OpenSSH服务端1.1配置SSH及配置文件  openssh服务器由openssh、openssh-server等软件包提供（默认已安装），并已将sshd添加为标准的系统服务。执行“systemctl status sshd.service”即可按默认配置">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="John Doe">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="你好">
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="你好">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="website">
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>你好</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/about.html">
+                    About
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/tags">
+                    Tags
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/categories">
+                    Categories
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/contact.html">
+                    Contact
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2019/12/31/远程访问及控制/">
+                Untitled
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2019-12-31</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <h1 id="远程访问及控制"><a href="#远程访问及控制" class="headerlink" title="远程访问及控制"></a>远程访问及控制</h1><h2 id="一、SSH远程管理"><a href="#一、SSH远程管理" class="headerlink" title="一、SSH远程管理"></a>一、SSH远程管理</h2><h3 id="1-配置OpenSSH服务端"><a href="#1-配置OpenSSH服务端" class="headerlink" title="1.配置OpenSSH服务端"></a>1.配置OpenSSH服务端</h3><h4 id="1-1配置SSH及配置文件"><a href="#1-1配置SSH及配置文件" class="headerlink" title="1.1配置SSH及配置文件"></a>1.1配置SSH及配置文件</h4><p>  openssh服务器由openssh、openssh-server等软件包提供（默认已安装），并已将sshd添加为标准的系统服务。执行“systemctl status sshd.service”即可按默认配置启动sshd服务，包括root在内的大部份用户（只要拥有合法的登录shell）都可以远程登录系统。</p>
+<p>  sshd服务的配置文件是：/etc/ssh/sshd_config，正确调整相关配置项，可以进一步提高sshd远程登录的安全性。下面介绍一些最常用的配置项，关于sshd_config文件的更多配置可参考man手册。</p>
+<h4 id="1-2服务监听选项"><a href="#1-2服务监听选项" class="headerlink" title="1.2服务监听选项"></a>1.2服务监听选项</h4><p>  sshd服务使用的默认端口号为22，必要时建议修改此端口号，并指定监听服务的具体IP地址，以提高在网络中的隐蔽性。SSH协议的版本选用V2比V1的安全性要更好，禁用DNS反向解析可以提高服务器的响应速度。</p>
+<p>[root@localhost ~]# vim /etc/ssh/sshd_config</p>
+<p> Port 22                          //监听端口为22</p>
+<p> ListenAddress 192.168.10.1      //监听地址为192.168.10.1</p>
+<p>…….                               //省略内容</p>
+<p> UseDNS yes               //禁用DNS反射解析</p>
+<p>……                               //省略内容</p>
+<p>[root@localhost ~]# systemctl restart sshd</p>
+<h4 id="1-3用户登录控制"><a href="#1-3用户登录控制" class="headerlink" title="1.3用户登录控制"></a>1.3用户登录控制</h4><p>sshd服务默认允许root用户登录，当在Internet中使用时这是非常不安全的。普遍的做法是：先以普通用户远程登录，进入安全shell环境后，根据实际需要使用su命令切换为root用户。关于sshd服务的用户登录控制，通常就禁止root用户或密码为空的用户登录。另外，可以限制登录验证的时间（默认为2分钟）及最大重次数，若超过限制后仍未登录则断开连接。</p>
+<p>[root@localhost ~]# vim /etc/ssh/sshd_config</p>
+<p>LoginGraceTime 2m     //登录验证时间  </p>
+<p>PermitRootLogin no    //禁止root用户登录</p>
+<p>MaxAuthTries 6      //最大重试次数</p>
+<p>MaxSessions 10      //最大连接数</p>
+<p>PermitEmptyPasswords no  //禁止空密码用户登录</p>
+<p>…..           //省略内容</p>
+<p>[root@localhost ~]# systemctl restart sshd</p>
+<p>如果只允许或禁止某些用户登录时，可以使用AllowUsers或DenyUsers配置，两者用法类似（不能同时使用）。</p>
+<p>举例： 只允许stu1和stu2用户登录，其中stu2用户仅能从IP地址为 192.168.10.100</p>
+<p>的主机远程登录，配置如下：</p>
+<p>[root@localhost ~]# vim /etc/ssh/sshd_config</p>
+<p>…..                   //省略内容</p>
+<p>AllowUsers stu1 <a href="mailto:stu2@192.168.10.100" target="_blank" rel="noopener">stu2@192.168.10.100</a>    //多个用户用空格隔开</p>
+<p>[root@localhost ~]# systemctl restart sshd</p>
+<h4 id="1-4登录验证方式"><a href="#1-4登录验证方式" class="headerlink" title="1.4登录验证方式"></a>1.4登录验证方式</h4><p>对于服务器的管理，除了用户帐号的安全控制外，登录验证试也非常重要。sshd服务支持两种验证方式：密码验证和密钥对验证，可以设置只使用其中一种，也可以两种都用。</p>
+<p>（1）密码验证</p>
+<p>   以服务器中本地系统用户的登录名称、密码进行验证。从客户机角度来看，正在连接的服务器有可能被假冒；从服务器角度来看，当遭遇密码穷举（暴力破解）攻击时防御能力较弱。</p>
+<p>（2）密钥对验证</p>
+<p>   要求提供相匹配的密钥信息才能通过验证。通常先在客户中创建一对密钥文件（公钥、私钥）,然后将公钥文件放到服务器中的指定位置。远程登录时，系统将使用公钥、私钥进行加密/解密关联验证，大增强了远程管理的安全性。公钥（Public Key)与私钥（Privtae Key）的关系如下：</p>
+<p>  公钥与私钥是成对生成，这两个密钥互不相同，可以互相加密与解密。</p>
+<p>不能根据一个密钥来推算出另一个密钥。</p>
+<p>公钥对外公开，私钥只有私钥的持有人才知道。</p>
+<p>公钥与私钥要配对使用，如果用公钥对数据进行加密，只有用相对就的私钥才能解密；如果用私钥对数据进行加密，那么只有用对应的公钥才能解密。</p>
+<p>当密码验证与密钥对验证都启用时，服务器将优先使用密钥对验证。对于安全性要求较高的服务器，建议将密码验证方式禁用， 只允许启用密钥对验证方式；若没有特殊要求，则两种方式都可启用。</p>
+<p>其中，公钥库文件用来保存各客户机上传的公钥文本，以便与客户机本地的私钥文件进行匹配。</p>
+<p>[root@localhost ~]# vim /etc/ssh/sshd_config</p>
+<p>passwordAuthentication yes           //启用密码验证</p>
+<p>PubkeyAuthentication yes            //启用密钥对验证</p>
+<p>AuthorizedKeysFile   .ssh/authorized_keys  //指定公钥库数据文件</p>
+<p>…..                     //省略内容</p>
+<p>[root@localhost ~]# systemctl restart sshd</p>
+<h3 id="2-使用SSH客户端程序"><a href="#2-使用SSH客户端程序" class="headerlink" title="2.使用SSH客户端程序"></a>2.使用SSH客户端程序</h3><p>在CentOS7系统中，OpenSSH客户端由openssh-clients软件包提供（默认已安装），其中包括ssh远程登录命令，以及scp、sftp远程复制和文件传输命令等。实际上，任何支持SSH协议的客户端程序都可以与OpenSSH服务器进行通信，如windows平台中的Xshell、SecureCRT、Putty等图形工具。</p>
+<h4 id="2-1命令程序ssh、scp、sftp"><a href="#2-1命令程序ssh、scp、sftp" class="headerlink" title="2.1命令程序ssh、scp、sftp"></a>2.1命令程序ssh、scp、sftp</h4><p>（1）ssh远程登录</p>
+<p>通过ssh命令可以远程登录sshd服务，为用户提供一个安全的shell环境，以便对服务器进行管理和维护。使用时应指定登录用户、目标主机地址作为参数。</p>
+<p>举例：以student用户远程登录到主机192.168.75.158</p>
+<p>[root@localhost ~]# ssh <a href="mailto:student@192.168.75.158" target="_blank" rel="noopener">student@192.168.75.158</a></p>
+<p>Are you sure you want to continue connecting (yes/no)? yes  //接受密钥</p>
+<p><a href="mailto:student@192.168.75.158" target="_blank" rel="noopener">student@192.168.75.158</a>‘s password:   //输入密码</p>
+<p>当用户第一次登录SSH服务器时，必须接受服务器发来的RSA密钥（根据提示输入“yes”）后才能继续验证。接收的密钥信息将保存到~/.ssh/known_hosts文件中。密码验证成功以后，就登录到目标服务器的命令行环境中了，就好像把客户机的显示器、键盘连接到服务器一样。</p>
+<p>如果sshd服务器使用了非默认的端口号（如2345),则在登录时必须通过“-p”选项指定端口号。</p>
+<p>举例：以student用户远程登录到主机192.168.75.158的2345端口</p>
+<p>[root@localhost ~]#ssh -p 2345 <a href="mailto:student@192.168.75.158" target="_blank" rel="noopener">student@192.168.75.158</a> </p>
+<p>（2）scp远程复制</p>
+<p>使用scp命令可以利用SSH安全连接与远程主机相互复制文件。使用scp命令时，除了必须指定复制源、目标外，还应指定目标主机地址、登录用户，执行后提示验证口令即可。</p>
+<p>举例：将远程主机的/etc/passwd文件复制到本机，</p>
+<p>将本机的/var/log/复制到远程主机。</p>
+<p>[root@localhost ~]#scp <a href="mailto:root@192.168.75.158" target="_blank" rel="noopener">root@192.168.75.158</a>:/etc/passwd /root/pwd11.txt</p>
+<p>[root@localhost ~]#scp -r /var/log <a href="mailto:root@192.168.75.158" target="_blank" rel="noopener">root@192.168.75.158</a>:/logbak</p>
+<p>（3）sftp安全ftp</p>
+<p>通过sftp命令可以利用SSH安全连接与远程主机上传、下载文件 ，采用了与FTP类似的登录过程和交互环境，便于目录资源管理。</p>
+<p>举例：使用sftp远程登录，并进行文件上传与下载。</p>
+<p>[root@localhost ~]#sftp <a href="mailto:student@192.168.75.158" target="_blank" rel="noopener">student@192.168.75.158</a></p>
+<h4 id="2-2图形工具MobaXterm"><a href="#2-2图形工具MobaXterm" class="headerlink" title="2.2图形工具MobaXterm"></a>2.2图形工具MobaXterm</h4><p>MobaXterm是windows下一款功能非常强大的安全终端模拟软件，支持Telnet、SSH、SFTP等协议，可以方便地对Linux主机进行远程管理。</p>
+<p>安装并运行MobaXterm后，在Session Settings对话框中指定相关协议，并指定远程主机的IP地址、端口号等相关信息，然后单击OK，根据提示输入密码验证后即可成功登录目标主机。</p>
+<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps6-1577763124823.jpg" alt="img"> </p>
+<h4 id="2-3构建密钥对验证的SSH体系"><a href="#2-3构建密钥对验证的SSH体系" class="headerlink" title="2.3构建密钥对验证的SSH体系"></a>2.3构建密钥对验证的SSH体系</h4><p><strong><em>\</em>方法一：在Linux客户端使用密钥对登录服务器**</strong></p>
+<p><strong><em>\</em>（1）在客户端创建密钥对**</strong></p>
+<p>student@localhost log]$ ssh-keygen -t rsa</p>
+<p>Generating public/private rsa key pair.</p>
+<p>Enter file in which to save the key (/home/student/.ssh/id_rsa):  //指定私钥位置</p>
+<p>Enter passphrase (empty for no passphrase):  //设置私钥短语   </p>
+<p>Enter same passphrase again:    //确认所设置的短语</p>
+<p><strong>（2）***</strong>*将公钥上传至服务器****</p>
+<p>[student@localhost ~]$ scp ~/.ssh/id_rsa.pub <a href="mailto:root@192.168.75.158" target="_blank" rel="noopener">root@192.168.75.158</a>:/tmp/</p>
+<p><strong>（3）***</strong>*在服务器中导入公钥文本****</p>
+<p>[root@localhost ~]# mkdir -p /home/stu1/.ssh</p>
+<p>[root@localhost .ssh]# cat /tmp/id_rsa.pub &gt;&gt; /home/stu1/.ssh/authorized_keys</p>
+<p>[root@localhost .ssh]# ll</p>
+<p>-rw-r–r–. 1 root root 411 12月 30 22:59 authorized_keys</p>
+<p><strong>（4）***</strong>*配置sshd_config文件允许密钥对访问****</p>
+<p>PasswordAuthentication yes</p>
+<p>PubkeyAuthentication yes</p>
+<p>AuthorizedKeysFile    .ssh/authorized_keys</p>
+<p><strong>（5）***</strong>*客户端使用密钥对登录服务器****</p>
+<p>[student@localhost ~]$ssh <a href="mailto:stu1@192.168.75.158" target="_blank" rel="noopener">stu1@192.168.75.158</a> </p>
+<p><strong><em>\</em>方法二：在windows系统中使用putty实现密钥对登录服务器**</strong></p>
+<p><strong><em>\</em>（1）*****</strong>*首先要用PuTTYgen 生成密钥对****</p>
+<p>   <img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps7.jpg" alt="img"></p>
+<p><strong><em>\</em>（2）点击Save private key按钮，选择一个存放文件的路径并定义名称，点击“保存”。**</strong></p>
+<p><strong><em>\</em>（3）复制公钥到Linux服务器**</strong></p>
+<p>[root@aminglinux ~]# mkdir /root/.ssh  //创建目录<br>[root@aminglinux ~]# chmod 700 /root/.ssh  //更改这个目录的权限<br>[root@aminglinux ~]# vim /root/.ssh/authorized_keys //把公钥内容粘贴到这</p>
+<p>个文件里并保存。</p>
+<p><strong>（4）***</strong>*关闭SELinux****<br>   [root@aminglinux ~]# setenforce 0 //暂时关闭SELinux，下次重启还会再开启。</p>
+<p><strong>（5）***</strong>*设置Putty通过密钥登陆****</p>
+<p>   <img src="file:///C:%5CUsers%5Clenovo%5CAppData%5CLocal%5CTemp%5Cksohtml10560%5Cwps8.jpg" alt="img"><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps9.jpg" alt="img"></p>
+<h2 id="二、TCP-Wrappers访问控制"><a href="#二、TCP-Wrappers访问控制" class="headerlink" title="二、TCP Wrappers访问控制"></a>二、TCP Wrappers访问控制</h2><p>在Linux系统中，许多网络服务针对客户机提供了某种访问控制机制，如samba、BIND、Httpd、OpenSSH等，除此之外还有一种防护机制—TCP Wrappers（TCP封套），以作为应用服务与网络之间的一道特殊防线，提供额外的安全保障。</p>
+<h3 id="1-TCP-Wrappers概述"><a href="#1-TCP-Wrappers概述" class="headerlink" title="1.TCP Wrappers概述"></a>1.TCP Wrappers概述</h3><p>TCP Wrappers将其他的TCP服务程序“包裹”起来，增加了一个安全检测过程，外来的连接请求必须先通过这层安全检测，获得许可后才能访问真正的服务程序。</p>
+<p>TCP Wrappers还可以记录所有企图访问被保护服务的行为，为管理员提供丰富的安全分析资料。TCP Wrappers的访问控制是基于TCP协议的应用服务。</p>
+<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps10.jpg" alt="img"> </p>
+<p>相对于iptables防火墙访问控制规则，TCP Wrappers的配置更简单。但是TCP Wrappers也有两个缺点：第一，TCP Wrappers只能控制TCP协议的应用服务；第二，并不是所有基于TCP协议的应用服务都能接受TCP Wrappers控制。对于大多数Linux发行版，TCP Wrappers是默认提供的功能。</p>
+<h3 id="2、-TCP-Wrappers-的访问策略"><a href="#2、-TCP-Wrappers-的访问策略" class="headerlink" title="2、 TCP Wrappers 的访问策略"></a>2、 TCP Wrappers 的访问策略</h3><p>TCP Wrappers机制的保护对象为种网络服务程序，针对访问服务的客户机地址进行访问控制。对应的两个策略文件为/etc/hosts.allow和/etc/hosts.deny，分别用来设置允许和拒绝的策略。</p>
+<h4 id="2-1策略的配置格式"><a href="#2-1策略的配置格式" class="headerlink" title="2.1策略的配置格式"></a>2.1策略的配置格式</h4><p>两个策略文件的作用相反，但配置记录的格式相同，如下所示：</p>
+<p>&lt;服务程序列表&gt;:&lt;客户机地址列表&gt;</p>
+<p>服务程序列表、客户机地址列表之间以冒号分隔，在每个表内的多个项之间以逗号分隔。</p>
+<p><strong>（1）***</strong>*服务程序列表，可以分为以下几类：****</p>
+<p>   ALL：代表所有的服务。</p>
+<p>   单个服务程序：如“sshd”。</p>
+<p>   多个服务程序组成的列表：如“sshd,vsftpd”。</p>
+<p><strong>（2）***</strong>*客户机地址列表，可以分为以下几类：****</p>
+<p>   ALL：代表任何客户机地址。</p>
+<p>   LOCAL：代表本机地址。</p>
+<p>   单个IP地址：如“192.168.75.158”。</p>
+<p>   网络地址段：如“192.168.75.0/255.255.255.0”。</p>
+<p>   以“.”开始的域名：如“.kgc.cn”匹配域中的所有主机。</p>
+<p>   以“.”结束的网络地址：如192.168.75.匹配整个192.168.75.0/24网段。</p>
+<p>   嵌入通配符“<em>””?”：前者代表任意长度字符，后者仅代表一个字符，如”10.0.0.8.2</em>”匹配以10.0.8.2开头的所有IP地址。不可与以“.”开始或结束的模式混用。</p>
+<p>   多个客户机地址组成的列表：如“192.168.1.,172.17.17.，.kgc.cn”。</p>
+<h4 id="2-2访问控制的基本原则"><a href="#2-2访问控制的基本原则" class="headerlink" title="2.2访问控制的基本原则"></a>2.2访问控制的基本原则</h4><p>  关于TCP Wrappers机制的访问策略，应用时遵循以下顺序和原则：</p>
+<p>  首先检查/etc/hosts.allow文件，如果匹配则允许访问；</p>
+<p>  否则继续检查/etc/hosts.deny文件，如果匹配则拒绝访问；</p>
+<p>  如果上述两个文件都没有匹配，则允许访问。</p>
+<h4 id="2-3TCP-Wrappers配置实例"><a href="#2-3TCP-Wrappers配置实例" class="headerlink" title="2.3TCP Wrappers配置实例"></a>2.3TCP Wrappers配置实例</h4><p>  实际应用TCP Wrappers机制时，较宽松的策略可以是“允许所有，拒绝个别”，只在hosts.deny文件中添加拒绝策略就可以了。较严格策略是“允许个别，拒绝所有”，除了在hosts.allow中添加允许策略外还需要在hosts.deny文件中设置“ALL：ALL”的拒绝策略。</p>
+<p>  举例：只允许61.63.65.67的主机或者位于192.168.2.0/24网段的主机访问sshd服务，拒绝其他地址。</p>
+<p>[root@aminglinux ~]#vim /etc/hosts.allow</p>
+<p>sshd:61.63.65.67,192.168.2.*</p>
+<p>[root@aminglinux ~]#vim /etc/hosts.deny</p>
+<p>sshd:ALL</p>
+
+    </div>
+
+    
+
+    
+
+    <!-- Comments -->
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2019/12/31/远程访问及控制/">Untitled</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2019/12/30/Web服务器/">Untitled</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2019/12/30/DNS服务器/">Untitled</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2019/12/30/DHCP配置/">DHCP配置</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/klugjo/hexo-theme-alpha-dust">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://twitter.com/?lang=en">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.facebook.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.instagram.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-instagram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://dribbble.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://plus.google.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-google-plus"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.behance.net/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://500px.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-500px"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:test@example.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

@@ -147,6 +147,78 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2019/12/30/samba 服务器/">
+                Untitled
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2019-12-30</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h1 id="samba-服务器"><a href="#samba-服务器" class="headerlink" title="samba 服务器"></a><strong>samba 服务器</strong></h1><h2 id="1、修改防火墙设置"><a href="#1、修改防火墙设置" class="headerlink" title="1、修改防火墙设置"></a><strong>1、修改防火墙设置</strong></h2><p>#firewall-cmd –permanent –add-service=samba </p>
+<p>//设置防火墙 </p>
+<p>#firewall-cmd –reload </p>
+<p>//重新加载防火墙 </p>
+<h2 id="2、安装-samba-并启动-samba-服务"><a href="#2、安装-samba-并启动-samba-服务" class="headerlink" title="2、安装 samba 并启动 samba 服务"></a><strong>2、安装 samba 并启动 samba 服务</strong></h2><p># yum install -y samba samba-client </p>
+<p>#systemctl start smb.service nmb.service </p>
+<h2 id="3、建立共享目录"><a href="#3、建立共享目录" class="headerlink" title="3、建立共享目录"></a><strong>3、建立共享目录</strong></h2><p>mkdir /home/company </p>
+<h2 id="4、创建访问账号"><a href="#4、创建访问账号" class="headerlink" title="4、创建访问账号"></a><strong>4、创建访问账号</strong></h2><p>useradd -s /sbin/nologin xzusr </p>
+<p>useradd -s /sbin/nologin gcusr </p>
+<p>useradd -s /sbin/nologin xsusr </p>
+<p>#smbpasswd -a xzusr </p>
+<p>#smbpasswd -a gcusr </p>
+<p>#smbpasswd -a xsusr </p>
+<p><strong>【smbpasswd 选项说明：-a 添加 smb 帐号；-x 删除 smb 帐号；-d 禁用 smb 帐号；-e 启用 smb 帐号】</strong> </p>
+<h2 id="5、修改配置文件：-etc-samba-smb-conf"><a href="#5、修改配置文件：-etc-samba-smb-conf" class="headerlink" title="5、修改配置文件：/etc/samba/smb.conf"></a><strong>5、修改配置文件：/etc/samba/smb.conf</strong></h2><p>默认情况下，Samba 已经配置为允许用户通过远程共享访问账号的主目录。 </p>
+<p>[company] //共享名称为 company </p>
+<p>comment = company share //共享注释 </p>
+<p>path = /home/company //指定共享路径 </p>
+<p>browseable = yes //所有人可见 </p>
+<p>guest ok = no //拒绝匿名访问 </p>
+<p>writeable = yes //支持写入数据 </p>
+<p>[company] </p>
+<p>comment = company share </p>
+<p>path = /home/company </p>
+<p>guest ok = no //拒绝匿名访问 </p>
+<p>valid users=xzusr,gcusr,xsusr //允许访问的用户列表 </p>
+<p>write list=xzusr //允许写入的用户列表 </p>
+<p><strong>【注意：修改配置文件以后，必须重启服务（systemctl restart smb nmb）使更改生效】</strong></p>
+<h2 id="6、测试配置文件"><a href="#6、测试配置文件" class="headerlink" title="6、测试配置文件"></a>6、测试配置文件</h2><p>testparm 当配置文件的语法出错时会给出提示，修改再次运行 testparm 测试。 </p>
+<h2 id="7、测试-Samba-服务器"><a href="#7、测试-Samba-服务器" class="headerlink" title="7、测试 Samba 服务器"></a><strong>7、测试 Samba 服务器</strong></h2><p>在 linux 客户端访问测试：smbclient -U smbuser //192.168.75.128/company </p>
+<p>查看服务器的共享文件有哪些：smbclient -L 192.168.75.128 </p>
+<p>查看 smbuser 用户可以访问的共享文件：smbclient -L 192.168.75.128 -U smbuser </p>
+<h2 id="8、在-Linux-下访问-Windows-共享目录的配置方法"><a href="#8、在-Linux-下访问-Windows-共享目录的配置方法" class="headerlink" title="8、在 Linux 下访问 Windows 共享目录的配置方法"></a><strong>8、在 Linux 下访问 Windows 共享目录的配置方法</strong></h2><p>（1）在 Windows xp 上设置一个共享目录：d:\myfiles </p>
+<p>（2）在 Linux 下安装 samba-client 客户端 </p>
+<p># yum install samba-client </p>
+<p>（3）安装 cifs-utils 软件包 </p>
+<p># yum install cifs-utils </p>
+<p>（4）在 Linux 下创建一个挂载点 </p>
+<p># mkdir /mnt/Windows </p>
+<p>（5）挂载 Windows 上的共享目录 d:\myfiles 到 Linux 下的/mnt/Windows 目录下 </p>
+<p># mount -t cifs -o username=Administrator //192.168.0.3/mytest /mnt/Windows </p>
+<p>Enter password: <strong>****</strong> </p>
+<p>（6）如果挂载成功，则可以进入/mnt/Windows 下进行相应操作。 </p>
+<p>（7）在/etc/fstab 文件中，加入该共享目录的挂载信息 </p>
+<p>//192.168.1.123/redhat_disk /mnt/Windows cifs username=tommy,password=111111 0 0 </p>
+<p>（8）到此为止，Windows 上的共享目录//192.168.1.123/redhat_disk 就被成功挂载到了 Linux上面了，并且 Linux 重启后，会自动挂载该目录到/mnt/Windows 目录下 </p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2019/12/30/quota 磁盘配额管理/">
                 quota 磁盘配额管理
             </a>
@@ -175,7 +247,7 @@
     <div class="post-header index">
         <h1 class="title">
             <a href="/2019/12/30/LAMP环境的搭建/">
-                Untitled
+                LAMP环境的搭建
             </a>
         </h1>
         <div class="post-info">
@@ -189,137 +261,9 @@
 
     
         <div class="content">
-            <h1 id="LAMP环境的搭建"><a href="#LAMP环境的搭建" class="headerlink" title="LAMP环境的搭建"></a>LAMP环境的搭建</h1><p>安装apache服务器</p>
-<p><strong><em>\</em>使用YUM安装，首先需要配置YUM源**</strong></p>
-<h2 id="1、配置YUM源文件"><a href="#1、配置YUM源文件" class="headerlink" title="1、配置YUM源文件"></a>1、配置YUM源文件</h2><p><strong><em>\</em># cd /etc/yum.repos.d/**</strong></p>
-<p><strong><em>\</em>备份系统默认的YUM源文件**</strong></p>
-<p><strong><em>\</em># mkdir bak**</strong></p>
-<p><strong><em>\</em># mv *.repo bak**</strong></p>
-<p><strong><em>\</em>配置本地源**</strong></p>
-<p> <strong><em>\</em>步骤一：加载系统光盘**</strong></p>
-<p> <strong><em>\</em>步骤二：在/mnt/目录下建立一个文件夹:cdrom**</strong></p>
-<p> <strong><em>\</em>步骤三：将光盘挂载到cdrom目录**</strong></p>
-<p><strong><em>\</em># mount -t iso9660 /dev/sr0 /mnt/cdrom**</strong></p>
-<p><strong><em>\</em># vim /etc/fstab**</strong> </p>
-<p><strong><em>\</em># mount -a**</strong></p>
-<p><strong><em>\</em>步骤四：配置yum源文件**</strong></p>
-<p><strong><em>\</em># vim dvd.repo**</strong></p>
-<p> [media]</p>
-<p>name=CentOS7</p>
-<p>baseurl=file:///mnt/cdrom</p>
-<p>enabled=1</p>
-<p>gpgcheck=0</p>
-<p><strong><em>\</em>步骤五：检查yum源是配置成功**</strong></p>
-<h2 id="1、安装apache"><a href="#1、安装apache" class="headerlink" title="\1、安装apache**"></a><strong><em>\</em>1、安装apache**</strong></h2><h3 id="1-1-安装apache"><a href="#1-1-安装apache" class="headerlink" title="　　\1.1 安装apache**"></a>　　<strong><em>\</em>1.1 安装apache**</strong></h3><p>[root@nmserver-7 ~]# yum install httpd httpd-devel</p>
-<h3 id="1-2-启动apache服务"><a href="#1-2-启动apache服务" class="headerlink" title="　　\1.2 启动apache服务**"></a>　　<strong><em>\</em>1.2 启动apache服务**</strong></h3><p>[root@nmserver-7 ~]# systemctl start  httpd</p>
-<h3 id="1-3-设置httpd服务开机启动"><a href="#1-3-设置httpd服务开机启动" class="headerlink" title="\1.3 设置httpd服务开机启动**"></a><strong><em>\</em>1.3 设置httpd服务开机启动**</strong></h3><p><strong>systemctl start httpd</strong>    </p>
-<p><strong>systemctl stop httpd</strong></p>
-<p><strong>systemctl status httpd</strong></p>
-<p><strong>systemctl restart httpd</strong></p>
-<p>[root@nmserver-7 ~]# systemctl enable  httpd  开机自启</p>
-<p>Created symlink from /etc/systemd/system/multi-user.target.wants/httpd.service to /usr/lib/systemd/system/httpd.service.</p>
-<h3 id="1-4-查看服务状态"><a href="#1-4-查看服务状态" class="headerlink" title="　　\1.4 查看服务状态**"></a>　　<strong><em>\</em>1.4 查看服务状态**</strong></h3><p>[root@nmserver-7 ~]# systemctl status httpd</p>
-<h3 id="1-5-防火墙设置开启80-443-端口"><a href="#1-5-防火墙设置开启80-443-端口" class="headerlink" title="\1.5 防火墙设置开启80******/443****端口****"></a><strong><em>\</em>1.5 防火墙设置开启80*****</strong>*/443*<strong>**</strong>*端口****</h3><p>[root@nmserver-7 ~]# firewall-cmd –permanent –zone=public  –add-service=http</p>
-<p>success</p>
-<p>[root@nmserver-7 ~]# firewall-cmd –permanent –zone=public  –add-service=https</p>
-<p>success</p>
-<p>[root@nmserver-7 ~]# firewall-cmd –reload</p>
-<p>success</p>
-<h3 id="1-6浏览器登陆访问默认网站"><a href="#1-6浏览器登陆访问默认网站" class="headerlink" title="1.6浏览器登陆访问默认网站"></a>1.6浏览器登陆访问默认网站</h3><p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps1.png" alt="img"> </p>
-<h3 id="1-6如何发布自己的网站呢？"><a href="#1-6如何发布自己的网站呢？" class="headerlink" title="1.6如何发布自己的网站呢？"></a>1.6如何发布自己的网站呢？</h3><p>  （1）网站存放的默认目录：/var/www/html</p>
-<p>[root@teacher myweb]# cd /var/www/html/</p>
-<p>[root@teacher html]# echo ‘welcome to leshanshiyuan.com!’ &gt; index.html</p>
-<p>[root@teacher html]# ls</p>
-<p>index.html</p>
-<p>（2）如果将网站不放在默认的目录下怎么访问呢？</p>
-<p>修改配置文件：vim /etc/httpd/conf/httpd.conf</p>
-<p>定位到119行：：119</p>
-<p>119 #DocumentRoot “/var/www/html” 改为存放网页的目录</p>
-<p>重新启动httpd服务：systemctl restart httpd</p>
-<h1 id="安装DNS服务器"><a href="#安装DNS服务器" class="headerlink" title="安装DNS服务器"></a>安装DNS服务器</h1><h2 id="1、安装DNS服务"><a href="#1、安装DNS服务" class="headerlink" title="1、安装DNS服务"></a>1、安装DNS服务</h2><p>[root@teacher mnt]# yum install bind -y</p>
-<h2 id="2、DNS的配置"><a href="#2、DNS的配置" class="headerlink" title="2、DNS的配置"></a>2、DNS的配置</h2><p><strong><em>\</em>（1）以创建一个名为”lsy.com”的正向查找区域为例：**</strong></p>
-<p>  第一步：在主配置文件/etc/named.conf中创建查找区域。</p>
-<p>​      vim /etc/named.conf</p>
-<p>​      listen-on port 53 { any; };  允许任何用户使用DNS</p>
-<p>​      allow-query{ any; };   允许任何用户查询</p>
-<p>​      dnssec-enable no;   DNS的安全是否开启</p>
-<p>​      zone “zlt.com.” IN {</p>
-<p>​       type master; 有三种类型：hint根 master主要区域  辅助区域</p>
-<p>​       file “zlt.com.zone”;</p>
-<p>​      }；</p>
-<p>第二步：在<strong>/var/named</strong>目录中生成区域配置文件。</p>
-<p>​       copy named.localhost zlt.com.zone</p>
-<p>​       chown :named zlt.com.zone</p>
-<p>​       vim lsy.com.zone</p>
-<p>​       $TTL 1D               </p>
-<p>​       IN  SOA  zlt.com. root.gxa.com.(</p>
-<p>​         0  ;serial  是一个十位数字的序列号</p>
-<p>​         1D  ;refresh  刷新时间 </p>
-<p>​         1H  ；retry  重试时间  </p>
-<p>​         1W  ；expire  过期时间</p>
-<p>​         3H  ；minimum 最小缓存时间</p>
-<p>​       NS   dns.gxa.com.  @部份填写域名</p>
-<p>​    dns  A   192.168.0.1   A表示IPV4的地址  AAAA表示IPV6的地址</p>
-<p>​    www  A   192.168.0.1</p>
-<p>​    ftp  A       192.168.0.1</p>
-<p>   第三步：重启服务</p>
-<p>[root@teacher mnt]#systemctl start named.service</p>
-<p>[root@teacher mnt]#systemctl enable named.service</p>
-<p>   第四步：配置客户端</p>
-<p>   第五步：测试DNS服务器</p>
-<p>​        nslookup</p>
-<h1 id="安装mysql数据库"><a href="#安装mysql数据库" class="headerlink" title="安装mysql数据库"></a>安装mysql数据库</h1><h3 id="2-1安装mysql"><a href="#2-1安装mysql" class="headerlink" title="　2.1安装mysql"></a>　2.1安装mysql</h3><p>[root@nmserver-7 ~]# yum install mariadb mariadb-server mariadb-libs mariadb-devel</p>
-<p>root@nmserver-7 ~]# rpm -qa |grep maria</p>
-<p>mariadb-libs-5.5.52-1.el7.i686</p>
-<p>mariadb-5.5.52-1.el7.i686</p>
-<p>mariadb-server-5.5.52-1.el7.i686</p>
-<p>mariadb-devel-5.5.52-1.el7.i686</p>
-<h3 id="2-2-开启mysql服务，并设置开机启动，检查mysql状态"><a href="#2-2-开启mysql服务，并设置开机启动，检查mysql状态" class="headerlink" title="2.2 开启mysql服务，并设置开机启动，检查mysql状态"></a>2.2 开启mysql服务，并设置开机启动，检查mysql状态</h3><p>[root@nmserver-7 ~]# systemctl start  mariadb </p>
-<p>[root@nmserver-7 ~]# systemctl enable  mariadb </p>
-<h3 id="2-3-数据库安全设置"><a href="#2-3-数据库安全设置" class="headerlink" title="2.3 数据库安全设置"></a>2.3 数据库安全设置</h3><p>[root@nmserver-7 ~]# mysql_secure_installation </p>
-<h3 id="2-4-登陆数据库测试"><a href="#2-4-登陆数据库测试" class="headerlink" title="2.4 登陆数据库测试"></a>2.4 登陆数据库测试</h3><p>[root@nmserver-7 ~]# mysql -u root -p</p>
-<h3 id="数据库的创建与使用"><a href="#数据库的创建与使用" class="headerlink" title="数据库的创建与使用"></a><strong><em>数据库的创建与使用</em></strong></h3><h4 id="1、数据库的操作"><a href="#1、数据库的操作" class="headerlink" title="1、数据库的操作"></a><strong>1、数据库的操作</strong></h4><h6 id="1-1查看数据库"><a href="#1-1查看数据库" class="headerlink" title="1.1查看数据库"></a>1.1查看数据库</h6><p>MariaDB [(none)]&gt; show databases;</p>
-<h6 id="1-2创建数据库：（创建的数据库会存放在-var-lib-mysql目录中）"><a href="#1-2创建数据库：（创建的数据库会存放在-var-lib-mysql目录中）" class="headerlink" title="1.2创建数据库：（创建的数据库会存放在/var/lib/mysql目录中）"></a>1.2创建数据库：（创建的数据库会存放在/var/lib/mysql目录中）</h6><p>MariaDB [(none)]&gt; create database couman;</p>
-<p>Query OK, 1 row affected (0.00 sec)</p>
-<h6 id="1-3选择数据库"><a href="#1-3选择数据库" class="headerlink" title="1.3选择数据库"></a>1.3选择数据库</h6><p>MariaDB [(none)]&gt; use couman;</p>
-<p>Database changed</p>
-<h6 id="1-4删除数据库"><a href="#1-4删除数据库" class="headerlink" title="1.4删除数据库"></a>1.4删除数据库</h6><p>MariaDB [(none)]&gt; drop database couman;</p>
-<p>Query OK, 0 rows affected (0.00 sec)</p>
-<h6 id="1-5查看数据表"><a href="#1-5查看数据表" class="headerlink" title="1.5查看数据表"></a>1.5查看数据表</h6><p>MariaDB [(none)]&gt;show tables;</p>
-<h6 id="1-6查看表结构"><a href="#1-6查看表结构" class="headerlink" title="1.6查看表结构"></a>1.6查看表结构</h6><p>MariaDB [(mysql)]&gt;desc user;</p>
-<h6 id="1-7使用select语句进行表内容查询"><a href="#1-7使用select语句进行表内容查询" class="headerlink" title="1.7使用select语句进行表内容查询"></a>1.7使用select语句进行表内容查询</h6><p> MariaDB [(mysql)]&gt;select * from 表名;</p>
-<p> MariaDB [(mysql)]&gt;select user,password from 表名;</p>
-<h4 id="2、数据库的备份"><a href="#2、数据库的备份" class="headerlink" title="2、数据库的备份"></a>2、数据库的备份</h4><p>[root@teacher mnt]# mysqldump couman –user=root –password=123456&gt;db-01.mysql;</p>
-<h4 id="3、数据库的恢复"><a href="#3、数据库的恢复" class="headerlink" title="3、数据库的恢复"></a>3、数据库的恢复</h4><h6 id="3-1首先创建一个空数据库存"><a href="#3-1首先创建一个空数据库存" class="headerlink" title="3.1首先创建一个空数据库存"></a>3.1首先创建一个空数据库存</h6><p>MariaDB [(none)]&gt; create database couman;</p>
-<p>Query OK, 1 row affected (0.00 sec)</p>
-<h6 id="3-2从备份文件中恢复数据库存"><a href="#3-2从备份文件中恢复数据库存" class="headerlink" title="3.2从备份文件中恢复数据库存"></a>3.2从备份文件中恢复数据库存</h6><p>[root@teacher mnt]# mysql -u root -p couman&lt;db-01.mysql</p>
-<p>Enter password:</p>
-<h1 id="安装PHP环境"><a href="#安装PHP环境" class="headerlink" title="安装PHP环境"></a>安装PHP环境</h1><h3 id="3-1-安装php"><a href="#3-1-安装php" class="headerlink" title="3.1 安装php"></a>3.1 安装php</h3><p>[root@nmserver-7 ~]# yum -y install php</p>
-<p>[root@nmserver-7 ~]# rpm -ql php/etc/httpd/conf.d/php.conf/etc/httpd/conf.modules.d/10-php.conf/usr/lib/httpd/modules/libphp5.so/usr/share/httpd/icons/php.gif/var/lib/php/session</p>
-<h3 id="3-2-将php与mysql关联起来"><a href="#3-2-将php与mysql关联起来" class="headerlink" title="3.2 将php与mysql关联起来"></a>3.2 将php与mysql关联起来</h3><p>[root@nmserver-7 ~]# yum install php-mysql</p>
-<p>[root@nmserver-7 ~]# rpm -ql  php-mysql</p>
-<p>php-mysql/etc/php.d/mysql.ini/etc/php.d/mysqli.ini/etc/php.d/pdo_mysql.ini/usr/lib/php/modules/mysql.so/usr/lib/php/modules/mysqli.so/usr/lib/php/modules/pdo_mysql.so</p>
-<h3 id="3-3-安装常用PHP模块"><a href="#3-3-安装常用PHP模块" class="headerlink" title="3.3 安装常用PHP模块"></a>3.3 安装常用PHP模块</h3><p>[root@nmserver-7 ~]# yum install -y php-gd php-ldap php-odbc php-pear php-xml php-xmlrpc php-mbstring php-snmp php-soap curl curl-devel php-bcmath</p>
-<h3 id="3-4-测试PHP"><a href="#3-4-测试PHP" class="headerlink" title="3.4 测试PHP"></a>3.4 测试PHP</h3><p>[root@nmserver-7 ~]# cd /var/www/html/<br>[root@nmserver-7 html]# ls<br>[root@nmserver-7 html]# pwd<br>/var/www/html<br>[root@nmserver-7 html]# vi info.php</p>
-<?php
-    phpinfo();
-?>
-
-
-
-<h3 id="3-5重启apache服务器"><a href="#3-5重启apache服务器" class="headerlink" title="3.5重启apache服务器"></a>3.5重启apache服务器</h3><p>[root@nmserver-7 html]# systemctl restart httpd</p>
-<h3 id="3-6测试PHP"><a href="#3-6测试PHP" class="headerlink" title="3.6测试PHP"></a>3.6测试PHP</h3><p>　　在自己电脑浏览器输入 192.168.8.9/info.php，你可以看到已经安装的模块；</p>
-<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps7.png" alt="img"> </p>
-<p>项目实战：通过LAMP环境部署book留言板</p>
-<p>\1. 把book移动到/var/www/html下</p>
-<p>\2. 修改vi /etc/httpd/conf/httpd.conf文件</p>
-<p>主页目录，字体315 AddDefaultCharset UTF-8，检索首页，</p>
-<p>\3. 在数据库中创建数据库guestbook；</p>
-<p>\4. 恢复数据库文件</p>
-<p>mysql -u root -p123456 guestbook&lt;/root/Desktop/guestbook.sql</p>
-<p>5.通过域名：<a href="http://www.lsy.com访问留言板" target="_blank" rel="noopener">www.lsy.com访问留言板</a></p>
-
+            <h3 id="CVE-2019-12-31"><a href="#CVE-2019-12-31" class="headerlink" title="CVE _2019-12-31"></a>CVE _2019-12-31</h3>
         </div>
+        <a href="/2019/12/30/LAMP环境的搭建/" class="read-more">Read More</a>
     
 
 </div>
@@ -491,33 +435,6 @@
 
     <div class="post-header index">
         <h1 class="title">
-            <a href="/2019/09/07/CVE-2019-0708/">
-                漏洞复现
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2019-09-07</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h3 id="CVE-2019-07-08"><a href="#CVE-2019-07-08" class="headerlink" title="CVE _2019_07_08"></a>CVE _2019_07_08</h3>
-        </div>
-        <a href="/2019/09/07/CVE-2019-0708/" class="read-more">Read More</a>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
             <a href="/2019/09/07/运行环境/">
                 运行环境
             </a>
@@ -552,7 +469,7 @@
                 <a class="" href="/">
                     <i class="fa fa-chevron-left" aria-hidden="true"></i>
                 </a>
-                <a class="disabled" href="/">
+                <a class="" href="/page/3/">
                     <i class="fa fa-chevron-right" aria-hidden="true"></i>
                 </a>
             </div>
@@ -582,6 +499,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2019/12/31/远程访问及控制/">Untitled</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2019/12/30/Web服务器/">Untitled</a>
             </li>
             
@@ -591,10 +512,6 @@
             
             <li>
                 <a class="footer-post" href="/2019/12/30/DHCP配置/">DHCP配置</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2019/12/30/用户与组的管理/">Untitled</a>
             </li>
             
         </ul>
