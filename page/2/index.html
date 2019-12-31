@@ -148,7 +148,7 @@
     <div class="post-header index">
         <h1 class="title">
             <a href="/2019/12/30/samba 服务器/">
-                Untitled
+                samba 服务器
             </a>
         </h1>
         <div class="post-info">
@@ -162,54 +162,9 @@
 
     
         <div class="content">
-            <h1 id="samba-服务器"><a href="#samba-服务器" class="headerlink" title="samba 服务器"></a><strong>samba 服务器</strong></h1><h2 id="1、修改防火墙设置"><a href="#1、修改防火墙设置" class="headerlink" title="1、修改防火墙设置"></a><strong>1、修改防火墙设置</strong></h2><p>#firewall-cmd –permanent –add-service=samba </p>
-<p>//设置防火墙 </p>
-<p>#firewall-cmd –reload </p>
-<p>//重新加载防火墙 </p>
-<h2 id="2、安装-samba-并启动-samba-服务"><a href="#2、安装-samba-并启动-samba-服务" class="headerlink" title="2、安装 samba 并启动 samba 服务"></a><strong>2、安装 samba 并启动 samba 服务</strong></h2><p># yum install -y samba samba-client </p>
-<p>#systemctl start smb.service nmb.service </p>
-<h2 id="3、建立共享目录"><a href="#3、建立共享目录" class="headerlink" title="3、建立共享目录"></a><strong>3、建立共享目录</strong></h2><p>mkdir /home/company </p>
-<h2 id="4、创建访问账号"><a href="#4、创建访问账号" class="headerlink" title="4、创建访问账号"></a><strong>4、创建访问账号</strong></h2><p>useradd -s /sbin/nologin xzusr </p>
-<p>useradd -s /sbin/nologin gcusr </p>
-<p>useradd -s /sbin/nologin xsusr </p>
-<p>#smbpasswd -a xzusr </p>
-<p>#smbpasswd -a gcusr </p>
-<p>#smbpasswd -a xsusr </p>
-<p><strong>【smbpasswd 选项说明：-a 添加 smb 帐号；-x 删除 smb 帐号；-d 禁用 smb 帐号；-e 启用 smb 帐号】</strong> </p>
-<h2 id="5、修改配置文件：-etc-samba-smb-conf"><a href="#5、修改配置文件：-etc-samba-smb-conf" class="headerlink" title="5、修改配置文件：/etc/samba/smb.conf"></a><strong>5、修改配置文件：/etc/samba/smb.conf</strong></h2><p>默认情况下，Samba 已经配置为允许用户通过远程共享访问账号的主目录。 </p>
-<p>[company] //共享名称为 company </p>
-<p>comment = company share //共享注释 </p>
-<p>path = /home/company //指定共享路径 </p>
-<p>browseable = yes //所有人可见 </p>
-<p>guest ok = no //拒绝匿名访问 </p>
-<p>writeable = yes //支持写入数据 </p>
-<p>[company] </p>
-<p>comment = company share </p>
-<p>path = /home/company </p>
-<p>guest ok = no //拒绝匿名访问 </p>
-<p>valid users=xzusr,gcusr,xsusr //允许访问的用户列表 </p>
-<p>write list=xzusr //允许写入的用户列表 </p>
-<p><strong>【注意：修改配置文件以后，必须重启服务（systemctl restart smb nmb）使更改生效】</strong></p>
-<h2 id="6、测试配置文件"><a href="#6、测试配置文件" class="headerlink" title="6、测试配置文件"></a>6、测试配置文件</h2><p>testparm 当配置文件的语法出错时会给出提示，修改再次运行 testparm 测试。 </p>
-<h2 id="7、测试-Samba-服务器"><a href="#7、测试-Samba-服务器" class="headerlink" title="7、测试 Samba 服务器"></a><strong>7、测试 Samba 服务器</strong></h2><p>在 linux 客户端访问测试：smbclient -U smbuser //192.168.75.128/company </p>
-<p>查看服务器的共享文件有哪些：smbclient -L 192.168.75.128 </p>
-<p>查看 smbuser 用户可以访问的共享文件：smbclient -L 192.168.75.128 -U smbuser </p>
-<h2 id="8、在-Linux-下访问-Windows-共享目录的配置方法"><a href="#8、在-Linux-下访问-Windows-共享目录的配置方法" class="headerlink" title="8、在 Linux 下访问 Windows 共享目录的配置方法"></a><strong>8、在 Linux 下访问 Windows 共享目录的配置方法</strong></h2><p>（1）在 Windows xp 上设置一个共享目录：d:\myfiles </p>
-<p>（2）在 Linux 下安装 samba-client 客户端 </p>
-<p># yum install samba-client </p>
-<p>（3）安装 cifs-utils 软件包 </p>
-<p># yum install cifs-utils </p>
-<p>（4）在 Linux 下创建一个挂载点 </p>
-<p># mkdir /mnt/Windows </p>
-<p>（5）挂载 Windows 上的共享目录 d:\myfiles 到 Linux 下的/mnt/Windows 目录下 </p>
-<p># mount -t cifs -o username=Administrator //192.168.0.3/mytest /mnt/Windows </p>
-<p>Enter password: <strong>****</strong> </p>
-<p>（6）如果挂载成功，则可以进入/mnt/Windows 下进行相应操作。 </p>
-<p>（7）在/etc/fstab 文件中，加入该共享目录的挂载信息 </p>
-<p>//192.168.1.123/redhat_disk /mnt/Windows cifs username=tommy,password=111111 0 0 </p>
-<p>（8）到此为止，Windows 上的共享目录//192.168.1.123/redhat_disk 就被成功挂载到了 Linux上面了，并且 Linux 重启后，会自动挂载该目录到/mnt/Windows 目录下 </p>
-
+            <h3 id="CVE-2019-12-31"><a href="#CVE-2019-12-31" class="headerlink" title="CVE _2019-12-31"></a>CVE _2019-12-31</h3>
         </div>
+        <a href="/2019/12/30/samba 服务器/" class="read-more">Read More</a>
     
 
 </div>
@@ -503,11 +458,11 @@
             </li>
             
             <li>
-                <a class="footer-post" href="/2019/12/30/Web服务器/">Untitled</a>
+                <a class="footer-post" href="/2019/12/30/Web服务器/">Web服务器</a>
             </li>
             
             <li>
-                <a class="footer-post" href="/2019/12/30/DNS服务器/">Untitled</a>
+                <a class="footer-post" href="/2019/12/30/DNS服务器/">DNS服务器</a>
             </li>
             
             <li>

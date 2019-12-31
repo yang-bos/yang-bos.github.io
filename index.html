@@ -303,7 +303,7 @@
     <div class="post-header index">
         <h1 class="title">
             <a href="/2019/12/30/Web服务器/">
-                Untitled
+                Web服务器
             </a>
         </h1>
         <div class="post-info">
@@ -317,25 +317,9 @@
 
     
         <div class="content">
-            <h1 id="Web服务器"><a href="#Web服务器" class="headerlink" title="Web服务器"></a>Web服务器</h1><h2 id="一、发布公司网站"><a href="#一、发布公司网站" class="headerlink" title="一、发布公司网站"></a>一、发布公司网站</h2><h3 id="1、安装Apache服务"><a href="#1、安装Apache服务" class="headerlink" title="1、安装Apache服务"></a>1、安装Apache服务</h3><p> # yum  install  -y  httpd </p>
-<p>#systemctl  start  httpd.service</p>
-<p>/etc/httpd/conf：该目录存放Apache服务器的配置文件</p>
-<p>/var/www/html：该目录是Apache服务器的默认站点根目录</p>
-<p>/etc/httpd/logs:Apache服务器的日志文件目录</p>
-<h3 id="2、测试Apache是否安装成功"><a href="#2、测试Apache是否安装成功" class="headerlink" title="2、测试Apache是否安装成功"></a>2、测试Apache是否安装成功</h3><p> 在浏览器的地址栏输入：localhost进行测试</p>
-<h3 id="3、将公司网站exam复制到-var-www-html-目录下，并修改配置文件："><a href="#3、将公司网站exam复制到-var-www-html-目录下，并修改配置文件：" class="headerlink" title="3、将公司网站exam复制到/var/www/html/目录下，并修改配置文件："></a>3、将公司网站exam复制到/var/www/html/目录下，并修改配置文件：</h3><p>  Vim /etc/httpd/conf/httpd.conf</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">修改：DocumentRoot &quot;/var/www/html/&quot;为DocumentRoot&quot;/var/www/html/exam&quot;</span><br></pre></td></tr></table></figure>
-
-<h5 id="【修改完配置文件后必须要重启服务：systemctl-restart-httpd】"><a href="#【修改完配置文件后必须要重启服务：systemctl-restart-httpd】" class="headerlink" title="【修改完配置文件后必须要重启服务：systemctl restart httpd】"></a>【修改完配置文件后必须要重启服务：systemctl restart httpd】</h5><h2 id="二、发布个性化网站"><a href="#二、发布个性化网站" class="headerlink" title="二、发布个性化网站"></a>二、发布个性化网站</h2><p>  项目考核信息网站部署完成后，考虑到站点是内部网站，为了保证安全，将首页改为exam.html，并使用8080端口访问。</p>
-<p><strong>改首页名字：</strong>#mv /var/www/html/exam/index.html                            /var/www/html/exam/exam.html</p>
-<p><strong>修改配置文件：</strong>Vim/etc/httpd/conf/httpd.conf</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Listen 8080</span><br><span class="line"></span><br><span class="line">DirectoryIndex exam.html index.html</span><br></pre></td></tr></table></figure>
-
-<p><strong>重启服务：</strong>systemctl restart httpd</p>
-<p><strong>访问测试：</strong>192.168.75.128:8080</p>
-<p>apache日志文件所在的目录：/var/log/httpd</p>
-
+            <h3 id="CVE-2019-12-31"><a href="#CVE-2019-12-31" class="headerlink" title="CVE _2019-12-31"></a>CVE _2019-12-31</h3>
         </div>
+        <a href="/2019/12/30/Web服务器/" class="read-more">Read More</a>
     
 
 </div>
@@ -346,7 +330,7 @@
     <div class="post-header index">
         <h1 class="title">
             <a href="/2019/12/30/DNS服务器/">
-                Untitled
+                DNS服务器
             </a>
         </h1>
         <div class="post-info">
@@ -360,36 +344,9 @@
 
     
         <div class="content">
-            <p>DNS</p>
-<p>正向解析：将域名解析成IP地址，A记录  CNAME记录  MX记录</p>
-<p>反向解析：将IP地址解析成域名，PTR指针</p>
-<p>DNS的查询方式：递归查询  迭代查询</p>
-<p>区域类型：hint  根区域</p>
-<p>​                    master  主要区域</p>
-<pre><code>slave    辅助区域</code></pre><p>配置DNS服务器:以配置www. zlt. com为例<br>1.打开：/etc/named.rfc1912.zones，配置区域</p>
-<p>zone “zlt.com.” IN {<br>        type master;<br>        file “zlt.com.zone”;<br>        allow-update { none; };<br>};</p>
-<p>2.到/var/named目录下配置区域配置文件</p>
-<h1 id="cp-named-localhost-zlt-com-zone"><a href="#cp-named-localhost-zlt-com-zone" class="headerlink" title="cp named.localhost zlt.com.zone"></a>cp named.localhost zlt.com.zone</h1><h1 id="chown-named-zlt-com-zone"><a href="#chown-named-zlt-com-zone" class="headerlink" title="chown :named zlt.com.zone"></a>chown :named zlt.com.zone</h1><p>3.修改区域配置文件的所属组为named<br>4.启动服务/重启服务<br>5.设置DNS地址<br>6.测试DNS：nslookup</p>
-<p>假设有另外一个公司的网站也放在这台服务器上，域名为<a href="http://www.aa.com" target="_blank" rel="noopener">www.aa.com</a><br>1.打开：/etc/named.rfc1912.zones，配置区域</p>
-<p>zone “aa.com.” IN {<br>        type master;<br>        file “aa.com.zone”;<br>        allow-update { none; };<br>};</p>
-<p>2.到/var/named目录下配置区域配置文件</p>
-<h1 id="cp-named-localhost-aa-com-zone"><a href="#cp-named-localhost-aa-com-zone" class="headerlink" title="cp named.localhost aa.com.zone"></a>cp named.localhost aa.com.zone</h1><h1 id="chown-named-aa-com-zone"><a href="#chown-named-aa-com-zone" class="headerlink" title="chown :named aa.com.zone"></a>chown :named aa.com.zone</h1><p>$TTL 1D<br>@       IN SOA  aa.com. root.aa.com. (<br>                                        0       ; serial<br>                                        1D      ; refresh<br>                                        1H      ; retry<br>                                        1W      ; expire<br>                                        3H )    ; minimum<br>        NS      dns.aa.com.<br>dns        A       192.168.75.158<br>www     A       192.168.75.158<br>ftp         A       192.168.75.158<br>              A       127.0.0.1<br>              AAAA    ::1</p>
-<p>3.启动服务/重启服务</p>
-<p>配置辅助DNS服务器<br>   1）安装bind<br>   2）启动bind<br>      service named start<br>      chkconfig named on<br>   3）修改主配置文件，添加辅助区域<br>       vim /etc/named.conf</p>
-<pre><code>zone &quot;zlt.com&quot; IN {
-       type slave;
-       file &quot;slaves/slave.com.zone&quot;;
-       masters {192.168.0.1;};
-    };
-
-zone &quot;0.168.192.in-addr.arpa&quot; IN {
-       type slave;
-       file &quot;slaves/0.168.192.zone&quot;;
-       masters {192.168.0.1;};
-    };
-
-4)重启服务：service named restart</code></pre>
+            <h3 id="CVE-2019-12-31"><a href="#CVE-2019-12-31" class="headerlink" title="CVE _2019-12-31"></a>CVE _2019-12-31</h3>
         </div>
+        <a href="/2019/12/30/DNS服务器/" class="read-more">Read More</a>
     
 
 </div>
@@ -590,7 +547,7 @@ zone &quot;0.168.192.in-addr.arpa&quot; IN {
     <div class="post-header index">
         <h1 class="title">
             <a href="/2019/12/30/网络连接/">
-                Untitled
+                网络连接
             </a>
         </h1>
         <div class="post-info">
@@ -604,77 +561,9 @@ zone &quot;0.168.192.in-addr.arpa&quot; IN {
 
     
         <div class="content">
-            <h1 id="网络连接"><a href="#网络连接" class="headerlink" title="网络连接"></a><strong>网络连接</strong></h1><h2 id="一、主机名的配置（配置文件-etc-hostname）"><a href="#一、主机名的配置（配置文件-etc-hostname）" class="headerlink" title="一、主机名的配置（配置文件/etc/hostname）"></a><strong>一、主机名的配置</strong>（配置文件/etc/hostname）</h2><h3 id="1、使用-hostname-命令临时设置主机名"><a href="#1、使用-hostname-命令临时设置主机名" class="headerlink" title="1、使用 hostname 命令临时设置主机名"></a><strong>1、使用 hostname 命令临时设置主机名</strong></h3><p>命令格式：hostname [新主机名] </p>
-<h3 id="2．永久设置主机名"><a href="#2．永久设置主机名" class="headerlink" title="2．永久设置主机名"></a><strong>2．永久设置主机名</strong></h3><p>命令格式：hostnamectl set-hostname 新主机名 </p>
-<h2 id="二、网卡信息的配置"><a href="#二、网卡信息的配置" class="headerlink" title="二、网卡信息的配置"></a><strong>二、网卡信息的配置</strong></h2><h3 id="1、网卡配置文件"><a href="#1、网卡配置文件" class="headerlink" title="1、网卡配置文件"></a><strong>1、网卡配置文件</strong></h3><p>位于:/etc/sysconfig/network-scripts 目录下,一块网卡对应一个配置文件。 </p>
-<p><strong>ifcfg-ens33</strong> 为网卡配置文件，常用配置项的含义如下： </p>
-<p>DEVICE=ens33 //定义该网卡的识别名称。 </p>
-<p>BOOTPROTO=dhcp //启动该网卡的方式，dhcp 表示通过 BOOTP 或 DHCP 协议动态取得 IP 地址。 </p>
-<p>ONBOOT=yes //启动 network 服务时，是否启动该网卡。 </p>
-<p>TYPE=Ethernet //网卡的类型。 </p>
-<p>IPADDR=192.168.64.128 //静态方式指定网卡的 IP 地址 </p>
-<p>NETMASK=255.255.255.0 //定义网卡的子网掩码 </p>
-<p>MTU=1500  //网卡传输的最大数据包 </p>
-<p>GATEWAY=192.168.64.254 //网络的默认网关 </p>
-<p>DNS1= </p>
-<h3 id="2、配置网卡信息"><a href="#2、配置网卡信息" class="headerlink" title="2、配置网卡信息"></a><strong>2、配置网卡信息</strong></h3><p>（1）直接修改网卡配置文件 </p>
-<p>#vim /etc/sysconfig/network-scripts ifcfg-ens33 </p>
-<p>修改完成后重启服务才生效 </p>
-<p>#systemctl restart network.service </p>
-<p>（2）ifconfig 命令 </p>
-<p>①查看网卡信息 </p>
-<p>命令格式：ifconfig [选项] </p>
-<p>无选项：显示当前活动的网卡。</p>
-<p>–a ：显示系统中所有网卡配置信息。 </p>
-<p>网卡设备名：显示指定网卡配置信息。 </p>
-<p>②设置 IP 地址（临时的） </p>
-<p>命令格式：ifconfig 网卡设备名 IP 地址 netmask 子网掩码 </p>
-<p>③ 修改网卡的 MAC 地址（先禁用网卡，修改后重启网卡） </p>
-<p>命令格式：ifconfig 网卡设备名 hw ether MAC 地址 </p>
-<p>（3）网卡常用命令 </p>
-<p>① ifdown（禁用网卡） </p>
-<p>命令格式：ifdown 网卡设备名 </p>
-<p>② ifup（重启网卡） </p>
-<p>命令格式：ifup 网卡设备名 </p>
-<p>③绑定 IP 和 MAC 地址 </p>
-<p>【举例】创建/etc/ethers 文件，将 193.168.168.154 与 00：0C：29：03：F3：75 网卡绑定。 </p>
-<p>#echo “193.168.168.154 00：0C：29：03：F3：75” &gt;&gt;/etc/ethers </p>
-<p>#arp -f </p>
-<h2 id="三、客户端域名解析服务器的配置"><a href="#三、客户端域名解析服务器的配置" class="headerlink" title="三、客户端域名解析服务器的配置"></a><strong>三、客户端域名解析服务器的配置</strong></h2><p>在 Linux 系统中客户端域名解析服务器的配置文件是/etc/resolv.conf， </p>
-<p>文件内容格式：nameserver 指定 DNS 服务器的 IP 地址。 </p>
-<p>最多可同时指定 3 个 DNS 服务器的 IP 地址，根据 nameserver 的配置顺序决定搜索。可以使用 domain 来指定当前主机所在域的域名。 </p>
-<p>为 避 免 /etc/resolv.conf 文 件 的 内 容 被 系 统 修 改 或 覆 盖 ， 需 要 修 改 </p>
-<p>/etc/NetworkManager/NetworkManager.conf 文件，在 main 部分添加“dns=none”选项。 </p>
-<p>修改后的 NetworkManager.conf 文件的内容如下所示： </p>
-<p>[main] </p>
-<p>plugins=ifcfg-rh </p>
-<p>dns=none </p>
-<p>在完成修改后，需要执行命令： </p>
-<p>#systemctl restart NetworkManager.service </p>
-<p>重新装载 NetworkManager 的配置。此时客户端域名解析服务器设置完成。 </p>
-<h2 id="四、6-2-1-常用网络调试命令与故障排查"><a href="#四、6-2-1-常用网络调试命令与故障排查" class="headerlink" title="四、6.2.1 常用网络调试命令与故障排查"></a><strong>四、6.2.1 常用网络调试命令与故障排查</strong></h2><p>1．ping 命令：测试网络中是否畅通以及网络质量。 </p>
-<p>命令格式：ping [选项] 对方 IP 地址 </p>
-<p>选项说明：</p>
-<p>-c : 指定向目的主机发送多少个报文。 </p>
-<p>-s :指定发送报文的大小，以字节为单位。 </p>
-<p>-W: 设置等待接收回应报文的时间间隔，以秒为单位。 </p>
-<p>2．netstat 命令：显示网络连接、路由表、正在监听的端口等信息。 </p>
-<p>命令格式：netstat [选项] </p>
-<p>选项说明：</p>
-<p>-l : 显示正在监听的服务或端口。 </p>
-<p>-a : 显示当前主机开放的所有端口 </p>
-<p>-n : 不进行域名解析。 </p>
-<p>-p : 显示端口是由哪个进程和程序在监听。 </p>
-<p>-c : 动态显示网络连接和端口监听信息。 </p>
-<p>-i : 显示网卡相关信息。 </p>
-<p>-r : 显示当前主机的路由表信息。 </p>
-<p>3．traceroute 命令：路由跟踪。 </p>
-<p>命令格式：traceroute </p>
-<p>目的 IP 地址 </p>
-<p>4．nslookup 命令:检测指定的 DNS 服务器工作是否正常 </p>
-<p>命令格式：nslookup </p>
-
+            <h3 id="CVE-2019-12-31"><a href="#CVE-2019-12-31" class="headerlink" title="CVE _2019-12-31"></a>CVE _2019-12-31</h3>
         </div>
+        <a href="/2019/12/30/网络连接/" class="read-more">Read More</a>
     
 
 </div>
@@ -833,11 +722,11 @@ zone &quot;0.168.192.in-addr.arpa&quot; IN {
             </li>
             
             <li>
-                <a class="footer-post" href="/2019/12/30/Web服务器/">Untitled</a>
+                <a class="footer-post" href="/2019/12/30/Web服务器/">Web服务器</a>
             </li>
             
             <li>
-                <a class="footer-post" href="/2019/12/30/DNS服务器/">Untitled</a>
+                <a class="footer-post" href="/2019/12/30/DNS服务器/">DNS服务器</a>
             </li>
             
             <li>
