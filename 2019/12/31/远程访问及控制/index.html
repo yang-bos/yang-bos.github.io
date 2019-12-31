@@ -10,7 +10,7 @@
 
     <!--Description-->
     
-        <meta name="description" content="远程访问及控制一、SSH远程管理1.配置OpenSSH服务端1.1配置SSH及配置文件  openssh服务器由openssh、openssh-server等软件包提供（默认已安装），并已将sshd添加为标准的系统服务。执行“systemctl status sshd.service”即可按默认配置">
+        <meta name="description" content="CVE _2019-12-31">
     
 
     <!--Author-->
@@ -20,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="你好">
+        <meta property="og:title" content="远程访问及控制">
     
 
     <!--Open Graph Description-->
@@ -31,7 +31,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website">
+        <meta property="og:type" content="article">
     
 
     <!--Page Cover-->
@@ -42,7 +42,7 @@
 
     <!-- Title -->
     
-    <title>你好</title>
+    <title>远程访问及控制 - 你好</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -147,7 +147,7 @@
     <div class="post-header">
         <h1 class="title">
             <a href="/2019/12/31/远程访问及控制/">
-                Untitled
+                远程访问及控制
             </a>
         </h1>
         <div class="post-info">
@@ -163,9 +163,24 @@
 
         <!-- Gallery -->
         
+            
+<div class="gallery-container">
+    
+        
+            <div class="picture-container">
+                <a href="#" data-featherlight="/-![]( http://ww1.sinaimg.cn/large/007bHQE8gy1g6rgpepwi8j31h50su4qp.jpg)">
+                    <img src="/-![]( http://ww1.sinaimg.cn/large/007bHQE8gy1g6rgpepwi8j31h50su4qp.jpg)" class="img-thumbnail" />
+                </a>
+            </div>
+        
+    
+</div>
+        
 
         <!-- Post Content -->
-        <h1 id="远程访问及控制"><a href="#远程访问及控制" class="headerlink" title="远程访问及控制"></a>远程访问及控制</h1><h2 id="一、SSH远程管理"><a href="#一、SSH远程管理" class="headerlink" title="一、SSH远程管理"></a>一、SSH远程管理</h2><h3 id="1-配置OpenSSH服务端"><a href="#1-配置OpenSSH服务端" class="headerlink" title="1.配置OpenSSH服务端"></a>1.配置OpenSSH服务端</h3><h4 id="1-1配置SSH及配置文件"><a href="#1-1配置SSH及配置文件" class="headerlink" title="1.1配置SSH及配置文件"></a>1.1配置SSH及配置文件</h4><p>  openssh服务器由openssh、openssh-server等软件包提供（默认已安装），并已将sshd添加为标准的系统服务。执行“systemctl status sshd.service”即可按默认配置启动sshd服务，包括root在内的大部份用户（只要拥有合法的登录shell）都可以远程登录系统。</p>
+        <h3 id="CVE-2019-12-31"><a href="#CVE-2019-12-31" class="headerlink" title="CVE _2019-12-31"></a>CVE _2019-12-31</h3><a id="more"></a>
+
+<h1 id="远程访问及控制"><a href="#远程访问及控制" class="headerlink" title="远程访问及控制"></a>远程访问及控制</h1><h2 id="一、SSH远程管理"><a href="#一、SSH远程管理" class="headerlink" title="一、SSH远程管理"></a>一、SSH远程管理</h2><h3 id="1-配置OpenSSH服务端"><a href="#1-配置OpenSSH服务端" class="headerlink" title="1.配置OpenSSH服务端"></a>1.配置OpenSSH服务端</h3><h4 id="1-1配置SSH及配置文件"><a href="#1-1配置SSH及配置文件" class="headerlink" title="1.1配置SSH及配置文件"></a>1.1配置SSH及配置文件</h4><p>  openssh服务器由openssh、openssh-server等软件包提供（默认已安装），并已将sshd添加为标准的系统服务。执行“systemctl status sshd.service”即可按默认配置启动sshd服务，包括root在内的大部份用户（只要拥有合法的登录shell）都可以远程登录系统。</p>
 <p>  sshd服务的配置文件是：/etc/ssh/sshd_config，正确调整相关配置项，可以进一步提高sshd远程登录的安全性。下面介绍一些最常用的配置项，关于sshd_config文件的更多配置可参考man手册。</p>
 <h4 id="1-2服务监听选项"><a href="#1-2服务监听选项" class="headerlink" title="1.2服务监听选项"></a>1.2服务监听选项</h4><p>  sshd服务使用的默认端口号为22，必要时建议修改此端口号，并指定监听服务的具体IP地址，以提高在网络中的隐蔽性。SSH协议的版本选用V2比V1的安全性要更好，禁用DNS反向解析可以提高服务器的响应速度。</p>
 <p>[root@localhost ~]# vim /etc/ssh/sshd_config</p>
@@ -300,6 +315,11 @@
     
 
     
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/tags/系统安全/">#系统安全</a> <a href="/tags/CVE-2019-12-31/">#CVE-2019-12-31</a>
+        </div>
+    
 
     <!-- Comments -->
     
@@ -331,7 +351,11 @@
         <ul>
             
             <li>
-                <a class="footer-post" href="/2019/12/31/远程访问及控制/">Untitled</a>
+                <a class="footer-post" href="/2019/12/31/远程访问及控制/">远程访问及控制</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2019/12/31/用户与组的管理/">用户与组的管理</a>
             </li>
             
             <li>
@@ -340,10 +364,6 @@
             
             <li>
                 <a class="footer-post" href="/2019/12/30/DNS服务器/">DNS服务器</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2019/12/30/DHCP配置/">DHCP配置</a>
             </li>
             
         </ul>
