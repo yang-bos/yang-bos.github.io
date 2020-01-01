@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="CVE _2019-1-1">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="John Doe">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="PXE网络装机之centos7（批量自动装机）">
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="你好">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>PXE网络装机之centos7（批量自动装机） - 你好</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/about.html">
+                    About
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/tags">
+                    Tags
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/categories">
+                    Categories
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/contact.html">
+                    Contact
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2020/01/01/PXE网络装机之centos7（批量自动装机）/">
+                PXE网络装机之centos7（批量自动装机）
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-01-01</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+            
+<div class="gallery-container">
+    
+        
+            <div class="picture-container">
+                <a href="#" data-featherlight="/-![]( http://ww1.sinaimg.cn/large/007bHQE8gy1g6rgpepwi8j31h50su4qp.jpg)">
+                    <img src="/-![]( http://ww1.sinaimg.cn/large/007bHQE8gy1g6rgpepwi8j31h50su4qp.jpg)" class="img-thumbnail" />
+                </a>
+            </div>
+        
+    
+</div>
+        
+
+        <!-- Post Content -->
+        <h3 id="CVE-2019-1-1"><a href="#CVE-2019-1-1" class="headerlink" title="CVE _2019-1-1"></a>CVE _2019-1-1</h3><a id="more"></a>
+
+
+<h1 id="PXE网络装机之centos7（批量自动装机）"><a href="#PXE网络装机之centos7（批量自动装机）" class="headerlink" title="PXE网络装机之centos7（批量自动装机）"></a>PXE网络装机之centos7（批量自动装机）</h1><p>参考文档：<a href="https://blog.51cto.com/14154700/2403456" target="_blank" rel="noopener">https://blog.51cto.com/14154700/2403456</a></p>
+<h2 id="一、部署PXE远程安装服务"><a href="#一、部署PXE远程安装服务" class="headerlink" title="一、部署PXE远程安装服务"></a>一、部署PXE远程安装服务</h2><p><strong>PXE是由Intel公司开发的网络引导技术，工作在Client/Server模式，允许客户机通过网络从远程服务器下载引导镜像，并加载安装文件或者整个操作系统。若要搭建PXE网络体系，必须满足以下条件：</strong></p>
+<h3 id="1、PXE远程服务器"><a href="#1、PXE远程服务器" class="headerlink" title="1、PXE远程服务器"></a>1、PXE远程服务器</h3><p>安装源（系统盘文件）；</p>
+<p>TFTP服务；</p>
+<p>DHCP服务；</p>
+<p>Linux内核；</p>
+<p>能够向客户机裸机发送PXE引导程序</p>
+<p>启动菜单及无人应答文件等。</p>
+<h3 id="2、客户端："><a href="#2、客户端：" class="headerlink" title="2、客户端："></a>2、客户端：</h3><p>客户端的网卡支持PXE协议，且主板支持网络引导（现在多数都支持）；</p>
+<p>设置BIOS允许从Network或LAN启动；</p>
+<h2 id="二、搭建PXE远程安装服务器"><a href="#二、搭建PXE远程安装服务器" class="headerlink" title="二、搭建PXE远程安装服务器"></a>二、搭建PXE远程安装服务器</h2><h3 id="1、配置YUM仓库，并安装ftp服务"><a href="#1、配置YUM仓库，并安装ftp服务" class="headerlink" title="1、配置YUM仓库，并安装ftp服务"></a>1、配置YUM仓库，并安装ftp服务</h3><p> #mount /dev/cdrom </p>
+<p>#cd /etc/yum.repos.d</p>
+<p>#mkdir bak</p>
+<p>#mv * bak</p>
+<p>#vim dvd.repo  [dvd]</p>
+<p>name=centos7</p>
+<p>baseurl=file:///mnt/cdrom</p>
+<p>enabled=1</p>
+<p>gpgcheck=0</p>
+<p> #yum install -y vsftpd*</p>
+<h3 id="2、准备centos7安装源并启动ftp服务"><a href="#2、准备centos7安装源并启动ftp服务" class="headerlink" title="2、准备centos7安装源并启动ftp服务"></a>2、准备centos7安装源并启动ftp服务</h3><p>#mkdir /var/ftp/centos7</p>
+<p># cp -rf /mnt/cdrom/* /var/ftp/centos7/</p>
+<p># systemctl start vsftpd</p>
+<p># systemctl enable vsftpd</p>
+<h3 id="3、安装并启动TFTP服务"><a href="#3、安装并启动TFTP服务" class="headerlink" title="3、安装并启动TFTP服务"></a>3、安装并启动TFTP服务</h3><p># yum -y install tftp-server</p>
+<p># vim /etc/xinetd.d/tftp</p>
+<p>service tftp</p>
+<p>{</p>
+<p>​    socket_type       = dgram</p>
+<p>​    protocol         = udp</p>
+<p>​    wait           = yes</p>
+<p>​    user           = root</p>
+<p>​    server          = /usr/sbin/in.tftpd</p>
+<p>​    server_args       = -s /var/lib/tftpboot</p>
+<p>​    disable         = no        #将此处默认的yes改为no即可</p>
+<p>​    per_source        = 11</p>
+<p>​    cps           = 100 2</p>
+<p>​    flags          = IPv4</p>
+<p>}</p>
+<p># systemctl start tftp        </p>
+<p># systemctl enable tftp</p>
+<h3 id="4、准备Linux内核、初始化镜像文件（在系统盘中）"><a href="#4、准备Linux内核、初始化镜像文件（在系统盘中）" class="headerlink" title="4、准备Linux内核、初始化镜像文件（在系统盘中）"></a>4、准备Linux内核、初始化镜像文件（在系统盘中）</h3><p># cd /mnt/cdrom/images/pxeboot/</p>
+<p># cp vmlinuz initrd.img /var/lib/tftpboot/</p>
+<h3 id="5、准备PXE引导程序"><a href="#5、准备PXE引导程序" class="headerlink" title="5、准备PXE引导程序"></a>5、准备PXE引导程序</h3><p># yum -y install syslinux   #安装引导程序</p>
+<p># cp /usr/share/syslinux/pxelinux.0 /var/lib/tftpboot/</p>
+<h3 id="6、配置启动菜单"><a href="#6、配置启动菜单" class="headerlink" title="6、配置启动菜单"></a>6、配置启动菜单</h3><p><strong>#mkdir /var/lib/tftpboot/pxelinux.cfg</strong></p>
+<p><strong>#vim /var/lib/tftpboot/pxelinux.cfg/default</strong>     </p>
+<p>default auto</p>
+<p>prompt 0</p>
+<p>label auto</p>
+<p>​    kernel vmlinuz</p>
+<p>​    append initrd=initrd.img method=<a href="ftp://192.168.1.1/centos7" target="_blank" rel="noopener">ftp://192.168.1.1/centos7</a> ks=<a href="ftp://192.168.1.1/ks.cfg" target="_blank" rel="noopener">ftp://192.168.1.1/ks.cfg</a></p>
+<p>label linux text</p>
+<p>​    kernel vmlinuz</p>
+<p>​    append text initrd=initrd.img method=<a href="ftp://192.168.1.1/centos7" target="_blank" rel="noopener">ftp://192.168.1.1/centos7</a></p>
+<p>label linux rescue</p>
+<p>​    kernel vmlinuz</p>
+<p>​    append rescue initrd=initrd.img method=<a href="ftp://192.168.1.1/centos7" target="_blank" rel="noopener">ftp://192.168.1.1/centos7</a></p>
+<h3 id="7、安装并启用DHCP服务器"><a href="#7、安装并启用DHCP服务器" class="headerlink" title="7、安装并启用DHCP服务器"></a>7、安装并启用DHCP服务器</h3><p># yum -y install dhcp</p>
+<p># vim /etc/dhcp/dhcpd.conf</p>
+<p>subnet 192.168.1.0 netmask 255.255.255.0 {</p>
+<p> range 192.168.1.1 192.168.1.200;</p>
+<p> option domain-name-servers 8.8.8.8;</p>
+<p> option domain-name “internal.example.org”;</p>
+<p> option routers 192.168.1.254;</p>
+<p> option broadcast-address 192.168.1.255;</p>
+<p> default-lease-time 21600;</p>
+<p> max-lease-time 43200;</p>
+<p> next-server 192.168.1.1;         #指定TFTP服务器的地址</p>
+<p> filename “pxelinux.0”;           #指定PXE引导程序的文件名</p>
+<p>}</p>
+<p># systemctl start dhcpd</p>
+<p># systemctl enable dhcpd</p>
+<h3 id="8、关闭防火墙与Selinux安全机制"><a href="#8、关闭防火墙与Selinux安全机制" class="headerlink" title="8、关闭防火墙与Selinux安全机制"></a>8、关闭防火墙与Selinux安全机制</h3><p>#systemctl stop firewalld</p>
+<p>#setenforce 0</p>
+<h3 id="9、验证PXE网络安装"><a href="#9、验证PXE网络安装" class="headerlink" title="9、验证PXE网络安装"></a>9、验证PXE网络安装</h3><p>  搭建好PXE远程安装服务器以后，就可以使用客户机进行安装测试了。对于新购买的服务器或PC裸机，一般不需要额外设置；若要为已有系统的主机重装系统，则可能需要修改BIOS设置，将“Boot first”设置为“NETWORK”或“LAN”，然后重启主机。如果服务器配置正确，网络连接、PXE支持等都没有问题，则客户机重启后将自动配置IP地址，然后从TFTP服务器中获取引导程序pxelinux.0,并根据引导菜单配置提示用户启动入口，如下所示：</p>
+<p>   <img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps1.jpg" alt="img"></p>
+<p>在提示字符串boot:后直接按Enter键（或执行“auto”命令)，将会进入图形安装入口；若执行“linux text”命令则进入文本安装入口；若执行“linux rescue”命令则进入救援模式。依次选择语言、键盘类型，然后会提示用户指定安装介质。</p>
+<h2 id="三、实现Kickstart无人值守安装"><a href="#三、实现Kickstart无人值守安装" class="headerlink" title="三、实现Kickstart无人值守安装"></a>三、实现Kickstart无人值守安装</h2><p>前面介绍了通过PXE技术远程安装CentOS7的方法，安装介质不再受限于光盘、移动硬盘等设置，大大提高了系统安装的灵活性。然而安装期间仍需要手动进行一系列交互操作，当需要批量安装时非常不方便。接下来我们学习无人值守自动安装，通过使用Kickstart工具配置安装应答文件，自动完成安装过程中的各种设置，从而无须手动干预，提高网络装机效率，同时也可以在应答文件中通过添加%post脚本，完成安装后的各种配置操作。</p>
+<h3 id="1、准备自动应答文件"><a href="#1、准备自动应答文件" class="headerlink" title="1、准备自动应答文件"></a>1、准备自动应答文件</h3><p>  可以直接编辑/root/anaconda-ls.cfg文件，也可以利用Kickstart工具配置自动应答文件，下面我们学习通过利用Kickstart工具配置自动应答文件。</p>
+<p>（1）安装Kickstart工具</p>
+<p>yum -y install system-config-kickstart</p>
+<p>（2）配置安装应答参数  </p>
+<p>通过桌面菜单“应用程序”—“系统工具”—“Kiskstart”即可打开“Kiskstart”配置程序窗口。在“Kiskstart配置程序”窗口中，可以针对基本配置、安装方法、引导装载程序选项、分区信息、网络配置等各种安装设置进行指定。</p>
+<p><strong><em>A.基本配置：设置默认语言、键盘、时区及root密码等。</em></strong></p>
+<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps2-1577840456512.jpg" alt="img"> </p>
+<p><strong>B.安装方法：对安装方法进行设置</strong></p>
+<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps3-1577840456513.jpg" alt="img"> </p>
+<p><strong>C.引导装载程序:</strong></p>
+<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps4-1577840456513.jpg" alt="img"> </p>
+<p><strong>C.分区信息:</strong></p>
+<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps5-1577840456513.jpg" alt="img"> </p>
+<p><strong>D.网络配置及防火墙配置</strong></p>
+<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps6-1577840456514.jpg" alt="img"> </p>
+<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps7-1577840456525.jpg" alt="img"> </p>
+<p><strong>E.显示配置：勾选安装图形环境</strong></p>
+<p><strong>F.软件包选择：选择桌面及需要安装的相关软件</strong></p>
+<p><strong>G.安装后脚本：</strong></p>
+<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps8-1577840456528.jpg" alt="img"> </p>
+<p>（3）保存自动应答文件</p>
+<p>选择“Kickstart配置程序”窗口的“文件”—“保存”命令，指定目标文件夹、文件名。在这里我们保存到指定FTP目录中：/var/ftp/ks.cfg;如果需要修改此应答文件为最终小化安装，在ks.cfg文件的末尾添加以下语句：</p>
+<p>%packages</p>
+<p>@^minimal</p>
+<p>%end</p>
+<h3 id="2、实现批量自动装机"><a href="#2、实现批量自动装机" class="headerlink" title="2、实现批量自动装机"></a>2、实现批量自动装机</h3><p>（1）启用自动应答文件</p>
+<p>编辑引导菜单文件default，添加ks引导参数以指定ks.cfg应答文件的UEL路径。</p>
+<p># vim /var/lib/tftpboot/pxelinux.cfg/default </p>
+<p>default auto</p>
+<p>prompt 0</p>
+<p>label auto</p>
+<p>​    kernel vmlinuz</p>
+<p>​    append initrd=initrd.img method=<a href="ftp://192.168.1.1/centos7" target="_blank" rel="noopener">ftp://192.168.1.1/centos7</a> ks=<a href="ftp://192.168.1.1/ks.cfg" target="_blank" rel="noopener">ftp://192.168.1.1/ks.cfg</a></p>
+<p>（2）验证无人值守安装</p>
+<p>启用自动应答安装后，当客户机每次以PXE方式引导时，将自动下载ks.cfg应答配置文件，然后进行自动安装。客户机安装完成后，检查其yum仓库配置，可以发现已经按照“安装后脚本”的设置自动建立了/etc/yum.repos.d/aa.repo文件。</p>
+
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/tags/系统安全/">#系统安全</a> <a href="/tags/CVE-2019-1-1/">#CVE-2019-1-1</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2020/01/01/PXE网络装机之centos7（批量自动装机）/">PXE网络装机之centos7（批量自动装机）</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2019/12/31/远程访问及控制/">远程访问及控制</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2019/12/31/用户与组的管理/">用户与组的管理</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2019/12/30/Web服务器/">Web服务器</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/klugjo/hexo-theme-alpha-dust">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://twitter.com/?lang=en">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.facebook.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.instagram.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-instagram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://dribbble.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://plus.google.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-google-plus"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.behance.net/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://500px.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-500px"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:test@example.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
