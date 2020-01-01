@@ -10,6 +10,8 @@
 
     <!--Description-->
     
+        <meta name="description" content="CVE _2019-1-1">
+    
 
     <!--Author-->
     
@@ -18,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="你好">
+        <meta property="og:title" content="LNMP环境搭建">
     
 
     <!--Open Graph Description-->
@@ -29,7 +31,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website">
+        <meta property="og:type" content="article">
     
 
     <!--Page Cover-->
@@ -40,7 +42,7 @@
 
     <!-- Title -->
     
-    <title>page - 你好</title>
+    <title>LNMP环境搭建 - 你好</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -135,114 +137,76 @@
     <div class="logo">
         <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
         
-            <h1 id="main-title" class="title">你好</h1>
-        
     </div>
 </header>
 
         <section class="main">
             
-                
 <div class="post">
 
-    <div class="post-header index">
+    <div class="post-header">
         <h1 class="title">
-            <a href="/2019/12/11/高级距离矢量路由协议 EIGRP/">
-                高级距离矢量路由协议 EIGRP
+            <a href="/2020/01/01/LNMP环境搭建/">
+                LNMP环境搭建
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2019-12-11</span>
+                <span class="date">2020-01-01</span>
             
             
             
         </div>
     </div>
 
+    <div class="content">
+
+        <!-- Gallery -->
+        
+            
+<div class="gallery-container">
     
-        <div class="content">
-            <h3 id="CVE-2019-12-11"><a href="#CVE-2019-12-11" class="headerlink" title="CVE _2019-12-11"></a>CVE _2019-12-11</h3>
-        </div>
-        <a href="/2019/12/11/高级距离矢量路由协议 EIGRP/" class="read-more">Read More</a>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2019/09/07/运行环境/">
-                运行环境
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2019-09-07</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h3 id="CVE-2019-07-08"><a href="#CVE-2019-07-08" class="headerlink" title="CVE _2019_07_08"></a>CVE _2019_07_08</h3>
-        </div>
-        <a href="/2019/09/07/运行环境/" class="read-more">Read More</a>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2019/09/07/CVE-2019-0708/">
-                漏洞复现
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2019-09-07</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h3 id="CVE-2019-07-08"><a href="#CVE-2019-07-08" class="headerlink" title="CVE _2019_07_08"></a>CVE _2019_07_08</h3>
-        </div>
-        <a href="/2019/09/07/CVE-2019-0708/" class="read-more">Read More</a>
-    
-
-</div>
-            
-        </section>
-    </div>
-</div>
-
-
-
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="wrap-pagination">
-                <a class="" href="/page/2/">
-                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
-                </a>
-                <a class="disabled" href="/">
-                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        
+            <div class="picture-container">
+                <a href="#" data-featherlight="/-![]( http://ww1.sinaimg.cn/large/007bHQE8gy1g6rgpepwi8j31h50su4qp.jpg)">
+                    <img src="/-![]( http://ww1.sinaimg.cn/large/007bHQE8gy1g6rgpepwi8j31h50su4qp.jpg)" class="img-thumbnail" />
                 </a>
             </div>
-        </div>
+        
+    
+</div>
+        
+
+        <!-- Post Content -->
+        <h3 id="CVE-2019-1-1"><a href="#CVE-2019-1-1" class="headerlink" title="CVE _2019-1-1"></a>CVE _2019-1-1</h3><a id="more"></a>
+
+<h1 id="LNMP环境搭建"><a href="#LNMP环境搭建" class="headerlink" title="LNMP环境搭建"></a>LNMP环境搭建</h1><p>在LAMP基础上关闭apache服务，然后做以下操作：</p>
+<p><strong>安装php-fpm：yum install php-fpm</strong></p>
+<p>安装完成后配置文件在/etc/php-fpm.conf,配置引用了/etc/php-fpm.d/*.conf，默认有一个<a href="http://www.conf,修改www.conf,找到用户、用户组设置：" target="_blank" rel="noopener">www.conf,修改www.conf,找到用户、用户组设置：</a><br>   user = nginx<br>   group = nginx</p>
+<p>修改php.ini文件：提高安全性能<br>;cgi.fix_pathinfo=1<br>cgi.fix_pathinfo=0</p>
+<p>启动服务：<br>systemctl start php-fpm.service</p>
+<p>修改nginx.conf配置文件：<br>nginx.conf里头设置nginx的用户</p>
+<p>将nginx.conf.default配置文件中以下内容注释修改后复制到nginx.conf配置文件中。<br> location ~ .php$ {<br>           root           html;<br>           fastcgi_pass   127.0.0.1:9000;<br>           fastcgi_index  index.php,phpinfo.php;<br>           #fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;<br>           fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;<br>           include        fastcgi_params;<br>       }</p>
+
     </div>
 
+    
 
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/tags/系统安全/">#系统安全</a> <a href="/tags/CVE-2019-1-1/">#CVE-2019-1-1</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
 
 
 </div>
