@@ -10,7 +10,15 @@
 
     <!--Description-->
     
-        <meta name="description" content="CVE _2019-1-2">
+        <meta name="description" content="配置与管理iptables防火墙 防火墙五元组：源IP、目标IP、源端口、目标端口、协议组
+一、防火墙概述  1．什么是防火墙
+​    防火墙通常具备以下几个特点。
+   （1）位置权威性。
+   （2）检测合法性。
+   （3）性能稳定性。
+  2．防火墙的种类
+   （1）包过滤防火墙
+   ">
     
 
     <!--Author-->
@@ -20,7 +28,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="配置与管理iptables防火墙">
+        <meta property="og:title" content="你好">
     
 
     <!--Open Graph Description-->
@@ -31,7 +39,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="article">
+        <meta property="og:type" content="website">
     
 
     <!--Page Cover-->
@@ -42,7 +50,7 @@
 
     <!-- Title -->
     
-    <title>配置与管理iptables防火墙 - 你好</title>
+    <title>你好</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -147,7 +155,7 @@
     <div class="post-header">
         <h1 class="title">
             <a href="/2020/01/02/配置与管理iptables防火墙/">
-                配置与管理iptables防火墙
+                Untitled
             </a>
         </h1>
         <div class="post-info">
@@ -163,25 +171,9 @@
 
         <!-- Gallery -->
         
-            
-<div class="gallery-container">
-    
-        
-            <div class="picture-container">
-                <a href="#" data-featherlight="/-![](https://github.com/yang-bos/yang-bos.github.io/blob/master/E:/ketanggongju/hexo/sourcepop.png)">
-                    <img src="/-![](https://github.com/yang-bos/yang-bos.github.io/blob/master/E:/ketanggongju/hexo/sourcepop.png)" class="img-thumbnail" />
-                </a>
-            </div>
-        
-    
-</div>
-        
 
         <!-- Post Content -->
-        <h3 id="CVE-2019-1-2"><a href="#CVE-2019-1-2" class="headerlink" title="CVE _2019-1-2"></a>CVE _2019-1-2</h3><a id="more"></a>
-
-
-<h1 id="配置与管理iptables防火墙"><a href="#配置与管理iptables防火墙" class="headerlink" title="配置与管理iptables防火墙"></a>配置与管理iptables防火墙</h1><p> 防火墙五元组：源IP、目标IP、源端口、目标端口、协议组</p>
+        <h1 id="配置与管理iptables防火墙"><a href="#配置与管理iptables防火墙" class="headerlink" title="配置与管理iptables防火墙"></a>配置与管理iptables防火墙</h1><p> 防火墙五元组：源IP、目标IP、源端口、目标端口、协议组</p>
 <h2 id="一、防火墙概述"><a href="#一、防火墙概述" class="headerlink" title="一、防火墙概述"></a>一、防火墙概述</h2><p>  1．什么是防火墙</p>
 <p>​    防火墙通常具备以下几个特点。</p>
 <p>   （1）位置权威性。</p>
@@ -195,7 +187,7 @@
 <p>Linux 2.4版本发布后，netfilter/iptables信息包过滤系统正式使用。</p>
 <p>  Netfilter/iptables IP数据包过滤系统实际由netfilter和iptables两个组件构成。Netfilter是集成在内核中的一部分，它的作用是定义、保存相应的规则。而iptables是一种工具，用以修改信息的过滤规则及其他配置。用户可以通过iptables来设置适合当前环境的规则，而这些规则会保存在内核空间中。</p>
 <p>  对于Linux服务器而言，采用netfilter/iptables数据包过滤系统，能够节约软件成本，并可以提供强大的数据包过滤控制功能，iptables是理想的防火墙解决方案。</p>
-<h3 id="1、工作原理"><a href="#1、工作原理" class="headerlink" title="1、工作原理"></a>1、工作原理</h3><p><img src="https://github.com/yang-bos/yang-bos.github.io/blob/master/E:/ketanggongju/hexo/sourcepop.png" alt="img"> </p>
+<h3 id="1、工作原理"><a href="#1、工作原理" class="headerlink" title="1、工作原理"></a>1、工作原理</h3><p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps1-1577964540389.jpg" alt="img"> </p>
 <p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps2-1577964540385.jpg" alt="img"> </p>
 <p><strong>默认的4个规则表</strong></p>
 <p>raw表：确定是否对该数据包进行状态跟踪</p>
@@ -367,11 +359,6 @@
     
 
     
-        <div class="post-tags">
-            <i class="fa fa-tags" aria-hidden="true"></i>
-            <a href="/tags/系统安全/">#系统安全</a> <a href="/tags/CVE-2019-1-2/">#CVE-2019-1-2</a>
-        </div>
-    
 
     <!-- Comments -->
     
@@ -403,11 +390,11 @@
         <ul>
             
             <li>
-                <a class="footer-post" href="/2020/01/02/Centos7下使用tomcat发布JSP电商网站/">Centos7下使用tomcat发布JSP电商网站</a>
+                <a class="footer-post" href="/2020/01/02/配置与管理iptables防火墙/">Untitled</a>
             </li>
             
             <li>
-                <a class="footer-post" href="/2020/01/02/配置与管理iptables防火墙/">配置与管理iptables防火墙</a>
+                <a class="footer-post" href="/2020/01/02/Centos7下使用tomcat发布JSP电商网站/">Centos7下使用tomcat发布JSP电商网站</a>
             </li>
             
             <li>
