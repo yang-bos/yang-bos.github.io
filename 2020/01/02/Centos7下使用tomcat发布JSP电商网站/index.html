@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="CVE _2019-1-2">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="John Doe">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Centos7下使用tomcat发布JSP电商网站">
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="你好">
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article">
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary">
+    
+
+    <!-- Title -->
+    
+    <title>Centos7下使用tomcat发布JSP电商网站 - 你好</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/about.html">
+                    About
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/tags">
+                    Tags
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/categories">
+                    Categories
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/contact.html">
+                    Contact
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2020/01/02/Centos7下使用tomcat发布JSP电商网站/">
+                Centos7下使用tomcat发布JSP电商网站
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-01-02</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+            
+<div class="gallery-container">
+    
+        
+            <div class="picture-container">
+                <a href="#" data-featherlight="/-![](https://github.com/yang-bos/yang-bos.github.io/blob/master/E:/ketanggongju/hexo/sourcepop.png)">
+                    <img src="/-![](https://github.com/yang-bos/yang-bos.github.io/blob/master/E:/ketanggongju/hexo/sourcepop.png)" class="img-thumbnail" />
+                </a>
+            </div>
+        
+    
+</div>
+        
+
+        <!-- Post Content -->
+        <h3 id="CVE-2019-1-2"><a href="#CVE-2019-1-2" class="headerlink" title="CVE _2019-1-2"></a>CVE _2019-1-2</h3><a id="more"></a>
+
+<h1 id="Centos7下使用tomcat发布JSP电商网站"><a href="#Centos7下使用tomcat发布JSP电商网站" class="headerlink" title="Centos7下使用tomcat发布JSP电商网站"></a>Centos7下使用tomcat发布JSP电商网站</h1><h2 id="一、Centos7安装JDK"><a href="#一、Centos7安装JDK" class="headerlink" title="一、Centos7安装JDK"></a>一、Centos7安装JDK</h2><p>首先查看自己的机器上是否已经自带openjdk，命令如下：</p>
+<p>rpm -qa | grep jdk</p>
+<p>如果存在，则按照如下命令进行依次卸载：</p>
+<p>yum -y remove fileName (fileName为上步查找到的各个文件)</p>
+<p>卸载完成之后，再运行java命令不被系统识别：</p>
+<p>[root@localhost ~]# java -version</p>
+<p>bash: java: command not found…</p>
+<p>接着，首先下载需要的JDK版本的tar.gz包（本文以jdk1.8为例）</p>
+<p>下载地址：<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html</a></p>
+<p>下载完成以后上传到centos7服务器。</p>
+<p>注：不要使用wget命令直接下载，否则下一步解压的时候会出错，因为去Oracle官网下载过jdk之前需要同意Oracle的安装协议，不然不能下载，但是用wget的方式，默认是不同意，虽然能下载下来，但是下载下来的文件会有问题，所以在Linux上解压一直失败。</p>
+<p>然后解压缩下载好的tar.gz包到安装位置</p>
+<p>mkdir -p /usr/local/java</p>
+<p>tar -zxvf jdk-8u161-linux-x64.tar.gz -C /usr/local/java/</p>
+<p>接着使用如下命令编辑 /etc/profile文件(需要系统已安装vim)：</p>
+<p>vim /etc/profile</p>
+<p>在该文件末尾加上如下内容：</p>
+<p>export JAVA_HOME=/usr/local/java/jdk1.8.0_151</p>
+<p>export JRE_HOME=${JAVA_HOME}/jre</p>
+<p>export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib</p>
+<p>export PATH=${JAVA_HOME}/bin:$PATH</p>
+<p>最后，使用如下命令使配置生效</p>
+<p>source /etc/profile</p>
+<p>完成以后，来检验是否安装成功：</p>
+<p>[root@localhost local]# java -version</p>
+<p>java version “1.8.0_151”</p>
+<p>Java(TM) SE Runtime Environment (build 1.8.0_151-b12)</p>
+<p>Java HotSpot(TM) 64-Bit Server VM (build 25.151-b12, mixed mode)</p>
+<p>输出上面的版本信息即代表安装成功。</p>
+<h2 id="二、Centos7安装Maven"><a href="#二、Centos7安装Maven" class="headerlink" title="二、Centos7安装Maven"></a>二、Centos7安装Maven</h2><p>首先在官网下载maven的tar.gz包，命令如下(本文以maven 3.5.0为例)：</p>
+<p>wget <a href="https://archive.apache.org/dist/maven/maven-3/3.5.0/binaries/apache-maven-3.5.0-bin.tar.gz" target="_blank" rel="noopener">https://archive.apache.org/dist/maven/maven-3/3.5.0/binaries/apache-maven-3.5.0-bin.tar.gz</a></p>
+<p>然后解压缩下载好的tar包到安装位置</p>
+<p>mkdir -p /usr/local/maven</p>
+<p>tar -zxvf apache-maven-3.5.0-bin.tar.gz -C /usr/local/maven/</p>
+<p>接着我们修改 /etc/profile文件，来配置环境变量(需要系统已安装vim)：</p>
+<p>vim /etc/profile</p>
+<p>将安装JDK配置的环境变量变成如下形式：</p>
+<p>export JAVA_HOME=/usr/local/java/jdk1.8.0_151</p>
+<p>export JRE_HOME=${JAVA_HOME}/jre</p>
+<p>export MAVEN_HOME=/usr/local/maven/apache-maven-3.5.0 #增加此行</p>
+<p>export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib</p>
+<p>export PATH=${JAVA_HOME}/bin:${MAVEN_HOME}/bin:$PATH #修改此行</p>
+<p>然后运行如下命令，使配置的环境变量生效：</p>
+<p>source /etc/profile</p>
+<p>完成以后，来检验maven是否安装成功：</p>
+<p>[root@localhost a]# mvn -v</p>
+<p>Apache Maven 3.5.0 (ff8f5e7444045639af65f6095c62210b5713f426; 2017-04-04T03:39:06+08:00)</p>
+<p>Maven home: /usr/local/maven/apache-maven-3.5.0</p>
+<p>Java version: 1.8.0_151, vendor: Oracle Corporation</p>
+<p>Java home: /usr/local/java/jdk1.8.0_151/jre</p>
+<p>Default locale: zh_CN, platform encoding: UTF-8</p>
+<p>OS name: “linux”, version: “3.10.0-514.16.1.el7.x86_64”, arch: “amd64”, family: “unix”</p>
+<p>至此，我们就完美的完成了maven的安装和配置。</p>
+<h2 id="三、Centos7安装Git"><a href="#三、Centos7安装Git" class="headerlink" title="三、Centos7安装Git"></a>三、Centos7安装Git</h2><p>安装git很简单，只需要运行如下命令即可：</p>
+<p>yum -y install git</p>
+<p>安装完成后，运行如下命令检验是否安装成功：</p>
+<p>[root@localhost a]# git –version</p>
+<p>git version 1.8.3.1</p>
+<p>输出安装好的git版本信息，证明git安装成功。</p>
+<h2 id="四、安装mysql并导入网站数据库"><a href="#四、安装mysql并导入网站数据库" class="headerlink" title="四、安装mysql并导入网站数据库"></a>四、安装mysql并导入网站数据库</h2><h3 id="1、安装mysql"><a href="#1、安装mysql" class="headerlink" title="1、安装mysql"></a>1、安装mysql</h3><p>[root@nmserver-7 ~]# yum install mariadb mariadb-server mariadb-libs mariadb-devel</p>
+<h3 id="2、开启mysql服务，并设置开机启动，检查mysql状态"><a href="#2、开启mysql服务，并设置开机启动，检查mysql状态" class="headerlink" title="2、开启mysql服务，并设置开机启动，检查mysql状态"></a>2、开启mysql服务，并设置开机启动，检查mysql状态</h3><p>[root@nmserver-7 ~]# systemctl start  mariadb </p>
+<p>[root@nmserver-7 ~]# systemctl enable  mariadb</p>
+<p>[root@nmserver-7 ~]# systemctl status mariadb</p>
+<h3 id="3、数据库安全设置（配置root用户的密码为-123456"><a href="#3、数据库安全设置（配置root用户的密码为-123456" class="headerlink" title="3、数据库安全设置（配置root用户的密码为:123456)"></a>3、数据库安全设置（配置root用户的密码为:123456)</h3><p>[root@nmserver-7 ~]# mysql_secure_installation </p>
+<p><strong>4、登陆数据库测试</strong></p>
+<p>[root@nmserver-7 ~]# mysql -u root -p</p>
+<h2 id="五、安装tomcat环境"><a href="#五、安装tomcat环境" class="headerlink" title="五、安装tomcat环境"></a>五、安装tomcat环境</h2><p>下载linux下的Tomcat压缩包 apache-tomcat-8.5.13.tar.gz</p>
+<p>放到home下(目录随意，可以自己新建一个文件夹) 解压缩</p>
+<p>执行命令:tar -zxvf apache-tomcat-8.5.13.tar.gz</p>
+<p>1、启动tomcat</p>
+<p>执行命令:/home/apache-tomcat-8.5.13/bin/startup.sh</p>
+<p>2、开发8080端口</p>
+<p>firewall-cmd –zone=public –add-port=8080/tcp –permanent</p>
+<p>centos7 已经更改了防火墙策略，所以使用这种方式来打开端口：</p>
+<p>–zone #作用域</p>
+<p>–add-port=8080/tcp #添加端口，格式为:端口/通讯协议</p>
+<p>–permanent #永久生效，没有此参数重启后失效</p>
+<p>重启防火墙:firewall-cmd –reload</p>
+<p>3、验证</p>
+<p>可以在Windows下通过输入虚拟机的ip地址来访问例如:192.168.1.100:8080</p>
+<p>显示了tomcat的欢迎页，说明了tomcat已经成功运行了。</p>
+<h2 id="六、发布电商网站"><a href="#六、发布电商网站" class="headerlink" title="六、发布电商网站"></a>六、发布电商网站</h2><p><strong><em>数据库操作</em></strong></p>
+<h3 id="1、创建数据库"><a href="#1、创建数据库" class="headerlink" title="1、创建数据库"></a>1、创建数据库</h3><p>create database jspgou CHARACTER SET utf8 COLLATE utf8_general_ci;</p>
+<h3 id="2、导入数据库"><a href="#2、导入数据库" class="headerlink" title="2、导入数据库"></a>2、导入数据库</h3><p>将网站中的数据库复制到Linux系统中，并使用以下命令将数据库导入</p>
+<p>mysql -u root -p jspgou&lt;jspgou.sql</p>
+<h3 id="3、检查数据库是否导入成功"><a href="#3、检查数据库是否导入成功" class="headerlink" title="3、检查数据库是否导入成功"></a>3、检查数据库是否导入成功</h3><h2 id="网站发布"><a href="#网站发布" class="headerlink" title="网站发布"></a><strong>网站发布</strong></h2><h3 id="1、将程序解压后的ROOT文件夹拷贝到tomcat安装目录下的webapps文件夹下。"><a href="#1、将程序解压后的ROOT文件夹拷贝到tomcat安装目录下的webapps文件夹下。" class="headerlink" title="1、将程序解压后的ROOT文件夹拷贝到tomcat安装目录下的webapps文件夹下。"></a>1、将程序解压后的ROOT文件夹拷贝到tomcat安装目录下的webapps文件夹下。</h3><h3 id="2、配置数据库连接：-var-tomcat-apache-tomcat-8-5-41-webapps-ROOT-WEB-INF-config"><a href="#2、配置数据库连接：-var-tomcat-apache-tomcat-8-5-41-webapps-ROOT-WEB-INF-config" class="headerlink" title="2、配置数据库连接：/var/tomcat/apache-tomcat-8.5.41/webapps/ROOT/WEB-INF/config"></a>2、配置数据库连接：/var/tomcat/apache-tomcat-8.5.41/webapps/ROOT/WEB-INF/config</h3><p>jdbc.url=jdbc:mysql://127.0.0.1:3306/jspgou?characterEncoding=UTF-8</p>
+<p>jdbc.username=root</p>
+<p>jdbc.password=123456</p>
+<h3 id="3、启动tomcat"><a href="#3、启动tomcat" class="headerlink" title="3、启动tomcat"></a>3、启动tomcat</h3><p>#cd /var/tomcat/apache-tomcat-8.5.41/bin/</p>
+<p>#./startup.sh</p>
+<p><strong><em>\</em>访问网站**</strong></p>
+<p>访问网站：<a href="http://192.168.75.140:8080/" target="_blank" rel="noopener">http://192.168.75.140:8080/</a></p>
+<p>访问网站后台：<a href="http://192.168.75.140:8080/jeeadmin/jspgou/index.do" target="_blank" rel="noopener">http://192.168.75.140:8080/jeeadmin/jspgou/index.do</a></p>
+<p># ps -ef|grep java</p>
+<p>./catalina.sh run</p>
+<p><strong>七、***</strong>*配置DNS，使用域名访问网站****</p>
+<p><strong><em>\</em>1、安装DNS服务器**</strong></p>
+<p>  <strong><em>\</em>（1）安装bind程序包：**</strong></p>
+<p> #yum install bind</p>
+<p><strong><em>\</em>（2）启动服务**</strong></p>
+<p># systemctl  start  named.service</p>
+<p><strong><em>\</em>（3）设置自启动状态**</strong></p>
+<p># systemctl  enable  named.service</p>
+<p><strong>2、***</strong>*主配置文件配置：#vim /etc/named.conf****</p>
+<p>  <img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps1-1577976606672.jpg" alt="img"></p>
+<p>在文件末尾添加加载辅助区域文件的内容：include “/etc/named.rfc1912.zones”</p>
+<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps2-1577976606674.jpg" alt="img"> </p>
+<p># vim /etc/named.rfc1912.zones  编辑内容如下</p>
+<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps3-1577976606675.jpg" alt="img"> </p>
+<p>复制产生区域配置文件，并对其进行修改如下：</p>
+<p># cd /var/named/</p>
+<p># cp named.localhost jspgou.zone</p>
+<p># chown named:named jspgou.zone</p>
+<p># vim jspgou.zone </p>
+<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps4-1577976606675.jpg" alt="img"> </p>
+<p>重启named服务</p>
+<p># systemctl restart named</p>
+<p><strong>3、***</strong>*设置客户端DNS地址并进行测试****</p>
+<p><strong>4、***</strong>*使用域名访问网站****</p>
+
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/tags/系统安全/">#系统安全</a> <a href="/tags/CVE-2019-1-2/">#CVE-2019-1-2</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2020/01/02/Centos7下使用tomcat发布JSP电商网站/">Centos7下使用tomcat发布JSP电商网站</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2020/01/02/配置与管理iptables防火墙/">配置与管理iptables防火墙</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2020/01/01/LNMP环境搭建/">LNMP环境搭建</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2020/01/01/PXE网络装机之centos7（批量自动装机）/">PXE网络装机之centos7（批量自动装机）</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/klugjo/hexo-theme-alpha-dust">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://twitter.com/?lang=en">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.facebook.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.instagram.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-instagram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://dribbble.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://plus.google.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-google-plus"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.behance.net/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://500px.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-500px"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:test@example.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
