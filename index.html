@@ -147,212 +147,6 @@
 
     <div class="post-header index">
         <h1 class="title">
-            <a href="/2020/01/02/配置与管理iptables防火墙/">
-                Untitled
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2020-01-02</span>
-            
-            
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h1 id="配置与管理iptables防火墙"><a href="#配置与管理iptables防火墙" class="headerlink" title="配置与管理iptables防火墙"></a>配置与管理iptables防火墙</h1><p> 防火墙五元组：源IP、目标IP、源端口、目标端口、协议组</p>
-<h2 id="一、防火墙概述"><a href="#一、防火墙概述" class="headerlink" title="一、防火墙概述"></a>一、防火墙概述</h2><p>  1．什么是防火墙</p>
-<p>​    防火墙通常具备以下几个特点。</p>
-<p>   （1）位置权威性。</p>
-<p>   （2）检测合法性。</p>
-<p>   （3）性能稳定性。</p>
-<p>  2．防火墙的种类</p>
-<p>   （1）包过滤防火墙</p>
-<p>   （2）代理防火墙</p>
-<p>   （3）状态检测技术</p>
-<h2 id="二、iptables简介"><a href="#二、iptables简介" class="headerlink" title="二、iptables简介"></a>二、iptables简介</h2><p>  早期的Linux系统采用过ipfwadm作为防火墙，但在2.2.0核心中被ipchains所取代。</p>
-<p>Linux 2.4版本发布后，netfilter/iptables信息包过滤系统正式使用。</p>
-<p>  Netfilter/iptables IP数据包过滤系统实际由netfilter和iptables两个组件构成。Netfilter是集成在内核中的一部分，它的作用是定义、保存相应的规则。而iptables是一种工具，用以修改信息的过滤规则及其他配置。用户可以通过iptables来设置适合当前环境的规则，而这些规则会保存在内核空间中。</p>
-<p>  对于Linux服务器而言，采用netfilter/iptables数据包过滤系统，能够节约软件成本，并可以提供强大的数据包过滤控制功能，iptables是理想的防火墙解决方案。</p>
-<h3 id="1、工作原理"><a href="#1、工作原理" class="headerlink" title="1、工作原理"></a>1、工作原理</h3><p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps1-1577964540389.jpg" alt="img"> </p>
-<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps2-1577964540385.jpg" alt="img"> </p>
-<p><strong>默认的4个规则表</strong></p>
-<p>raw表：确定是否对该数据包进行状态跟踪</p>
-<p>mangle表：为数据包设置标记</p>
-<p>nat表：修改数据包中的源、目标ip地址或端口</p>
-<p>filter表：确定是否放行该数据包（过滤）</p>
-<p><strong>默认的5种规则链：</strong></p>
-<p>INPUT:处理入站数据包</p>
-<p>OUTPUT:处理出站数据包</p>
-<p>FORWARD:处理转发数据包</p>
-<p>POSTROUTING:在进行路由选择后处理数据包</p>
-<p>PREROUTING:在进行路由选择前处理数据包</p>
-<p>其中input、output链主要用在“主机型防火墙”中，主要针对服务器本机进行保护；</p>
-<p>而FORWARD\POSTROUTING\PREROUTING多用在“网络型防火墙”中，如使用Linux防火墙作为网关服务器，在公司内网与Ineternet之间进行安全控制。</p>
-<h3 id="2、匹配顺序"><a href="#2、匹配顺序" class="headerlink" title="2、匹配顺序"></a>2、匹配顺序</h3><p>（1）规则表之间的顺序:raw mangle nat filter</p>
-<p>（2）规则链之间的顺序：不同链的处理时机比较固定，顺序取决于数据包的流向。</p>
-<p>   入站数据流向： 来自外界的数据包到达防火墙后，首选被PREROUTING链处理，然后进行路由选择；如果数据包的目的地址是防火墙本机，交给INPUT链进行处理，通过以后再交给系统上层应用程序进行响应。</p>
-<p>   转发数据流向： 来自外界的数据包到达防火墙后，首选被PREROUTING链处理，然后进行路由选择；如果数据包的目标地址是其他外部地址，则交给FORWARD链进行处理，最后交给POSTROUTING链进行处理。</p>
-<p>  出站数据流向：防火墙本机向外部地址发送数据包，首选被OUTPUT链处理，然后进行路由选择，再交给POSTROUTING链进行处理。  </p>
-<p>（3）规则链内部各条防火墙规则之间的顺序：从上往下，一旦匹配，立即终止。</p>
-<p>（4）Centos7中使用iptables</p>
-<p>systemctl stop firewalld 关闭防火墙<br>yum install iptables-services 安装或更新服务<br>再使用systemctl enable iptables 启动iptables<br>最后 systemctl start iptables 打开iptables</p>
-<p>再执行service iptables save</p>
-<p>重启iptables服务：</p>
-<p>service iptables restart</p>
-<h3 id="3、iptables语法格式"><a href="#3、iptables语法格式" class="headerlink" title="3、iptables语法格式"></a>3、iptables语法格式</h3><p>iptables [-t 表名]  管理选项  [链名] [条件匹配] [-j 目标动作]</p>
-<p>举例： iptables -t filter -A INPUT -s 192.168.10.0/24 -d 192.168.10.1 -p tcp –dport 80 -j ACCEPT</p>
-<p>   service iptables save     保存设置的规则</p>
-<p>iptables: Saving firewall rules to /etc/sysconfig/iptables:[  确定  ]</p>
-<p>   systemctl restart iptables  重启服务新规则生效</p>
-<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps3-1577964540389.jpg" alt="img"> </p>
-<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps4-1577964540389.jpg" alt="img"> </p>
-<p><strong>举例</strong>：iptables -L  没有-t 指定表名，默认查看的是fileter表中的信息</p>
-<p>​    iptables -L –line-number  查看的是fileter表中的信息，并显示行号  </p>
-<p>​    iptables -F  没有-t 指定表名，默认清空fileter表中的信息</p>
-<p>​    iptables -A INPUT -d 127.0.0.1 -p tcp –dport 22 -j ACCEPT  在链尾追加一条规则</p>
-<p>​    iptables -I INPUT -s 192.168.75.1 -d 127.0.0.1 -p tcp –dport 22 -j ACCEPT  在第一个位置插入一条规则</p>
-<p>​    iptables -I INPUT 2 -s 192.168.75.1 -d 127.0.0.1 -p tcp –dport 22 -j DROP 在第2条规则前插入一条规则</p>
-<p>​    iptables -D INPUT 1  删除INPUT链中的第一条规则</p>
-<p>​    iptables -P INPUT DROP   设置默认策略为拒绝所有连接</p>
-<p>​    iptables -P INPUT ACCEPT  设置默认策略为允许已建立的规则进行连接</p>
-<p>​    iptables -h     查看帮助信息</p>
-<p>​    man iptables    查看iptables手册</p>
-<h3 id="4、规则的匹配条件"><a href="#4、规则的匹配条件" class="headerlink" title="4、规则的匹配条件"></a>4、规则的匹配条件</h3><p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps5-1577964540390.jpg" alt="img"> <strong>通用匹配</strong></p>
-<p>  可直接使用，不依赖于其他的条件或扩展模块</p>
-<p>   包括网络协议、IP地址、网络接口等匹配方式</p>
-<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps6-1577964540390.jpg" alt="img"> </p>
-<p>  <img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps7-1577964540389.jpg" alt="img"></p>
-<p><strong>举例：</strong>iptables -t filter INPUT -s 192.168.0.0/24 -j REJECT </p>
-<p> <strong>隐含条件匹配</strong></p>
-<p>  一般需要以特定的协议匹配作为前提</p>
-<p>  包括端口、TCP标记、ICMP类型等匹配方式</p>
-<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps8-1577964540389.jpg" alt="img"> </p>
-<p>  <img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps9-1577964540390.jpg" alt="img"></p>
-<p><strong>显式条件匹配</strong></p>
-<p>​    需要使用“-m扩展模块”的形式明确指定匹配方式</p>
-<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps10-1577964540390.jpg" alt="img"> </p>
-<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps11.jpg" alt="img"> </p>
-<p><strong><em>\</em>目标动作：**</strong></p>
-<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps12.jpg" alt="img"> </p>
-<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps13.jpg" alt="img"> </p>
-<p>举例说明：</p>
-<p>  1、拒绝192.168.0.1访问web服务</p>
-<p>Iptables  -A INPUT -s 192.168.0.1 -p tcp –dport 80 -j REJECT</p>
-<p>2、拒绝192.168.0.0/24ping通服务器</p>
-<p>iptables -A INPUT -s 192.168.0.0/24 -p icmp -j REJECT</p>
-<p>3、允许192.168.1.0/24访问服务器的21与80端口</p>
-<p>iptables -A INPUT -s 192.168.1.0/24 -m multiport -p tcp –dports 21,80 -j ACCEPT</p>
-<p>练习：</p>
-<p>  1、建立规则： </p>
-<p>  iptables -A INPUT -p icmp -j DROP</p>
-<p>iptables -A OUTPUT -p udp –sport 25 -j DROP</p>
-<p>iptables -I INPUT -s 192.168.0.0/24 -j REJECT</p>
-<p>2、删除规则：</p>
-<p>Iptables -D INPUT -p icmp -j DROP</p>
-<p>iptables -D INPUT 1</p>
-<p>3、基于TCP包的目的端口来匹配包</p>
-<p>   iptables -I INPUT 2 -p tcp –dport 80 -j ACCEPT</p>
-<p>4、基于目标网络来匹配包</p>
-<p> iptables -I OUTPUT -d 192.168.1.0/24 -j ACCEPT</p>
-<p>5、以包离开本地所使用的网络来匹配包</p>
-<p>   iptables -A OUTPUT -o eth1 -j ACCEPT</p>
-<p>作业：</p>
-<p>  1、查看nat表中所有链的规则</p>
-<p>   <strong><em>\</em>iptables -t nat -L**</strong> </p>
-<p>  2、查看filter表中FORWARD链的规则</p>
-<p>   <strong><em>\</em>iptables -t filter -L FORWARD**</strong> </p>
-<p>  3、为filter表的INPUT链添加一条规则，规则为拒绝所有使用ICMP协议的数据包</p>
-<p>   <strong><em>\</em>iptables -A INPUT -p icmp -j DROP**</strong>将数据包丢弃，不回应</p>
-<p>​               REJECT丢弃并回应</p>
-<p>  4、为filter表的INPUT链添加一条规则，规则为允许访问TCP协议的80端口的数据</p>
-<p>   包通过</p>
-<p>   <strong><em>\</em>iptables  -A INPUT -p tcp –dport 80 -j ACCEPT**</strong></p>
-<p>  5、在filter表中INPUT链的第2条规则前插入一条新规则，规则为不允许访问TCP</p>
-<p>   协议的53端口的数据包通过。</p>
-<p>   查看：iptables -L -n –line-number  （显示规则的序号:num）</p>
-<p>​    <strong><em>\</em>iptables  -I INPUT 2 -p tcp –dport 53 -j DROP**</strong></p>
-<p>  6、在filter表中INPUT链的第1条规则前插入一条新规则，规则为允许源IP地址属</p>
-<p>   于172.16.0.0/16网段的数据包通过。</p>
-<p>   <strong><em>\</em>iptables  -I INPUT 1 -s 172.16.0.0/16 -j ACCEPT**</strong> </p>
-<p>  7、删除filter表中的第2条规则。</p>
-<p>   <strong><em>\</em>iptables  -D INPUT 2**</strong></p>
-<p>  8、清除filter表中INPUT链的所有规则。</p>
-<p>   <strong><em>\</em>iptables -t filter -F INPUT**</strong></p>
-<p>  9、禁止员工访问域名为<a href="http://www.xxxx.org的网站（域名必须存在，且能被解析，否则" target="_blank" rel="noopener">www.xxxx.org的网站（域名必须存在，且能被解析，否则</a></p>
-<p>   会出错）</p>
-<p>   <strong><em>\</em>iptables -A FORWARD -d**</strong> <a href="http://www.xxxx.org" target="_blank" rel="noopener"><strong><em>\</em>www.xxxx.org**</strong></a> <strong><em>\</em>-j DROP**</strong></p>
-<p>   <strong><em>\</em>iptables -A INPUT -d**</strong> <a href="http://www.xxxx.org" target="_blank" rel="noopener"><strong><em>\</em>www.xxxx.org**</strong></a> <strong><em>\</em>-j DROP**</strong></p>
-<p>   10、禁止员工访问IP地址为212.1.2.3的网站。</p>
-<p>   <strong><em>\</em>iptables -A FORWARD -d 212.1.2.3 -p tcp –port 80 -j DROP**</strong></p>
-<p><strong><em>\</em>补充：**</strong></p>
-<p>备份规则集：iptables-save &gt; /etc/iptables-save</p>
-<p>恢复规则集：iptables-restore &lt; /etc/iptables-save</p>
-<p>保存：service iptables save</p>
-<p><strong><em>\</em>三、综合案例**</strong></p>
-<p>假如某公司需要Internet接入，由ISP分配IP地址202.112.113.112。采用iptables作为NAT服务器接入网络，内部采用192.168.1.0/24地址，外部采用202.112.113地址。为确保案例需要配置防火墙功能，要求内部web服务器192.168.1.100通过端口映射方式对外提供服务。网络拓朴图如下：</p>
-<p>SNAT:源地址转换，通常指私有地址转换为公有地址，( 内部数据发往外网的数据) 对应的链是postrouting (路由规则后的动作)</p>
-<p> DNAT:目标地址转换，通常指公有地址转换为私有地址，(外网数据发往内网的数据) 对应的链是prerouting(路由规则前的动作)</p>
-<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps14.png" alt="img"><img src="file:///C:%5CUsers%5Clenovo%5CAppData%5CLocal%5CTemp%5Cksohtml1156%5Cwps15.png" alt="img"><img src="file:///C:%5CUsers%5Clenovo%5CAppData%5CLocal%5CTemp%5Cksohtml1156%5Cwps16.jpg" alt="img"> </p>
-<p>局域网内的web服务器192.168.1.100</p>
-<p>Linux网关服务器：eth0:202.112.113.112  eth1:192.168.1.1</p>
-<p>Inetrnet中的客户机：202.113.111</p>
-<p>推荐实现步骤：</p>
-<p>1、确认已开启网关的路由转发功能</p>
-<p>  vim /etc/sysctl.conf </p>
-<p> sysctl -p</p>
-<p>2、添加使用DNAT策略的防火墙规则</p>
-<p>iptables -t nat -A PREROUTING -i eth1 -d 10.1.1.1 -p tcp –dport 80 -j DNAT –to-destination 192.168.10.1</p>
-<p>3、源地址转换</p>
-<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps17.png" alt="img"></p>
-<p>客户端的网关–》防火墙的内网地址–》防火墙开转发</p>
-<p>防火墙SNAT规则的操作：</p>
-<p>  iptables -t nat -I POSTROUTING -s 192.168.100.0/24 -j SNAT –to-source 172.16.100.20</p>
-<p>  开启转发：</p>
-<p>  sed -i ‘s/net.ipv4.ip_forward = 0/net.ipv4.ip_forward = 1/‘ /etc/sysctl.conf</p>
-<p>  sysctl -p </p>
-<p>测试效果：</p>
-<p>  在客户端ping 172.16.100.10能ping通 。</p>
-<p>去互联网机器上查看访问的ip地址是防火墙的外网地址。172网段的。</p>
-<p>DNAT目的地址转换，意为把外网地址转换成私网地址。</p>
-<p>  DNAT是destination network address translation的缩写</p>
-<p>当互联网上的用户来访问公司内网的服务器的时候，把公网的ip地址转换成公司的内网ip地址，当在服务器查看的时候发现是内网地址来访问的，这就是DNAT的作用。</p>
-<p><a href="https://s3.51cto.com/wyfs02/M01/23/77/wKioL1M25VfjKbihAAG_DmBKgSo960.jpg" target="_blank" rel="noopener"><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps18.png" alt="img"></a></p>
-<table>
-<thead>
-<tr>
-<th>互联网客户端</th>
-<th>防火墙</th>
-<th>内网服务器</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>IP：172.168.100.2<strong><em>\</em>配置与管理iptables防火墙**</strong></td>
-<td>外网：172.168.100.1</td>
-<td>IP：192.168.1.2</td>
-</tr>
-<tr>
-<td>GW：172.168.100.1</td>
-<td>内网：192.168.1.1</td>
-<td>GW：192.168.1.1</td>
-</tr>
-</tbody></table>
-<p>开启：转发</p>
-<p>iptables -t nat -I PREROUTING -d 172.168.100.1 -j DNAT –to-destination 192.168.1.2</p>
-<p>测试ping通了。</p>
-
-        </div>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
             <a href="/2020/01/02/Centos7下使用tomcat发布JSP电商网站/">
                 Centos7下使用tomcat发布JSP电商网站
             </a>
@@ -371,6 +165,33 @@
             <h3 id="CVE-2019-1-2"><a href="#CVE-2019-1-2" class="headerlink" title="CVE _2019-1-2"></a>CVE _2019-1-2</h3>
         </div>
         <a href="/2020/01/02/Centos7下使用tomcat发布JSP电商网站/" class="read-more">Read More</a>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2020/01/02/配置与管理iptables防火墙/">
+                配置与管理iptables防火墙
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2020-01-02</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h3 id="CVE-2019-1-2"><a href="#CVE-2019-1-2" class="headerlink" title="CVE _2019-1-2"></a>CVE _2019-1-2</h3>
+        </div>
+        <a href="/2020/01/02/配置与管理iptables防火墙/" class="read-more">Read More</a>
     
 
 </div>
@@ -633,11 +454,11 @@
         <ul>
             
             <li>
-                <a class="footer-post" href="/2020/01/02/配置与管理iptables防火墙/">Untitled</a>
+                <a class="footer-post" href="/2020/01/02/Centos7下使用tomcat发布JSP电商网站/">Centos7下使用tomcat发布JSP电商网站</a>
             </li>
             
             <li>
-                <a class="footer-post" href="/2020/01/02/Centos7下使用tomcat发布JSP电商网站/">Centos7下使用tomcat发布JSP电商网站</a>
+                <a class="footer-post" href="/2020/01/02/配置与管理iptables防火墙/">配置与管理iptables防火墙</a>
             </li>
             
             <li>

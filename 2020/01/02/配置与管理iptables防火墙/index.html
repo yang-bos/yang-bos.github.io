@@ -10,15 +10,7 @@
 
     <!--Description-->
     
-        <meta name="description" content="配置与管理iptables防火墙 防火墙五元组：源IP、目标IP、源端口、目标端口、协议组
-一、防火墙概述  1．什么是防火墙
-​    防火墙通常具备以下几个特点。
-   （1）位置权威性。
-   （2）检测合法性。
-   （3）性能稳定性。
-  2．防火墙的种类
-   （1）包过滤防火墙
-   ">
+        <meta name="description" content="CVE _2019-1-2">
     
 
     <!--Author-->
@@ -28,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="你好">
+        <meta property="og:title" content="配置与管理iptables防火墙">
     
 
     <!--Open Graph Description-->
@@ -39,7 +31,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website">
+        <meta property="og:type" content="article">
     
 
     <!--Page Cover-->
@@ -50,7 +42,7 @@
 
     <!-- Title -->
     
-    <title>你好</title>
+    <title>配置与管理iptables防火墙 - 你好</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -155,7 +147,7 @@
     <div class="post-header">
         <h1 class="title">
             <a href="/2020/01/02/配置与管理iptables防火墙/">
-                Untitled
+                配置与管理iptables防火墙
             </a>
         </h1>
         <div class="post-info">
@@ -171,9 +163,25 @@
 
         <!-- Gallery -->
         
+            
+<div class="gallery-container">
+    
+        
+            <div class="picture-container">
+                <a href="#" data-featherlight="/-![](https://github.com/yang-bos/yang-bos.github.io/blob/master/E:/ketanggongju/hexo/sourcepop.png)">
+                    <img src="/-![](https://github.com/yang-bos/yang-bos.github.io/blob/master/E:/ketanggongju/hexo/sourcepop.png)" class="img-thumbnail" />
+                </a>
+            </div>
+        
+    
+</div>
+        
 
         <!-- Post Content -->
-        <h1 id="配置与管理iptables防火墙"><a href="#配置与管理iptables防火墙" class="headerlink" title="配置与管理iptables防火墙"></a>配置与管理iptables防火墙</h1><p> 防火墙五元组：源IP、目标IP、源端口、目标端口、协议组</p>
+        <h3 id="CVE-2019-1-2"><a href="#CVE-2019-1-2" class="headerlink" title="CVE _2019-1-2"></a>CVE _2019-1-2</h3><a id="more"></a>
+
+
+<h1 id="配置与管理iptables防火墙"><a href="#配置与管理iptables防火墙" class="headerlink" title="配置与管理iptables防火墙"></a>配置与管理iptables防火墙</h1><p> 防火墙五元组：源IP、目标IP、源端口、目标端口、协议组</p>
 <h2 id="一、防火墙概述"><a href="#一、防火墙概述" class="headerlink" title="一、防火墙概述"></a>一、防火墙概述</h2><p>  1．什么是防火墙</p>
 <p>​    防火墙通常具备以下几个特点。</p>
 <p>   （1）位置权威性。</p>
@@ -187,7 +195,7 @@
 <p>Linux 2.4版本发布后，netfilter/iptables信息包过滤系统正式使用。</p>
 <p>  Netfilter/iptables IP数据包过滤系统实际由netfilter和iptables两个组件构成。Netfilter是集成在内核中的一部分，它的作用是定义、保存相应的规则。而iptables是一种工具，用以修改信息的过滤规则及其他配置。用户可以通过iptables来设置适合当前环境的规则，而这些规则会保存在内核空间中。</p>
 <p>  对于Linux服务器而言，采用netfilter/iptables数据包过滤系统，能够节约软件成本，并可以提供强大的数据包过滤控制功能，iptables是理想的防火墙解决方案。</p>
-<h3 id="1、工作原理"><a href="#1、工作原理" class="headerlink" title="1、工作原理"></a>1、工作原理</h3><p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps1-1577964540389.jpg" alt="img"> </p>
+<h3 id="1、工作原理"><a href="#1、工作原理" class="headerlink" title="1、工作原理"></a>1、工作原理</h3><p><img src="https://github.com/yang-bos/yang-bos.github.io/blob/master/E:/ketanggongju/hexo/sourcepop.png" alt="img"> </p>
 <p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps2-1577964540385.jpg" alt="img"> </p>
 <p><strong>默认的4个规则表</strong></p>
 <p>raw表：确定是否对该数据包进行状态跟踪</p>
@@ -218,9 +226,13 @@
 <p>   service iptables save     保存设置的规则</p>
 <p>iptables: Saving firewall rules to /etc/sysconfig/iptables:[  确定  ]</p>
 <p>   systemctl restart iptables  重启服务新规则生效</p>
-<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps3-1577964540389.jpg" alt="img"> </p>
-<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps4-1577964540389.jpg" alt="img"> </p>
-<p><strong>举例</strong>：iptables -L  没有-t 指定表名，默认查看的是fileter表中的信息</p>
+<ul>
+<li><strong>iptables命令的语法格式</strong><br>■iptables [-t 表名]管理选项[链名] [条件匹配] [-j目标动作]</li>
+<li><strong>几个注意事项.</strong><br>■不指定表名时，默认表示filter表<br>■不指定链名时，默认表示该表内所有链<br>■除非设置规则链的缺省策略，否则需要指定匹配条件</li>
+<li><strong>管理选项:</strong><br>■A:在链尾追加一条新的规则<br>■-I:在指定位置(或链首)插入一条新的规则<br>■-P:设置指定链的默认策略<br>■-L:列表查看各条规则信息<br>■-D:删除指定位置或内容的规则<br>■-F:清空规则链内的所有规则<br>■-h:查看iptables 命令的使用帮助</li>
+</ul>
+<p><strong>举例</strong>：</p>
+<p>​    iptables -L  没有-t 指定表名，默认查看的是fileter表中的信息</p>
 <p>​    iptables -L –line-number  查看的是fileter表中的信息，并显示行号  </p>
 <p>​    iptables -F  没有-t 指定表名，默认清空fileter表中的信息</p>
 <p>​    iptables -A INPUT -d 127.0.0.1 -p tcp –dport 22 -j ACCEPT  在链尾追加一条规则</p>
@@ -231,24 +243,39 @@
 <p>​    iptables -P INPUT ACCEPT  设置默认策略为允许已建立的规则进行连接</p>
 <p>​    iptables -h     查看帮助信息</p>
 <p>​    man iptables    查看iptables手册</p>
-<h3 id="4、规则的匹配条件"><a href="#4、规则的匹配条件" class="headerlink" title="4、规则的匹配条件"></a>4、规则的匹配条件</h3><p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps5-1577964540390.jpg" alt="img"> <strong>通用匹配</strong></p>
-<p>  可直接使用，不依赖于其他的条件或扩展模块</p>
-<p>   包括网络协议、IP地址、网络接口等匹配方式</p>
-<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps6-1577964540390.jpg" alt="img"> </p>
-<p>  <img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps7-1577964540389.jpg" alt="img"></p>
+<h3 id="4、规则的匹配条件"><a href="#4、规则的匹配条件" class="headerlink" title="4、规则的匹配条件"></a>4、规则的匹配条件</h3><ul>
+<li><p><strong>通用匹配</strong></p>
+<p>可直接使用，不依赖于其他的条件或扩展模块</p>
+<p> 包括网络协议、IP地址、网络接口等匹配方式</p>
+</li>
+<li><p><strong>协议匹配</strong><br>■使用“-p协议名”的形式<br>■协议君可使用在“/etc/protocols”文件中定义的名称<br>■常用的协议包括tcp、udp、icmp等</p>
+</li>
+<li><p><strong>地址匹配</strong><br>■使用“-s源地址”、”-d目标地址”的形式<br>■地址可以是单个IP地址、网络地址(带掩码长度)</p>
+</li>
+<li><p><strong>接口匹配</strong><br>■使用“-i网络接口名”、“-o网络接口名”的形式，分别对应接收、发送数据包的网络接口</p>
+</li>
+</ul>
 <p><strong>举例：</strong>iptables -t filter INPUT -s 192.168.0.0/24 -j REJECT </p>
 <p> <strong>隐含条件匹配</strong></p>
 <p>  一般需要以特定的协议匹配作为前提</p>
 <p>  包括端口、TCP标记、ICMP类型等匹配方式</p>
-<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps8-1577964540389.jpg" alt="img"> </p>
-<p>  <img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps9-1577964540390.jpg" alt="img"></p>
+<ul>
+<li><strong>端口匹配</strong><br>■使用”-sport源端口”、“–dport目标端口”的形式<br>■采用“端口1:端口2”的形式可以指定一个范围的端口</li>
+<li><strong>TCP标记匹配</strong><br>■使用”-tcp-flags 检查范围 被设置的标记”的形式<br>■如“-tcp-flags SYN,RST,ACK SYN”表示检查SYN、RST.、ACK这3个标记，只有SYN为1时满足条件</li>
+<li><strong>ICMP类型匹配</strong><br>■使用“–icmp-type ICMP类型”的形式<br>■ICMP类型可以使用类型字符串或者对应的数值，例如Echo-Request、Echo-Reply</li>
+</ul>
 <p><strong>显式条件匹配</strong></p>
 <p>​    需要使用“-m扩展模块”的形式明确指定匹配方式</p>
-<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps10-1577964540390.jpg" alt="img"> </p>
-<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps11.jpg" alt="img"> </p>
-<p><strong><em>\</em>目标动作：**</strong></p>
-<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps12.jpg" alt="img"> </p>
-<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps13.jpg" alt="img"> </p>
+<ul>
+<li><strong>MAC地址匹配</strong><br>■使用“-m mac”结合“–mac-source MAC地址”的形式</li>
+<li><strong>多端口匹配</strong><br>■使用“-m multiport”结合“–sports 源端口列表”或者“–dports 目标端口列表”的形式<br>■多个端口之间使用逗号“，”分隔，连续的端口也可以使用冒号“：”分隔</li>
+<li><strong>IP地址范围匹配</strong><br>■使用“-m iprange”结合“–src-range 源IP范園”或者“–dst-range 目标IP范围”的形式<br>■以“-”符号连接起始IP地址、结束IP地址</li>
+</ul>
+<p><strong><em>目标动作：</em></strong></p>
+<ul>
+<li><strong>常见的数据包处理方式</strong><br>■ACCEPT: 放行数据包<br>■DROP:丢弃数据包<br>■REJECT:拒绝数据包<br>■SNAT:修改数据包的源地址信息<br>■DNAT:修改数据包的目标地址信息</li>
+<li><strong>保存防火墙规则</strong><br>■service iptables save </li>
+</ul>
 <p>举例说明：</p>
 <p>  1、拒绝192.168.0.1访问web服务</p>
 <p>Iptables  -A INPUT -s 192.168.0.1 -p tcp –dport 80 -j REJECT</p>
@@ -272,38 +299,37 @@
 <p>   iptables -A OUTPUT -o eth1 -j ACCEPT</p>
 <p>作业：</p>
 <p>  1、查看nat表中所有链的规则</p>
-<p>   <strong><em>\</em>iptables -t nat -L**</strong> </p>
+<p>   <strong>iptables -t nat -L</strong></p>
 <p>  2、查看filter表中FORWARD链的规则</p>
-<p>   <strong><em>\</em>iptables -t filter -L FORWARD**</strong> </p>
+<p>  <strong>iptables -t filter -L FORWARD</strong></p>
 <p>  3、为filter表的INPUT链添加一条规则，规则为拒绝所有使用ICMP协议的数据包</p>
-<p>   <strong><em>\</em>iptables -A INPUT -p icmp -j DROP**</strong>将数据包丢弃，不回应</p>
+<p>   <strong>iptables -A INPUT -p icmp -j DROP</strong>将数据包丢弃，不回应</p>
 <p>​               REJECT丢弃并回应</p>
 <p>  4、为filter表的INPUT链添加一条规则，规则为允许访问TCP协议的80端口的数据</p>
 <p>   包通过</p>
-<p>   <strong><em>\</em>iptables  -A INPUT -p tcp –dport 80 -j ACCEPT**</strong></p>
+<p>   <strong>iptables  -A INPUT -p tcp –dport 80 -j ACCEPT</strong></p>
 <p>  5、在filter表中INPUT链的第2条规则前插入一条新规则，规则为不允许访问TCP</p>
 <p>   协议的53端口的数据包通过。</p>
 <p>   查看：iptables -L -n –line-number  （显示规则的序号:num）</p>
-<p>​    <strong><em>\</em>iptables  -I INPUT 2 -p tcp –dport 53 -j DROP**</strong></p>
+<p>​    <strong>iptables  -I INPUT 2 -p tcp –dport 53 -j DROP</strong></p>
 <p>  6、在filter表中INPUT链的第1条规则前插入一条新规则，规则为允许源IP地址属</p>
 <p>   于172.16.0.0/16网段的数据包通过。</p>
-<p>   <strong><em>\</em>iptables  -I INPUT 1 -s 172.16.0.0/16 -j ACCEPT**</strong> </p>
+<p>   <strong>iptables  -I INPUT 1 -s 172.16.0.0/16 -j ACCEPT</strong></p>
 <p>  7、删除filter表中的第2条规则。</p>
-<p>   <strong><em>\</em>iptables  -D INPUT 2**</strong></p>
+<p>  <strong>iptables  -D INPUT 2</strong></p>
 <p>  8、清除filter表中INPUT链的所有规则。</p>
-<p>   <strong><em>\</em>iptables -t filter -F INPUT**</strong></p>
+<p>   <strong>iptables -t filter -F INPUT</strong></p>
 <p>  9、禁止员工访问域名为<a href="http://www.xxxx.org的网站（域名必须存在，且能被解析，否则" target="_blank" rel="noopener">www.xxxx.org的网站（域名必须存在，且能被解析，否则</a></p>
 <p>   会出错）</p>
-<p>   <strong><em>\</em>iptables -A FORWARD -d**</strong> <a href="http://www.xxxx.org" target="_blank" rel="noopener"><strong><em>\</em>www.xxxx.org**</strong></a> <strong><em>\</em>-j DROP**</strong></p>
-<p>   <strong><em>\</em>iptables -A INPUT -d**</strong> <a href="http://www.xxxx.org" target="_blank" rel="noopener"><strong><em>\</em>www.xxxx.org**</strong></a> <strong><em>\</em>-j DROP**</strong></p>
+<p>   <strong>iptables -A FORWARD -d <a href="http://www.xxxx.org" target="_blank" rel="noopener">www.xxxx.org</a> -j DROP</strong></p>
+<p>   <strong>iptables -A INPUT -d <a href="http://www.xxxx.org" target="_blank" rel="noopener">www.xxxx.org</a> -j DROP</strong></p>
 <p>   10、禁止员工访问IP地址为212.1.2.3的网站。</p>
-<p>   <strong><em>\</em>iptables -A FORWARD -d 212.1.2.3 -p tcp –port 80 -j DROP**</strong></p>
-<p><strong><em>\</em>补充：**</strong></p>
+<p>   <strong>iptables -A FORWARD -d 212.1.2.3 -p tcp –port 80 -j DROP</strong></p>
+<p><strong><em>补充：</em></strong></p>
 <p>备份规则集：iptables-save &gt; /etc/iptables-save</p>
 <p>恢复规则集：iptables-restore &lt; /etc/iptables-save</p>
 <p>保存：service iptables save</p>
-<p><strong><em>\</em>三、综合案例**</strong></p>
-<p>假如某公司需要Internet接入，由ISP分配IP地址202.112.113.112。采用iptables作为NAT服务器接入网络，内部采用192.168.1.0/24地址，外部采用202.112.113地址。为确保案例需要配置防火墙功能，要求内部web服务器192.168.1.100通过端口映射方式对外提供服务。网络拓朴图如下：</p>
+<h2 id="三、综合案例"><a href="#三、综合案例" class="headerlink" title="三、综合案例"></a>三、综合案例</h2><p>假如某公司需要Internet接入，由ISP分配IP地址202.112.113.112。采用iptables作为NAT服务器接入网络，内部采用192.168.1.0/24地址，外部采用202.112.113地址。为确保案例需要配置防火墙功能，要求内部web服务器192.168.1.100通过端口映射方式对外提供服务。网络拓朴图如下：</p>
 <p>SNAT:源地址转换，通常指私有地址转换为公有地址，( 内部数据发往外网的数据) 对应的链是postrouting (路由规则后的动作)</p>
 <p> DNAT:目标地址转换，通常指公有地址转换为私有地址，(外网数据发往内网的数据) 对应的链是prerouting(路由规则前的动作)</p>
 <p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps14.png" alt="img"><img src="file:///C:%5CUsers%5Clenovo%5CAppData%5CLocal%5CTemp%5Cksohtml1156%5Cwps15.png" alt="img"><img src="file:///C:%5CUsers%5Clenovo%5CAppData%5CLocal%5CTemp%5Cksohtml1156%5Cwps16.jpg" alt="img"> </p>
@@ -359,6 +385,11 @@
     
 
     
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/tags/系统安全/">#系统安全</a> <a href="/tags/CVE-2019-1-2/">#CVE-2019-1-2</a>
+        </div>
+    
 
     <!-- Comments -->
     
@@ -390,11 +421,11 @@
         <ul>
             
             <li>
-                <a class="footer-post" href="/2020/01/02/配置与管理iptables防火墙/">Untitled</a>
+                <a class="footer-post" href="/2020/01/02/Centos7下使用tomcat发布JSP电商网站/">Centos7下使用tomcat发布JSP电商网站</a>
             </li>
             
             <li>
-                <a class="footer-post" href="/2020/01/02/Centos7下使用tomcat发布JSP电商网站/">Centos7下使用tomcat发布JSP电商网站</a>
+                <a class="footer-post" href="/2020/01/02/配置与管理iptables防火墙/">配置与管理iptables防火墙</a>
             </li>
             
             <li>
