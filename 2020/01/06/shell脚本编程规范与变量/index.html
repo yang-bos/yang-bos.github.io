@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    shell脚本编程规范与变量 |  你好
+  </title>
+  
+  <link rel="shortcut icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">  <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">  <script src="/js/pace.min.js"></script>
+
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-shell脚本编程规范与变量" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  shell脚本编程规范与变量
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/01/06/shell脚本编程规范与变量/" class="article-date">
+  <time datetime="2020-01-06T12:18:52.000Z" itemprop="datePublished">2020-01-06</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+  <div class="article-gallery">
+    <div class="article-gallery-photos">
+      
+        
+          <img src="/-![](https:/github.com/yang-bos/yang-bos.github.io/blob/master/E:/ketanggongju/hexo/sourcepop.png)" itemprop="image">
+        
+      
+    </div>
+  </div>
+
+
+      
+      <h3 id="CVE-2019-1-6"><a href="#CVE-2019-1-6" class="headerlink" title="CVE _2019-1-6"></a>CVE _2019-1-6</h3><a id="more"></a>
+
+<h1 id="shell脚本编程规范与变量"><a href="#shell脚本编程规范与变量" class="headerlink" title="shell脚本编程规范与变量"></a>shell脚本编程规范与变量</h1><h2 id="一、shell脚本编程规范"><a href="#一、shell脚本编程规范" class="headerlink" title="一、shell脚本编程规范"></a>一、shell脚本编程规范</h2><p>在一些复杂的Linux维护工作，大量重复性的输入与交互操作不但费时费力，而且容易出错，而编写一个恰好片的shell脚本程序，可以批量处理、自动化地完成一系列维护任务，大大减轻管理员的负担。</p>
+<h3 id="1、shell脚本应用场景"><a href="#1、shell脚本应用场景" class="headerlink" title="1、shell脚本应用场景"></a>1、shell脚本应用场景</h3><p>Shell（shell scrip）脚本就是将要执行的命令按顺序保存到一个文件文件，并给该文件可执行权限，方便一次性执行的一个程序文件。主要是方便管理员进行设置或管理，可结合各种shell控制语句以完成更复杂的操作。常用于重复性操作、批量事务处理、自动化运维、服务运行状态监控、定时任务执行等。</p>
+<h3 id="2、shell编程规范"><a href="#2、shell编程规范" class="headerlink" title="2、shell编程规范"></a>2、shell编程规范</h3><p>Linux系统中的shell脚本是一个特殊的应用程序，它介于 操作系统内核与用户之间，充当一个“命令解释器”的角色，负责接收用户输入的操作指令并进行解释，将需要执行的操作传递给内核执行，并输出执行结果。</p>
+<p>常见的shell解释器程序有很多，使用用不同的shell脚本时，其内部指令、命令行提示等方面会存在一些区别。通过/etc/shells文件可以了解当前系统所支持的shell脚本类型。</p>
+<p><img src="E:%5C%E7%9F%A5%E4%BA%86%E5%A0%82%E5%9F%B9%E8%AE%AD%5C%E7%AC%94%E8%AE%B0%E5%9B%BE%E7%89%87%E5%AD%98%E6%94%BE%5Cwps1-1578312325941.jpg" alt="img"> </p>
+<p>其中，/bin/bash是目前大多数Linux版本采用的默认shell脚本。Bash的全称为Bourne Agin Shell，是最受欢迎的开源软件之一。那么什么是“shell脚本”呢？简单地说，只要将平时使用的各种Linux命令按顺序保存到一个文本文件，然后添加可执行权限，这个文件就成为一个Shell脚本了。</p>
+<p>举例:创建第一个脚本文件</p>
+<p># vim first.sh</p>
+<p>cd /boot/</p>
+<p>pwd</p>
+<p>ls -lh vml*</p>
+<p># chmod +x first.sh </p>
+<p>#./first.sh</p>
+<p> 上述first.sh脚本文件中，包括三条命令：cd/boot、pwd、ls -lh vml*。执行此脚本文件后，输出结果与依次单独执行这三条命令是相同的，从而实现了‘批量处理’的自动化过程。</p>
+<p>当然，一个合格的shell脚本程序应该遵循标准的脚本结构，而且能够输出友好的提示信息、更加容易读懂。对于代码较多、结构复杂的脚本，应添加必要的注释文字。改写后的first.sh脚本内容如下所示：</p>
+<p># vim first.sh</p>
+<p>#！/bin/bash</p>
+<p>#This is my first Shell-Script.</p>
+<p>cd /boot/</p>
+<p>echo “当前的目录位于：”</p>
+<p>pwd</p>
+<p>echo “其中以vml开头的文件包括：”</p>
+<p>ls -lh vml*</p>
+<p>上述first.sh脚本文件中，第一行”#/bin/bash”是一行特殊的脚本声明，表示此行以后的语句通过/bin/bash程序来解释执行；其他以”#”开头的语句表示注释信息;echo命令用于输出字符串，以使脚本的输出信息更容易读懂。执行修改后的first.sh脚本，输出结果如下所示：</p>
+<p> # ./first.sh </p>
+<p>当前的目录位于：</p>
+<p>/boot</p>
+<p>其中以vml开头的文件包括：</p>
+<p>-rwxr-xr-x. 1 root root 6.4M 9月  9 18:40 vmlinuz-0-rescue-396e2077721a48da8ea2738c4bd8e831</p>
+<p>-rwxr-xr-x. 1 root root 6.4M 11月  9 2018 vmlinuz-3.10.0-957.el7.x86_64</p>
+<p>  直接通过文件路径”./first.sh”的方式执行脚本，要求文件本身具有X权限，在某此安全系统中可能无法满足此条件。鉴于此，Linux操作系统还提供了执行shell脚本的其他方式—-指定某个shell来解释脚本语句，或者通过内部命令source（或点号”.”）来加载文件中的源代码执行。</p>
+<p>举例：</p>
+<p>   # source first.sh </p>
+<p>   #sh first.sh</p>
+<p>   #bash first.sh</p>
+<p>   #./first.sh</p>
+<h3 id="3、管道与重定向"><a href="#3、管道与重定向" class="headerlink" title="3、管道与重定向"></a>3、管道与重定向</h3><p>  由于shell脚本”批量处理”的特殊性，其大部份操作过程位于后台，不需要用记进行干预。因此学会提取、过滤执行信息变得十分重要。</p>
+<h4 id="1）管道操作"><a href="#1）管道操作" class="headerlink" title="(1）管道操作"></a>(1）管道操作</h4><p>   管道操作为不同命令之间的协同工作提供了一种机制，位于管道符号”|”左边的命令输出的结果，将作为右侧命令的输入（处理对象），同一行命令中可以使用多个管道。管道命令的基本使用格式如下所示：</p>
+<p>  cmd1 命令1 ｜  cmd2 命令2  [… | cmdn 命令n]</p>
+<p>   在shell脚本应用中，管道操作通常用来过滤所需要的关键信息。例如，使用grep命令查询使用”/bin/bash”作为shell的用户名称时，会输出符合条件的整行内容，在此基础上可以结合管道操作与awk命令做进一步过滤，只输出用户名和登录shell列。</p>
+<p>  # grep “/bin/bash$” /etc/passwd</p>
+<p>root​：x:0:0:root:/root:/bin/bash</p>
+<p>student​：x:1000:1000:student:/home/student:/bin/bash</p>
+<p>  # grep “/bin/bash$” /etc/passwd | awk -F: ‘{print $1,$7}’</p>
+<p>root /bin/bash</p>
+<p>student /bin/bash</p>
+<p>   上述awk命令的作用是以冒号”:”作为分隔，输出第1个和第7个区域的字符串，其中”-F”部份用来指定分隔符号（未指定时，默认以空格或制表符分隔）。</p>
+<p>   <strong>举例：提取/的磁盘使用率信息。</strong></p>
+<p>​      #df -hT</p>
+<p>文件系统         类型    容量  已用  可用 已用% 挂载点</p>
+<p>/dev/mapper/centos-root xfs     17G  4.0G  13G  24% /</p>
+<p>devtmpfs         devtmpfs  470M   0  470M   0% /dev</p>
+<p>tmpfs          tmpfs   487M   0  487M   0% /dev/shm</p>
+<p>#df -hT | grep “/$” | awk ‘{print $6}’</p>
+<p>24%</p>
+<h4 id="（2）重定向操作"><a href="#（2）重定向操作" class="headerlink" title="（2）重定向操作"></a>（2）重定向操作</h4><p>Linux系统使用文件来描述各种硬件、设备等资源，如以前尝过的硬盘和分区、光盘等设备文件。用户通过操作系统处理信息的过程中，包括以下几类交互设备文件。</p>
+<p>标准输入（STDIN）：默认的设备是键盘，文件编号为0，命令将从标准输入文件中读取在执行过程中需要的输入的数据。</p>
+<p>标准输出（STDOUT）：默认的设备是显示器，文件编号为1，命令将执行后的输出结果发送到标准输出文件。</p>
+<p>标准错误（STDERR）：默认的设备是显示器，文件编号为2，命令执行期间的各种错误信息发送到标准错误文件。</p>
+<p>在实际的Linux系统维护中，可以改变输入、输出内容的方向，而不使用默认的标准输入、输出设备，这种操作称为”重定向”</p>
+<p>重定向输入：将命令中接收输入的路径由默认的键盘改为指定的文件，使用”&lt;”操作符。</p>
+<p>  <strong>举例：给用户设置密码</strong></p>
+<p>#vim pass.txt</p>
+<p>  #passwd –stdin jerry &lt; pass.txt</p>
+<p>重定向输出:将命令的正常输出结果保存到指定的文件，使用”&gt;”或”&gt;&gt;”操作符。</p>
+<p>  举例：将输出结果保存到指定的文件</p>
+<p>#uname -p &gt;kernel.txt   查看CPU类型</p>
+<p>#uname -r &gt;&gt;kernel.txt  查看内核版本信息</p>
+<p>错误重定向：将执行命令过程中出现的错误保存到指定文件，使用”2&gt;”操作符。</p>
+<p>​      在实际应用中，错误重定向可用来收集程序执行的错误信息，为排错提供</p>
+<p>依据。</p>
+<p>举例：<strong>将备份时出现的错误信息进行保存</strong></p>
+<p># tar jcf /nonedir/etc.tgz/etc 2&gt;error.log</p>
+<p># tar jcf /nonedir/etc.tgz/etc 2&gt;&gt;error.log</p>
+<p>  举例： 命令输出的结果包含正常执行信息和错误信息两类，可使用&gt;和2&gt;分别输出到不同的文件，也可使用&amp;&gt;操作符将两类输出信息保存到同一个文件。如在编译源码包的自动化脚本中，若要忽略make、make install等操作过程信息，可将其定向到空文件<strong>/dev/null</strong>。</p>
+<p>​     #vim httpd_install.sh</p>
+<p>​       #!/bin/bash</p>
+<p>​       #自动编译安装httpd服务器的脚本</p>
+<p>​       cd /usr/src/httpd-2.2.17</p>
+<p>​       ./configure –prefix=/usr/local/httpd –enable-so &amp;&gt;/dev/null</p>
+<p>​       make &amp;&gt;/dev/null</p>
+<p>​       make install &amp;&gt;/dev/null</p>
+<p>​       …….   //省略内容</p>
+<p>​     #chmod +x httpd_install.sh</p>
+<h2 id="二、shell脚本变量"><a href="#二、shell脚本变量" class="headerlink" title="二、shell脚本变量"></a>二、shell脚本变量</h2><p>Shell变量用来存放系统和用户需要使用的特定参数（值），而且这些参数可以根据用户的设定或系统环境的变化而相应变化。通过使用变量，shell程序能够提供更加灵活的功能，适应性更强。</p>
+<p>常见shell变量的类型包括自定义变量、环境变量、位置变量、预定义变量。</p>
+<h3 id="1、定义新的变量"><a href="#1、定义新的变量" class="headerlink" title="1、定义新的变量"></a>1、定义新的变量</h3><p>  格式：变量名=变量值</p>
+<p>  注意：等号两边没有空格。变量名称需以字母或下划线开头，名称中不要包含特殊字符</p>
+<p>（+ - * / . ? % &amp; #）等</p>
+<p>举例：定义变量Product(值为Weixin),Version(值为6.0)</p>
+<p> # Product=Weixin</p>
+<p> # Version=6.0</p>
+<h4 id="1-查看和应用变量的值"><a href="#1-查看和应用变量的值" class="headerlink" title="(1)查看和应用变量的值"></a>(1)查看和应用变量的值</h4><p>  引用变量值：在变量名称前添加”$”</p>
+<p>  查看变量值：使用echo命令，可以在一条echo命令同时查看多个变量值。</p>
+<p># echo $Product</p>
+<p>Weixin</p>
+<p># echo $Product$Version</p>
+<p>Weixin6.0</p>
+<p>当变量名称容易和紧跟其后其他字符相混淆时，需要添加”｛｝”将其括起来，否则将无法确定正确的变量名称。对未定义的变量，将显示空值。</p>
+<p> # echo $Prouduct4.5</p>
+<p> # echo ${Product}4.5</p>
+<h4 id="2-变量赋值的特殊操作"><a href="#2-变量赋值的特殊操作" class="headerlink" title="(2)变量赋值的特殊操作"></a>(2)变量赋值的特殊操作</h4><p><strong>(a)双引号(” ”)</strong></p>
+<p>   双引号主要起界定字符串的作用，特别是当要赋值的内容包含空格时，必须以双引号括起来；其他情况下双引号通常可以省略。</p>
+<p>   举例：变量值包含空格的正确赋值方法</p>
+<p>​      # Weixin=weixin 4.5</p>
+<p>bash: 4.5: 未找到命令…</p>
+<p># Weixin=”weixin 4.5”</p>
+<p>   在双引号范围内，使用$符号可以引用其他变量的值（变量引用）。</p>
+<p># Version=8.0</p>
+<p># QQ=”QQ$Version”</p>
+<p># echo $QQ</p>
+<p>QQ8.0</p>
+<p><strong>(b)单引号(’ ’)</strong></p>
+<p>当要赋值的内容包含$ “ \等具有特殊含义的字符时，应使用单引号括起来。在单引号的范围内，将无法引用其他变量的值，任何字符均作为普通字符看待。但赋值内容中包含单引号时，需要使用\进行转义，以免冲突。</p>
+<p>举例：使用单引号对变量赋值</p>
+<p># A=’ABC$Version’</p>
+<p># echo $A</p>
+<p>ABC$Version</p>
+<p># AA=’AA’&#39;$Version&#39;</p>
+<p># echo $AA</p>
+<p>AA’6.0’</p>
+<p># AA=AA&#39;‘$Version’&#39;</p>
+<p># echo $AA</p>
+<p>AA’$Version’</p>
+<p><strong>(c)反撇号（`）</strong></p>
+<p>   主要用于命令替换，允许执行某个命令的屏幕输出结果赋值给变量。反撇号括起来的范围内必须是能够执行的命令行，否则会出错。</p>
+<p>   举例：在一行命令中查找tar命令程序的位置并列出其详细属性。</p>
+<p># ls -lh <code>which tar</code></p>
+<p>-rwxr-xr-x. 1 root root 339K 10月 31 2018 /usr/bin/tar</p>
+<p>   举例：提取vsftpd服务的封禁用户列表，并将其赋值给变量Denylist</p>
+<p>​     # Denylist=<code>grep -v &quot;^#&quot; /etc/vsftpd/ftpusers</code></p>
+<p># echo $Denylist</p>
+<p>root bin daemon adm lp sync shutdown halt mail news uucp operator games nobody</p>
+<p>  注意：使用反撇号难以在一行命令中实现嵌套命令替换操作，这时可以使用<strong><em>\</em>$()**</strong>来代替反撇号操作，以解决嵌套的问题。</p>
+<p>   举例：查询提供useradd命令程序的软件包所安装的配置文件位置</p>
+<p># rpm -qc $(rpm -qf $(which useradd))</p>
+<p>/etc/default/useradd</p>
+<p>/etc/login.defs</p>
+<p><strong>(d)read命令</strong></p>
+<p>   read命令用来提示用户输入信息，从而实现简单的交互过程。执行时将从标准输入设备读入一行内容，并以空格为分隔符，将读入的各字段挨个赋值给指定的变量（多余的内容赋值给最后一个变量）。若指定的变量只有一个，则将整行内容赋值给此变量。</p>
+<p>举例：使用read命令给变量赋值</p>
+<p>​     # read ToDir1</p>
+<p>/opt/backup</p>
+<p># echo $ToDir1</p>
+<p>/opt/backup</p>
+<p>   为了使用交互式操作的界面更加友好，提高易用性，read命令可以结合-p和-t选项来设置提示信息和输入等待时间（单位默认为秒）</p>
+<p># read -p “please input directory:” -t 3 AA</p>
+<p>please input directory:/mnt/bak</p>
+<p># echo $AA</p>
+<p>/mnt/bak</p>
+<h4 id="3-设置变量的作用范围"><a href="#3-设置变量的作用范围" class="headerlink" title="(3)设置变量的作用范围"></a>(3)设置变量的作用范围</h4><p>默认情况下，新定义的变量只在当前的shell环境中有效，因此称为局部变量。当进入子程序或新的子shell环境时，局部变量将无法再使用。</p>
+<p># Weixin=weixin</p>
+<p>#Version=6.0</p>
+<p># echo “$weixin $Version”</p>
+<p>weixin 6.0</p>
+<p>#bash</p>
+<p># echo “$weixin $Version”</p>
+<p>为了使用定义的变量在所有的子shell环境中能够继续使用，减少重复设置工作，可以通过内部命令export将指定的变量导出为”全局变量”。可以同时指定多个变量名称作为参数（不需要使用$）,变量名之间以空格分隔。</p>
+<p>#export weixin Version</p>
+<p># bash</p>
+<p># echo “$weixin $Version”</p>
+<p>weixin 6.0</p>
+<p>使用export导出全局变量的同时，也可以为变量进行赋值。</p>
+<p>#export KGC=”<a href="http://www.kgc.cn”" target="_blank" rel="noopener">www.kgc.cn”</a></p>
+<p># echo $KGC</p>
+<p><a href="http://www.kgc.cn" target="_blank" rel="noopener">www.kgc.cn</a></p>
+<h4 id="4-数值变量的运算"><a href="#4-数值变量的运算" class="headerlink" title="(4)数值变量的运算"></a>(4)数值变量的运算</h4><p>  shell变量的数值运算多用于脚本程序的过程控制（如循环次数、使用量比较等）。在Bash Shell环境中，只能进行简单的整数运算，不支持小数运算。</p>
+<p>  整数值的运算主要通过<strong><em>\</em>expr**</strong>进行，基本格式如下：</p>
+<p>expr 变量1 运算符 变量2 [运算符 变量3]…</p>
+<p>  其中，变量对应需要计算的数值变量（需要以”$”符号调用），常用的几种运算符如下：</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>++  –</td>
+<td>增加及减少，可前置也可放到结尾</td>
+</tr>
+<tr>
+<td>*  /  %</td>
+<td>乘法、除法、取余</td>
+</tr>
+<tr>
+<td>+  -</td>
+<td>加法、减法</td>
+</tr>
+<tr>
+<td>&lt;  &lt;=  &gt;  &gt;=</td>
+<td>比较符号</td>
+</tr>
+<tr>
+<td>== !=</td>
+<td>等于与不等于</td>
+</tr>
+<tr>
+<td>&amp;</td>
+<td>位的与</td>
+</tr>
+<tr>
+<td>^</td>
+<td>位的异或</td>
+</tr>
+<tr>
+<td>|</td>
+<td>位的或</td>
+</tr>
+<tr>
+<td>&amp;&amp;</td>
+<td>逻辑的与</td>
+</tr>
+<tr>
+<td>||</td>
+<td>逻辑的或</td>
+</tr>
+<tr>
+<td>?:</td>
+<td>条件表达式</td>
+</tr>
+<tr>
+<td>= += -= *= /= %= &amp;= ^= &lt;&lt;=  &gt;&gt;=  |=</td>
+<td>赋值运算符a+=相当于a=a+1</td>
+</tr>
+</tbody></table>
+<p>举例：两个整数运算 X=35  Y=16</p>
+<p>   #X=35</p>
+<p>#Y=16</p>
+<p>#expr $X + $Y</p>
+<p>#expr $X - $Y</p>
+<p>#expr $X * $Y</p>
+<p>#expr $X / $Y</p>
+<p>#expr $X % $Y</p>
+<p>#Ycube=<code>expr $Y \* $Y \* $Y</code></p>
+<p>使用expr进行计算的时候，变量必须是整数，不能是字符串，也不能含小数，否则会出错。</p>
+<p>除了expr命令外，变量数值常见的命令还包括：（（））、let等。如果要执行简单的整数运算，只需要将特定对的算术表达式用$(())括起来即可。</p>
+<p>举例：简单的算术运算</p>
+<p>   #bb=$((1+2**3-4))</p>
+<p>  #echo$((1+2**3-4))</p>
+<p>set  查看定义的变量</p>
+<p>unset Serversion  取消变量</p>
+<p>readonly 变量名  设置只读变量，unset不能删除只读变量</p>
+<h3 id="2、特殊变量"><a href="#2、特殊变量" class="headerlink" title="2、特殊变量"></a>2、特殊变量</h3><p>（1）环境变量</p>
+<p>   环境变量指的是出于运行需要而由Linux系统提前创建的一类变量，主要用于设置用户的工作环境，包括用户主目录、命令查找路径、用户当前目录、登录终端等。环境变量的值由Linux系统自动维护，随用户状态的改变而改变。</p>
+<p>使用env命令可以查看到当前工作环境下的环境变量，对于常见的一些环境变量就了解其各自的用途。</p>
+<p>PATH变量用于设置可执行程序的默认搜索路径，当仅指定文件名称来执行命令程序时，Linux系统将在PATH变量指定的目录范围查找对应的可执行文件，如果找不到则会提示”command not found”,此时修改PATH变量或将脚本文件复制到环境变量搜索目录下。</p>
+<p>举例：向PATH环境变量添加脚本文件目录</p>
+<p># echo $PATH</p>
+<p>/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin:/root/bin</p>
+<p>/root/first.sh</p>
+<p># first.sh</p>
+<p>bash: first.sh: 未找到命令…</p>
+<p>#PATH=”$PATH:/root”</p>
+<p>#first.sh</p>
+<p>在Linux系统中，环境变量的全局配置文件为/etc/profile,在此文件中定义的变量</p>
+<p>作用于所有用户。除此外，每个用户还有自己的独立配置文件（~/.bash_profile)。若要长期变更或设置某个环境变量，应在上述文件中进行设置。</p>
+<p>举例：修改历史记录命令条数</p>
+<p># history | wc -l</p>
+<p>​     # vim /root/.bash_profile </p>
+<p>export HISTSIZE=50</p>
+<p># source /root/.bash_profile </p>
+<p># history | wc -l</p>
+<p>（3）位置变量</p>
+<p>   为了在使用shell脚本程序时， 方便通过命令行为程序提供操作参数，bash引入了位置变量的概念。当执行命令时，第一个字段表示命令表示命令名或脚本程序名，其余的字符串参数按照从左到右的顺序依次赋值给位置变量。</p>
+<p>  位置变量也称为位置参数，使用$1 $2 $3 ….$9表示。</p>
+<p>#!/bin/bash</p>
+<p>SUM=$(($1+$2))</p>
+<p>echo “$1+$2”= $SUM</p>
+<p># chmod +x addr2num.sh </p>
+<p># ./addr2num.sh 15 20</p>
+<p>15 +  20= 35</p>
+<p> set 1 2 3 </p>
+<p>（4）预定义变量   </p>
+<p>   预定义变量是由Bash程序预先定义好的一类特殊变量，用户只能使用预定义变量，而不能创建新的预定义变量，也不能直接为预定义变量赋值。预定义变量使用$符号和另一个符号组合表示，常见的有：</p>
+<p><strong><em>$#</em></strong>:表示命令行中位置参数的个数</p>
+<p><strong><em>$*</em></strong>:表示所有位置参数的内容</p>
+<p><strong><em>$?</em></strong>：表示前一条命令执行后的返回状态，返回值为0表示正确执行，返回值为1表示执行异常</p>
+<p><strong><em>$0</em></strong>:表示当前执行的脚本或程序名称</p>
+<p>#!/bin/bash</p>
+<p>T=<code>date &quot;+%Y%m%d-%H%M&quot;</code></p>
+<p>TARFILE=beifen-${T}.tgz</p>
+<p>tar zcf $TARFILE $* &amp;&gt;/dev/null</p>
+<p>echo “已执行$0脚本”</p>
+<p>echo “共完成$#个对象的备份”</p>
+<p>echo “具体内容包括：$*”</p>
+<p>chmod +x mybak.sh</p>
+<p># ./mybak.sh /boot/grub /mnt/public /root/aa</p>
+<p>已执行./mybak.sh脚本</p>
+<p>共完成1个对象的备份</p>
+<p>具体内容包括：/boot/grub</p>
+
+      
+      <!-- 打赏 -->
+      
+        <div class="page-reward">
+          <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+            <div class="tooltip tooltip-east">
+              <span class="tooltip-item">
+                赏
+              </span>
+              <span class="tooltip-content">
+                <span class="tooltip-text">
+                  <span class="tooltip-inner">
+                    <p class="reward-p"><i class="icon icon-quo-left"></i>请我喝杯咖啡吧~<i
+                        class="icon icon-quo-right"></i></p>
+                    <div class="reward-box">
+                      
+                      <div class="reward-box-item">
+                        <img class="reward-img" src="/images/alipay.jpg">
+                        <span class="reward-type">支付宝</span>
+                      </div>
+                      
+                      
+                      <div class="reward-box-item">
+                        <img class="reward-img" src="/images/wechat.jpg">
+                        <span class="reward-type">微信</span>
+                      </div>
+                      
+                    </div>
+                  </span>
+                </span>
+              </span>
+            </div>
+          </a>
+        </div>
+        
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/01/06/shell脚本编程规范与变量/" data-id="ck52ewbqo002tsoue6d6366xt"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CVE-2019-1-6/">CVE-2019-1-6</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/系统安全/">系统安全</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+    
+      <a href="/2020/01/06/Shell编程之条件语句/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">Shell编程之条件语句</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: 'chaSYi8FMdJBwzIBpxeNjqWC-gzGzoHsz',
+        app_key: 'PqqkLYgPkHvH1BmyQqySWnSK',
+        path: window.location.pathname,
+        avatar: 'mp',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2015-2020
+        John Doe
+      </li>
+      <li>
+        
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a> by shenyu
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <ul class="list-inline">
+  <li>PV:<span id="busuanzi_value_page_pv"></span></li>
+  <li>UV:<span id="busuanzi_value_site_uv"></span></li>
+</ul>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+    
+    <aside class="sidebar">
+      
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="你好"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">目录</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/旅行/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="http://shenyu-vip.lofter.com">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/tocbot.min.js"></script>
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+<script src="/js/ayer.js"></script>
+
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    Shell编程之条件语句 |  你好
+  </title>
+  
+  <link rel="shortcut icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">  <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">  <script src="/js/pace.min.js"></script>
+
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-Shell编程之条件语句" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Shell编程之条件语句
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/01/06/Shell编程之条件语句/" class="article-date">
+  <time datetime="2020-01-06T12:17:21.000Z" itemprop="datePublished">2020-01-06</time>
+</a>
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+  <div class="article-gallery">
+    <div class="article-gallery-photos">
+      
+        
+          <img src="/-![](https:/github.com/yang-bos/yang-bos.github.io/blob/master/E:/ketanggongju/hexo/sourcepop.png)" itemprop="image">
+        
+      
+    </div>
+  </div>
+
+
+      
+      <h3 id="CVE-2019-1-6"><a href="#CVE-2019-1-6" class="headerlink" title="CVE _2019-1-6"></a>CVE _2019-1-6</h3><a id="more"></a>
+
+<h1 id="Shell编程之条件语句"><a href="#Shell编程之条件语句" class="headerlink" title="Shell编程之条件语句"></a>Shell编程之条件语句</h1><h2 id="一、条件测试"><a href="#一、条件测试" class="headerlink" title="一、条件测试"></a>一、条件测试</h2><p>  使用shell脚本程序具备一定的“智能”，面临的第一个问题就是如何区分不同的情况以确定执行何种操作。例如，当磁盘使用率超过95%时发送警告信息；当备份目录存在时能够自动创建；当源码编译程序时若配置失败则不再继续安装等。</p>
+<p>shell环境根据命令执行后的返回状态（$?）来判断是否执行成功，当返回0时表示成功，当返回1时表示失败或异常。使用专门的测试工具—test命令，可以对特定条件进行测试，并根据返回值来判断是否成立。</p>
+<p> test命令的使用：test 条件表达式  或  [ 条件表达式 ]</p>
+<p> 这两种方式的作用完全相同，但通常后一种形式更为常用，也更贴近编程习惯。需要注意的是，方括号与条件表达式之间需要至少一个空格进行分隔。</p>
+<p>根据需要测试的条件类别不同，条件表达式也不同。比较常用的条件操作包括文件测试、整数值比较、字符串比较、以及针对多个条件的逻辑测试。</p>
+<h3 id="1、文件测试"><a href="#1、文件测试" class="headerlink" title="1、文件测试"></a>1、文件测试</h3><p>文件测试指的是根据给定的路径名称，判断对应的是文件还是目录，或者判断文件是否可读、可写、可执行等。文件测试的常见操作选项如下，使用时将测试对象放在操作选项之后即可。</p>
+<p>  -d 测试是否为目录（Directory）</p>
+<p>  -e 测试目录或文件是否存在（Exist)</p>
+<p>  -f 测试是否为文件(File)</p>
+<p>  -r 测试当前用户是否有权限读取(Read)</p>
+<p>  -w 测试当前用户是否有权限写入(Write)</p>
+<p>  -x 测试是否设置有可执行（Excute）权限</p>
+<p>举例：判断/mnt/cdrom目录是否存在？</p>
+<p># test -e /mnt/cdrom</p>
+<p># echo $?</p>
+<p>0</p>
+<p>举例：判断/mnt/cdrom是不是目录？</p>
+<p># test -d /mnt/cdrom</p>
+<p># echo $?</p>
+<p>0</p>
+<p>或</p>
+<p># [ -d /mnt/cdrom ]</p>
+<p># echo $?</p>
+<p>0</p>
+<p>通过查看变量“$?”变量的值可以判断前一步的条件测试结果，但是操作比较繁锁，输出结果也不直观。为了更直观地查看测试结果，可以像以下举例来实现：</p>
+<p>举例：#[ -d /media/cdrom ]&amp;&amp;echo “YES”</p>
+<p>​                    //无输出表示该目录不存在</p>
+<p>​     YES       //输出“YES”表示该目录存在</p>
+<p>  举例：[ -d /media/cdrom ]&amp;&amp;echo “YES” || echo “NO”</p>
+<p>   使用[[ 条件表达式 ]]也可以进行条件测试</p>
+<p>   举例：[[ -d /media/cdrom ]]&amp;&amp;echo “YES” || echo “NO”</p>
+<p>test命令中用于判断文件的选项有很多，从文件个数上可分为单个文件的判断和两个文件之间的比较。其中判断单个文件最常用的选项就-f选项，在比较两个文件时，常用的选项有：</p>
+<p>-nt 判断文件A是否比文件B新</p>
+<p>-ot 判断文件A是否比文件B旧</p>
+<p>-ef 判断两个文件是否为同一个文件，用来判断两个文件是否指向同一个inode</p>
+<p>举例：</p>
+<p>#touch a</p>
+<p>#touch b</p>
+<p>#test a -ot b&amp;&amp;echo “YES” || echo “NO”</p>
+<p>#[ a -ot b ]&amp;&amp;echo “YES” || echo “NO”</p>
+<p>#test a -ef b &amp;&amp;echo “YES” || echo “NO”</p>
+<p>#ln a c</p>
+<p>#test a -ef c &amp;&amp;echo “YES” || echo “NO”</p>
+<h3 id="2、整数值比较"><a href="#2、整数值比较" class="headerlink" title="2、整数值比较"></a>2、整数值比较</h3><p>整数值比较指的是根据给定的两个整数值，判断第一个数与第二个数的关系，如是否是大于、等于、小于第二个数。整数值比较的常用操作选项如下：</p>
+<p>-eq  a等于b</p>
+<p>-ne  a不等于b</p>
+<p>-gt  a大于b</p>
+<p>-lt  a小于b</p>
+<p>-le  a小于或等于b</p>
+<p>-ge  a大于或等于b</p>
+<p>整数值比较在shell脚本编写中的应用较多，例如用来判断已登录用户数量、开启进程数、磁盘使用率是否超标，以及软件版本号是否符合要求等。实际使用时，往往会通过变量引用、命令替换等方式来获取一个数值。</p>
+<p>举例：判断当前已登录用户数，当超过5个时输出“Too many”</p>
+<p># Unum=<code>who|wc -l</code></p>
+<p># [ $Unum -gt 5 ]&amp;&amp;echo “too many.”</p>
+<p>too many.</p>
+<p>举例：判断当前可用<strong><em>空闲内存（free)大小</em></strong>，当低于1024MB时输出具体数值</p>
+<p># FreeCC=$(free -m|grep Mem|awk ‘{print $4}’)</p>
+<p># [ $FreeCC -lt 1024 ]&amp;&amp;echo ${FreeCC}MB</p>
+<h3 id="3、字符串比较"><a href="#3、字符串比较" class="headerlink" title="3、字符串比较"></a>3、字符串比较</h3><p>字符串比较通常用来检查用户输入、系统环境变量等是否满足条件，在提供交互式操作的shell脚本中，也可用来判断用户输入的位置参数是否符合要求。字符串比较常用的操作选项如下：</p>
+<p>=   第一个字符串与第二个字符串相同</p>
+<p>！=  第一个字符串与第二个字符串不相同</p>
+<p>-z   检查字符串为空（zero),对于未定义或赋予空值的变量将视为空串</p>
+<p>举例：判断当前系统的语言环境，不是en.US时输出“Not en.US”</p>
+<p># echo $LANG</p>
+<p>zh_CN.UTF-8</p>
+<p># [ $LANG != “en.US” ]&amp;&amp;echo “Not en.US”</p>
+<p>Not en.US</p>
+<p>举例：在shell脚本应用中，经常需要用户输入yes或no来确认某个任务，以下举例</p>
+<p>可以作为展示，实际使用时还会根据变量“ACK”的取值分别执行进一步的操作。</p>
+<p># read -p “是否覆盖现有文件（yes/no)?” ACK</p>
+<p>是否覆盖现有文件（yes/no)?yes</p>
+<p># echo $ACK</p>
+<p>yes</p>
+<p># [ $ACK = “yes” ]&amp;&amp;echo “覆盖”</p>
+<p># read -p “是否覆盖现有文件（yes/no)?” ACK</p>
+<p>是否覆盖现有文件（yes/no)?no</p>
+<p># [ $ACK = “no” ]&amp;&amp;echo “不覆盖”</p>
+<p>不覆盖</p>
+<h3 id="4、逻辑测试"><a href="#4、逻辑测试" class="headerlink" title="4、逻辑测试"></a>4、逻辑测试</h3><p>  逻辑测试指的是判断两个或多个条件之间的依赖关系。当系统任务取决于多个不同的条件时，判断是根据这些条件同时成立还是只要有其中一个成立等情况，需要有一个测试的过程，常用的逻辑测试操作如下，使用时放在不同的测试语句或命令之间。</p>
+<p>  &amp;&amp;  逻辑与，表示而且，只有当前后两个条件都成立时，整个测试的命令返回值才为0（结果成立）。使用test命令测试时可改为-a</p>
+<p>  ||  逻辑或，表示或者，只要前后两个条件有一个成立，则整个测试的命令返回值为0（结果成立）。使用test命令测试时可改为-o</p>
+<p>  !  逻辑否，表示不，只有当指定的条件不成立时，整个测试命令的返回值才为0（结果成立）</p>
+<p>举例：判断Linux系统的内核版本是否大于2.4</p>
+<p> # Mnum=$(uname -r|awk -F. ‘{print $1}’)</p>
+<p># Snum=$(uname -r|awk -F. ‘{print $2}’)</p>
+<p>#[ $Mnum -gt 2 ]&amp;&amp;[$Snum -gt 4]&amp;&amp;echo “yes” || echo “no”</p>
+<p>#[ $Mnum -eq 2 ]&amp;&amp;[$Snum -gt 4]&amp;&amp;echo “yes” || echo “no”</p>
+<p>[ $Mnum -gt 2 ]||<code>[ $Mnum -eq 2 ]&amp;&amp;[$Snum -gt 4]</code>&amp;&amp;echo “yes” || echo “no”</p>
+<p>[root@localhost ~]# test $Mnum -eq 3 -a $Snum -gt 4</p>
+<p>[root@localhost ~]# echo $?</p>
+<p>0</p>
+<p>[root@localhost ~]# test $Mnum -eq 2 -a $Snum -gt 4</p>
+<p>[root@localhost ~]# echo $?</p>
+<p>1</p>
+<h2 id="二、if语句结构"><a href="#二、if语句结构" class="headerlink" title="二、if语句结构"></a>二、if语句结构</h2><p>在shell脚本应用中，if语句是最为常用的一种流程控制方式，用来根据特定的条件测试结果，分别执行不同的操作（如果….那么….)。根据不同的复杂程度，if语句的选择结构可以分为三种基本类型，适用于不同的应用场合。</p>
+<h3 id="1、单分支的if语句"><a href="#1、单分支的if语句" class="headerlink" title="1、单分支的if语句"></a>1、单分支的if语句</h3><p>  只有在条件成立时才会执行相应的代码，否则不执行任何操作。</p>
+<p>  语法格式：</p>
+<p>   if 条件测试语句</p>
+<p>   then  </p>
+<p>​     命令序列</p>
+<p>   fi</p>
+<p>举例：使用shell脚本挂载光盘,并进行永久挂载  </p>
+<p>#!/bin/bash</p>
+<p>MOUNT_DIR=”/mnt/cdrom”</p>
+<p>if [ ! -d $MOUNT_DIR ]</p>
+<p>then</p>
+<p> mkdir -p $MOUNT_DIR</p>
+<p> mount /dev/sr0 $MOUNT_DIR</p>
+<p>else</p>
+<p> echo -e “\033[31m /dev/sr0 mounted on /mnt/cdrom!\033[0m”</p>
+<p>fi</p>
+<p># chmod +x moutcd.sh </p>
+<p># ./moutcd.sh</p>
+<p>举例：有些特权命令要求root用户执行，如果当前用户不是root，那么就提示权限不足。</p>
+<p>#!/bin/bash</p>
+<p>if [ “$USER” != “root” ]</p>
+<p>then</p>
+<p>  echo -e “\033[31m 错误：非root用户，权限不足！\033[0m”</p>
+<p>  exit 1</p>
+<p>fi</p>
+<p>fdisk -l /dev/sda</p>
+<h3 id="2、双分支的if语句"><a href="#2、双分支的if语句" class="headerlink" title="2、双分支的if语句"></a>2、双分支的if语句</h3><p>针对条件成立和条件不成立两种情况分别执行不同的操作。</p>
+<p>语法格式：</p>
+<p>   if 条件测试语句</p>
+<p>   then  </p>
+<p>​     命令序列1</p>
+<p>   else</p>
+<p>​     命令序列2</p>
+<p>   fi</p>
+<p>举例：使用shell脚本测试主机是否开启</p>
+<p>#!/bin/bash</p>
+<p>ping -c 3 -i 0.2 -w 3 $1 &amp;&gt;/dev/null</p>
+<p>if [ $? -eq 0 ]</p>
+<p>then</p>
+<p> echo “Host $1 is up!”</p>
+<p>else</p>
+<p> echo “Host $1 is down!”</p>
+<p>fi</p>
+<p>  # ./pinghost.sh 192.168.75.1</p>
+<p>Host 192.168.75.1 is up!</p>
+<p>   举例： 通过shell命令检查vsftpd服务是否运行，如果已经运行则列出其监听地址、PID号，否则输出“警告：vsftpd服务不可用”，其中pgrep -x表示精确匹配。</p>
+<p>#!/bin/bash</p>
+<p>/usr/bin/systemctl status vsftpd &amp;&gt;/dev/null</p>
+<p>if [ $? -eq 0 ]</p>
+<p>then</p>
+<p>  echo “监听地址：$(netstat -anpt | grep vsftpd | awk ‘{print $4}’)”</p>
+<p>  echo “进程PID号：$(pgrep -x vsftpd)”</p>
+<p>else</p>
+<p>  echo “警告:vsftpd服务不可用!”</p>
+<p>fi</p>
+<p>#chmod +x chkftpd.sh</p>
+<p># ./chkftpd.sh </p>
+<p>监听地址：:::21</p>
+<p>进程PID号：102825</p>
+<h3 id="3、多分支的if语句"><a href="#3、多分支的if语句" class="headerlink" title="3、多分支的if语句"></a>3、多分支的if语句</h3><p>与单分支、双分支的if语句相比，多分支if语句的实际应用并不多见。由于if语句可以根据测试结果的成立、不成立分别执行操作，所以能够嵌套使用，进行多次判断。</p>
+<p>语法格式：</p>
+<p>   if 条件测试操作1</p>
+<p>   then  </p>
+<p>​     命令序列1</p>
+<p>   elif 条件测试操作2</p>
+<p>then  </p>
+<p>​     命令序列2</p>
+<p>   eles</p>
+<p>​     命令序列3</p>
+<p>   fi    </p>
+<p>#vim gradediv.sh</p>
+<p>#!/bin/bash</p>
+<p>read -p “请输入您的分数(0-100):” GRADE</p>
+<p>if [ $GRADE -ge 85 ]&amp;&amp;[ $GRADE -le 100 ]</p>
+<p>then</p>
+<p>  echo “$GRADE分！优秀”</p>
+<p>elif [ $GRADE -ge 70 ]&amp;&amp;[ $GRADE -le 84 ]</p>
+<p>then </p>
+<p>echo “$GRADE分,合格”</p>
+<p>else </p>
+<p>echo “$GRADE分？不合格”</p>
+<p>  fi</p>
+<p># chmod +x gradediv.sh </p>
+<p># ./gradediv.sh </p>
+
+      
+      <!-- 打赏 -->
+      
+        <div class="page-reward">
+          <a href="javascript:void(0);" class="page-reward-btn tooltip-top" target="_self">
+            <div class="tooltip tooltip-east">
+              <span class="tooltip-item">
+                赏
+              </span>
+              <span class="tooltip-content">
+                <span class="tooltip-text">
+                  <span class="tooltip-inner">
+                    <p class="reward-p"><i class="icon icon-quo-left"></i>请我喝杯咖啡吧~<i
+                        class="icon icon-quo-right"></i></p>
+                    <div class="reward-box">
+                      
+                      <div class="reward-box-item">
+                        <img class="reward-img" src="/images/alipay.jpg">
+                        <span class="reward-type">支付宝</span>
+                      </div>
+                      
+                      
+                      <div class="reward-box-item">
+                        <img class="reward-img" src="/images/wechat.jpg">
+                        <span class="reward-type">微信</span>
+                      </div>
+                      
+                    </div>
+                  </span>
+                </span>
+              </span>
+            </div>
+          </a>
+        </div>
+        
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/01/06/Shell编程之条件语句/" data-id="ck52ewbot001xsouenqxjoieh"
+        class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CVE-2019-1-6/">CVE-2019-1-6</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/系统安全/">系统安全</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+      <a href="/2020/01/06/shell脚本编程规范与变量/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            shell脚本编程规范与变量
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/01/03/centos7 系统安全加固方案/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">centos7 系统安全加固方案</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+  
+<!-- valine评论 -->
+<div id="vcomments-box">
+    <div id="vcomments">
+    </div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine@1.3.10/dist/Valine.min.js'></script>
+<script>
+    new Valine({
+        el: '#vcomments',
+        notify: false,
+        verify: false,
+        app_id: 'chaSYi8FMdJBwzIBpxeNjqWC-gzGzoHsz',
+        app_key: 'PqqkLYgPkHvH1BmyQqySWnSK',
+        path: window.location.pathname,
+        avatar: 'mp',
+        placeholder: '给我的文章加点评论吧~',
+        recordIP: true
+    });
+    const infoEle = document.querySelector('#vcomments .info');
+    if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+        infoEle.childNodes.forEach(function (item) {
+            item.parentNode.removeChild(item);
+        });
+    }
+</script>
+<style>
+    #vcomments-box {
+        padding: 5px 30px;
+    }
+
+    @media screen and (max-width: 800px) {
+        #vcomments-box {
+            padding: 5px 0px;
+        }
+    }
+
+    #vcomments-box #vcomments {
+        background-color: #fff;
+    }
+
+    .v .vlist .vcard .vh {
+        padding-right: 20px;
+    }
+
+    .v .vlist .vcard {
+        padding-left: 10px;
+    }
+</style>
+
+  
+
+  
+  
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2015-2020
+        John Doe
+      </li>
+      <li>
+        
+        
+        
+        <a href="https://hexo.io" target="_blank">Hexo</a> Theme <a href="https://github.com/Shen-Yu/hexo-theme-ayer" target="_blank">Ayer</a> by shenyu
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <ul class="list-inline">
+  <li>PV:<span id="busuanzi_value_page_pv"></span></li>
+  <li>UV:<span id="busuanzi_value_site_uv"></span></li>
+</ul>
+        
+      </li>
+      <li>
+        <!-- cnzz统计 -->
+        
+        <script type="text/javascript" src='https://s9.cnzz.com/z_stat.php?id=1278069914&amp;web_id=1278069914'></script>
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+    <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+    
+    <aside class="sidebar">
+      
+        <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/ayer-side.svg" alt="你好"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">目录</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags">标签</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/tags/旅行/">旅行</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="http://shenyu-vip.lofter.com">摄影</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/2019/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+      </aside>
+      <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/tocbot.min.js"></script>
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: true
+  }
+</script>
+
+<script src="/js/ayer.js"></script>
+
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+      tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+  });
+
+  MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for(i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+  });
+</script>
+
+<script src="https://cdn.bootcss.com/mathjax/2.7.6/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  </div>
+</body>
+
+</html>
